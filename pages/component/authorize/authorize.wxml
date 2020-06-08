@@ -1,0 +1,14 @@
+<view class="wxapp-modal {{modalHidden?'hide':''}}">
+    <view class="mask"></view>
+    <view class="modal-content content">
+        <view class="modal-header">{{title}}</view>
+        <view class="modal-body">
+            <view>
+        如需正常使用小程序功能，请点击确定打开设置页。
+      </view>
+        </view>
+        <view class="footer">
+            <button bindopensetting="onOpensetting" class="confirm" lang="zh_CN" openType="openSetting">确定</button>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,27 @@
+<view class="relat">
+    <view class="dropdownv">
+        <van-dropdown-menu>
+            <van-dropdown-item catchtouchmove="_touchmove" bind:change="tabsChange" data-key="time" value="{{ time }}"
+                options="{{ optionsDate }}" />
+            <van-dropdown-item catchtouchmove="_touchmove" bind:change="tabsChange" data-key="distance"
+                value="{{ distance }}" options="{{ addressList }}" />
+            <van-dropdown-item catchtouchmove="_touchmove" bind:change="tabsChange" data-key="type" value="{{ type }}"
+                options="{{ selectType }}" />
+        </van-dropdown-menu>
+    </view>
+    <view class="drop_list">
+        <view class="drop_grad"></view>
+    </view>
+    <view class="actList cardList">
+        <view wx:if="{{false}}" class="emptyimg">
+            <image class="emptyimg" src="/static/empty.png" mode="widthFix"></image>
+        </view>
+
+        <import src="/pages/component/template/activity_temp.wxml" />
+        <block wx:for="{{[1,2,3,4,5,6]}}">
+            <view class="itembg">
+                <template is="activityItem" data="{{item}}" />
+            </view>
+        </block>
+    </view>
+</view>

@@ -1,0 +1,28 @@
+<view class="bar_view">
+  <image class="bar_img" src="/static/nav.png" mode="widthFix" lazy-load="false" binderror="" bindload=""></image>
+  <view class="bar_tab">
+    <view wx:for="{{tabs}}" wx:key="{{item.content}}" class='tabbar_item' bindtap='clickTag' data-index='{{index}}'>
+
+      <image class="{{item.content ? 'bar_icon' : 'bar_add'}}" src='{{(activeIndex==index)?item.activeImg:item.inactiveImg}}'></image>
+      <view style="color:{{(activeIndex==index)?tabStyle.activeColor:tabStyle.inactiveColor}}">
+        {{item.content}}
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<view class="tab-add-box {{showAddModal?'':'hide'}}" catchtouchmove="_touchmove">
+  <view bindtap="bindShowAddModal" class="tab-add-box-bg"></view>
+  <view bindtap="bindShowAddModal" class="tab-add-box-content">
+      <form bindsubmit="navigateToPublish" catchtap="catchTap" class="form-for-formid tab-add-box-item clearfix" data-type="{{item.type}}" data-url="{{item.pagePath}}" wx:for="{{dataList}}" wx:key="{{item.type}}">
+          <button formType="submit" type="default"></button>
+          <view class="tab-add-img-box {{animation?'content-animation':'content-animation-hide content-hide'}}">
+              <image class="tab-add-img" src="{{item.iconPath}}"></image>
+          </view>
+          <view class="tab-add-text {{animation?'text-animation':'text-animation-hide'}}">
+              <view>{{item.text}}</view>
+          </view>
+      </form>
+  </view>
+</view>

@@ -1,0 +1,63 @@
+{
+  "pages": [
+    "venuePages/venueDetail/venueDetail",
+
+    "venuePages/venueList/venueList",
+    "pages/home/home",
+
+    "activityPages/activityDetail/activityDetail",
+    "activityPages/activityList/activityList",
+    "pages/test/test",
+    "pages/mine/mine",
+    "pages/userInfo/userInfo",
+    "activityPages/issue_a/issue_a"
+  ],
+
+  "tabBar": {
+    "selectedColor": "#246CFF",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "/static/index.png",
+        "selectedIconPath": "/static/index_a.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "/static/mine.png",
+        "selectedIconPath": "/static/mine_a.png"
+      }
+    ]
+  },
+  "window": {
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "栎刻动体育",
+    "navigationBarTextStyle": "white",
+    "backgroundTextStyle": "dark"
+  },
+  "usingComponents": {
+    "van-button": "vant/dist/button/index",
+    "van-icon": "vant/dist/icon/index",
+    "van-datetime-picker": "vant/dist/datetime-picker/index",
+    "van-image": "vant/dist/image/index",
+    "van-rate": "vant/dist/rate/index",
+    "van-collapse": "vant/dist/collapse/index",
+    "van-collapse-item": "vant/dist/collapse-item/index",
+    "van-dialog": "vant/dist/dialog/index",
+    "van-dropdown-menu": "vant/dist/dropdown-menu/index",
+    "van-dropdown-item": "vant/dist/dropdown-item/index",
+    "van-search": "vant/dist/search/index",
+    "van-stepper": "vant/dist/stepper/index"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  },
+  "sitemapLocation": "sitemap.json",
+  "navigateToMiniProgramAppIdList": [
+    "wx74d68057620f067c",
+    "wxeaec887eafb26fca"
+  ]
+}

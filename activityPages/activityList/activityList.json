@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "活动列表",
+  "navigationBarBackgroundColor": "#558bfa",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "authorize": "/pages/component/authorize/authorize"
+  }
+}

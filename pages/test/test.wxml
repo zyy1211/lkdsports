@@ -1,0 +1,1 @@
+<van-button type="info" bindtap="payment">支付</van-button>

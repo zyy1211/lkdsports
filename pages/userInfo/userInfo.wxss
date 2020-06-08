@@ -1,0 +1,16 @@
+/* pages/userInfo/userInfo.wxss */
+
+.sq_background{
+    width: 100vw;
+    height:100vh ;
+    background:#424049;
+    overflow: hidden;
+    position: relative;
+}
+.sq_btns{
+    position: absolute;
+    top: 45%;
+    left: 50rpx;
+    width: 650rpx;
+
+}

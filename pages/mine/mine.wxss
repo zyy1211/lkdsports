@@ -1,0 +1,183 @@
+/* pages/mine/mine.wxss */
+
+.mine {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.mine_header {
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: 36rpx;
+  /* background-color: red; */
+}
+
+.header_con {
+  width: 80%;
+  flex-shrink: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  padding-left: 50rpx;
+  padding-bottom: 30rpx;
+}
+
+.sex_img {
+  width: 31rpx;
+  height: 31rpx;
+  position: absolute;
+  bottom: 8rpx;
+  right: 8rpx;
+}
+
+.header_con .userImg {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.header_con .header_name {
+  margin-left: 21rpx;
+}
+
+.header_con .header_sex {
+  width: 23rpx;
+  height: 23rpx;
+  margin-left: 16rpx;
+  vertical-align: middle;
+}
+
+.icon-arrow {
+  position: absolute;
+  right: 40rpx;
+  top: 0;
+  width: 13rpx;
+  height: 23rpx;
+  line-height: 100rpx;
+}
+
+.col_list {
+  font-size: 26rpx;
+  padding-bottom: 50rpx;
+  /* border-bottom: 11rpx solid #F0F0F0; */
+}
+
+.col_title {
+  font-size: 32rpx;
+  font-weight: 900;
+  margin: 20rpx 0 40rpx 40rpx;
+}
+
+.col_list .row {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.col_list .col {
+  flex: 1;
+  text-align: center;
+}
+
+.col_num {
+  width: 70rpx;
+  height: 70rpx;
+  /* font-size: 36rpx;
+    font-weight: 900; */
+}
+
+.col_text {
+  font-size: 26rpx;
+  margin-top: 15rpx;
+}
+
+.row_list {
+  font-size: 26rpx;
+  padding: 0 30rpx;
+  /* border-top: 10rpx solid #F0F0F0; */
+}
+
+.row_item {
+  height: 98rpx;
+  /* border-bottom: 2rpx solid #F0F0F0; */
+  font-size: 26rpx;
+  color: #666;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  position: relative;
+}
+
+.row_img {
+  width: 34rpx;
+  height: 34rpx;
+  margin-right: 30rpx;
+}
+
+.row_text {
+  font-size: 30rpx;
+}
+
+.row_item .icon_jt {
+  position: absolute;
+  right: 24rpx;
+  top: 38rpx;
+}
+
+.row_item .icon_text {
+  position: absolute;
+  top: 0;
+  right: 58rpx;
+  /* top: 38rpx; */
+  line-height: 98rpx;
+  color: #999;
+}
+
+.rz_img {
+  width: 45rpx;
+  height: 45rpx;
+}
+
+.rz_text {
+  font-size: 30rpx;
+  font-weight: 900;
+  color: #333;
+  margin-left: 30rpx;
+}
+
+.rz_item {
+  background-color: #f7f6f9;
+  height: 118rpx;
+  width: 690rpx;
+  padding: 0 26rpx;
+  box-sizing: border-box;
+  margin: 30rpx auto 38rpx;
+}
+
+.rz_btn {
+  width: 140rpx;
+  height: 56rpx;
+  background: rgba(242, 103, 70, 1);
+  border-radius: 28rpx;
+  font-size: 24rpx;
+  color: white;
+}
+
+.customerSvs {
+  position: fixed;
+  bottom: 200rpx;
+  left: 50%;
+  transform: translate(-50%,0);
+  width: 464rpx;
+  height: 74rpx;
+  border: 1rpx solid rgba(80, 78, 78, 1);
+  border-radius: 10rpx;
+  color: #666;
+  margin: 0 auto;
+  font-size: 30rpx;
+  box-sizing: border-box;
+}
+
+.customerSvs .phone_img {
+  width: 28rpx;
+  height: 28rpx;
+  margin-left: 40rpx;
+}

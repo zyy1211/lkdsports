@@ -1,0 +1,91 @@
+<view class="home">
+  <view class="background">
+    <image class="background_img" src="/static/1.png" mode="widthFix" lazy-load="false"></image>
+  </view>
+  <view class="main flex_col_c_c glbpadding">
+    <swiper class="swpView" circular="true" autoplay interval="3000">
+      <swiper-item wx:for="{{ [1,2,3] }}" wx:key="{{item}}" data-url="{{ item }}" bindtap="toActivityDetail">
+        <image class="banner" src="https://image.likedong.top/20200514/2af2641a21e4a770e0969e7381b97474.png"
+          mode="widthFix"></image>
+      </swiper-item>
+    </swiper>
+
+
+    <view class="stickys">
+      <view class="typeList flex_row_c_c">
+        <view class="typeItem flex_col_c_c" wx:for="{{mainList}}" wx:key="{{index}}" bindtap="toModalList"
+          data-key="{{item.url}}">
+          <image class="type_img" src="{{item.icon }}" style="border-radius: 50%;"></image>
+          <view class="mar_t_20">{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="lkdnav flex_row_btw">
+      <view class="weight lktitle">场馆预约</view>
+      <scroll-view scroll-x="true" style="height: 80rpx;width:calc(100vw - 210rpx);" scroll-anchoring="true">
+        <view class="flex_row_c" style="height: 100%;">
+          <view style="height: 100%;" class="nav_tab flex_row_c" bindtap="tabVenuesList" data-index="{{index}}"
+            data-sporttype="{{item.sportsName}}" wx:for="{{typeList}}" wx:key="{{index}}">
+            <view class="{{activityIndex == index ? 'activity' : ''}}">
+              <view style="padding: 0 6rpx;position: relative;">{{item.sportsName}}</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+
+    <view class="venuesList">
+      <import src="/pages/component/template/venu_temp.wxml" />
+      <block wx:for="{{[1,2,3,4,5]}}">
+        <template is="venueItem" data="{{item}}" />
+      </block>
+      <view class="flex_row_c_c font249" style="line-height: 88rpx;" bindtap="toActiveList"
+        data-key="/venuePages/venueList/venueList">
+        <view>查看更多场馆</view>
+        <van-icon size="16" name="arrow" />
+      </view>
+    </view>
+
+    <view class="lkdnav flex_row" style="width: 100%;">
+      <view class="weight lktitle">精彩活动</view>
+    </view>
+
+    <view class="cardList">
+      <import src="/pages/component/template/activity_temp.wxml" />
+      <block wx:for="{{[1,2,3,4,5,6]}}">
+        <view class="marb45">
+          <template is="activityItem" data="{{item}}" />
+        </view>
+      </block>
+      <view class="flex_row_c_c font249" style="line-height: 88rpx;margin-top: -20rpx;" bindtap="toActiveList"
+      data-key="/activityPages/activityList/activityList">
+      <view>查看更多活动</view>
+      <van-icon size="16" name="arrow" />
+    </view>
+    </view>
+  </view>
+</view>
+
+
+
+
+
+
+<!-- <view class="" hover-class="none" hover-stop-propagation="false">
+  <view style="position: relative;" >
+    <view style="position: absolute;left: 0;top: 0;"></view>
+    <view class="flex_row" wx:for="data.data.bVenueFieldCopyList">
+      <view>{{item.name}}</view>
+      <view wx:if="{{item.type != 1}}">
+        <block wx:for="{{item.table_map}}" wx:for-item="itm">
+          <view>{{itm}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view> -->
+
+<nav-tabbar active-index="0"></nav-tabbar>
+<authorize id="authorize"></authorize>

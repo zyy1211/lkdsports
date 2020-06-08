@@ -1,0 +1,27 @@
+
+var isNull = function (str) {
+  if (str == undefined || str == null || str == '' || str == "undefined") {
+    return true;
+  }
+  return false;
+}
+var formatarr = function(str){
+
+  if(!isNull(str)){
+    return (JSON.parse(str).slice(0,2))
+  }
+  return ''
+}
+var formatDistant = function(str){
+  // if(str<999){
+  //   return ((str/1).toFixed(2)) + 'm'
+  // }
+  // if(str > 999){
+    return ((str/1000).toFixed(2)) + 'km'
+  // }
+}
+
+module.exports = {
+  formatarr:formatarr,
+  formatDistant:formatDistant
+}

@@ -1,0 +1,7 @@
+
+
+<view class="sq_background" hover-class="none" hover-stop-propagation="false">
+    <image style="width: 100vw;" class="" src="{{background}}"  mode="widthFix" lazy-load="false" binderror="" bindload=""></image>
+    <button class="sq_btns" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo" type="primary">微信登录</button>
+</view>
+

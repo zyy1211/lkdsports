@@ -1,0 +1,171 @@
+<view class="activityDetail">
+    <view class="diagram">
+        <swiper class="swpView" circular="true" autoplay interval="3000">
+            <swiper-item wx:for="{{ main.imagesPath }}" wx:key="{{index}}">
+                <image class="bannerimg" src="{{item}}" mode="widthFix"></image>
+            </swiper-item>
+        </swiper>
+
+        <view class="topbar topbarbg" style="opacity: {{opacity}};height:{{height}}rpx;">
+        </view>
+        <view class="topbar" style="height:{{height}}rpx;padding-top:{{barHeight}}rpx;">
+            <view class="goback">
+                <view class="isgoback" bindtap="backhome">
+                    <view class="iconback">
+                        <van-icon size="18" name="arrow-left" />
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="main">
+        <view class="flex_row_btw_j">
+            <view class="font3439 van-multi-ellipsis--l2">{{main.name}}</view>
+            <image class="share" src="/static/share.png" mode="widthFix"></image>
+        </view>
+        <view class="flex_row_c martb30">
+            <van-rate size="12" readonly value="5" />
+            <view class="rate">5</view>
+            <view class="docs"></view>
+            <view class="font229">距离{{main.distance == null ? '(未定位)' : (main.distance + 'km')}}</view>
+        </view>
+        <view class="font226 text">{{main.introduce}}</view>
+        <view class="flex_row_c isit" bindtap="openMap">
+            <image class="adr" src="/static/adr.png" mode="widthFix"></image>
+            <view class="font263">{{main.locationAddress}}</view>
+        </view>
+        <view class="flex_row_c isit" bindtap="makeCall" data-key="{{main.contactNumber}}">
+            <image class="adr" src="/static/tel.png" mode="widthFix"></image>
+            <view class="font263">{{main.contactNumber}}</view>
+        </view>
+
+        <view style="margin-top: 20rpx;">
+            <scroll-view scroll-x="true">
+                <view class="flex_row_c">
+                    <view wx:for="{{main.supportFacilitieList}}" wx:key="{{index}}" class="tagbtn">{{item}}</view>
+                </view>
+            </scroll-view>
+        </view>
+
+        <view class="stickys_tab" style="top: {{height}}rpx;">
+            <view class="lkdnav flex_row_btw nopadding">
+                <view class="weight lktitle">场馆预约</view>
+                <scroll-view scroll-x="true" style="height: 80rpx;width:calc(100vw - 220rpx);" scroll-anchoring="true">
+                    <view class="flex_row_c" style="height: 100%;">
+                        <view style="height: 100%;" class="nav_tab flex_row_c" bindtap="tabVenuesList"
+                            data-id="{{item.id}}" data-key="matchId" data-businessHours='{{item.businessHours}}'
+                            wx:for="{{main.matchVoList}}" wx:key="{{index}}">
+                            <view class="{{matchId == item.id ? 'activity' : ''}}">
+                                <view style="padding: 0 6rpx;position: relative;">{{item.name}}</view>
+                            </view>
+                        </view>
+                    </view>
+                </scroll-view>
+            </view>
+            <view class="flex_row_btw" style="padding: 10rpx 0;">
+                <block wx:for="{{weekend}}">
+                    <view bindtap="tabVenuesList" data-index="{{index}}" data-key="weekNo" data-id="{{item.weekNo}}"
+                        class="weekcl font223 flex_col_ard {{weekNo == item.weekNo ? 'weekActivity' : ''}}">
+                        <view>{{item.time}}</view>
+                        <view>{{item.week}}</view>
+                    </view>
+                </block>
+            </view>
+        </view>
+
+        <view class="flex_row" style="padding-top: 40rpx;">
+            <view class="tb_time">
+                <view class="cgnametime"></view>
+                <block wx:for='{{tb_time}}' wx:key="{{index}}">
+                    <view class="timeitem">
+                        <view class="timetext">{{item}}</view>
+                    </view>
+                </block>
+            </view>
+            <wxs src="./filter.wxs" module="tools" />
+            <view class="flex_row diamondbox">
+                <scroll-view scroll-x="true">
+                    <view class="flex_row">
+                        <block wx:for="{{tablemain}}" wx:key="{{item.fieldid}}">
+                            <view class="col_item">
+                                <view class="cgname van-multi-ellipsis--l2">
+                                    {{item.name}}
+                                </view>
+                                <block wx:for="{{item.new_table}}" wx:for-item='itm' wx:for-index="idx">
+                                    <view bindtap="choiseBlock" data-itm="{{itm}}" data-name="{{item.name}}">
+                                        <view wx:if="{{tools.mergeblock(itm.merge,item,idx)=='true'}}">
+                                            <view class="diamond flex_row_c_c {{tools.typecolor(itm.status,item.type)}}"
+                                                style="height:{{tools.mergeheight(itm.merge)}}rpx;">
+                                                {{itm.price}}
+                                            </view>
+                                        </view>
+                                        <view wx:if="{{ tools.mergeblock(itm.merge,item,idx)=='false' }}">
+                                            <view class="diamond flex_row_c_c {{tools.typecolor(itm.status,item.type)}}">
+                                                {{itm.basePrice}}</view>
+                                        </view>
+                                    </view>
+                                </block>
+                            </view>
+                        </block>
+                    </view>
+                </scroll-view>
+            </view>
+        </view>
+    </view>
+
+    <view class="fixedbtm">
+        <view class="colorblock">
+            <view class="flex_row_ard">
+                <view class="flex_row_c_c pad30">
+                    <view class="noteb notec1"></view>
+                    <view class="notetext">可选</view>
+                </view>
+                <view class="flex_row_c_c">
+                    <view class="noteb notec2"></view>
+                    <view class="notetext">选中</view>
+                </view>
+                <view class="flex_row_c_c">
+                    <view class="noteb notec3"></view>
+                    <view class="notetext">已售</view>
+                </view>
+                <view class="flex_row_c_c">
+                    <view class="noteb notec4"></view>
+                    <view class="notetext">散客</view>
+                </view>
+            </view>
+            <view hidden="{{choiseList.length == 0}}">
+                <scroll-view scroll-x="true">
+                    <view class="flex_row_c" style="padding: 0 4rpx;">
+                        <block wx:for="{{[1,2,3,4,5,6]}}">
+                            <view style="position: relative;">
+                                <view class="chcolor flex_row_btw">
+                                    <view>
+                                        <view class="font1">5/15</view>
+                                        <view class="font3 van-ellipsis">一号场地打发大水方法</view>
+                                    </view>
+                                    <view class="font2">22:00-23:00</view>
+                                    <view class="steps">
+                                        <van-stepper value="{{ 1 }}" min="1" max="100" />
+                                    </view>
+                                </view>
+                                <view class="tagnum">{{index+1}}</view>
+                            </view>
+                        </block>
+                    </view>
+                </scroll-view>
+            </view>
+
+        </view>
+
+        <view class="flex_row_btw tosett" hidden="{{choiseList.length == 0}}">
+            <view class="flex_row_c total">
+                <view>合计:</view>
+                <view class="money">￥200.00</view>
+            </view>
+            <view class="sett">去结算</view>
+        </view>
+    </view>
+
+</view>
+
+<authorize id="authorize"></authorize>

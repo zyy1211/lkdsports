@@ -1,0 +1,209 @@
+.text-overflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text-overhidden {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.text-row-ellipsis {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+}
+
+.wxapp-modal {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+}
+
+.modal-header {
+    padding-top: 20rpx;
+}
+
+.modal-content .modal-body {
+    padding: 30rpx;
+    font-size: 28rpx;
+    color: #adb2bb;
+}
+
+.wxapp-modal .content {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    z-index: 1000;
+    width: 80%;
+    margin: 0 0 0 -40%;
+    background: #fff;
+    text-align: center;
+    border-radius: 10rpx;
+}
+
+.wxapp-modal .content .header {
+    margin: auto;
+    width: 100%;
+    height: 100rpx;
+    font-weight: bold;
+    line-height: 100rpx;
+    text-align: center;
+}
+
+.wxapp-modal .content .body {
+    margin: auto;
+    width: 100%;
+    padding: 0 0 40rpx 0;
+}
+
+.wxapp-modal .content .footer {
+    margin: auto;
+    width: 100%;
+    height: 80rpx;
+    line-height: 80rpx;
+    border-top: 1px #eee solid;
+}
+
+.wxapp-modal .content .footer button {
+    display: inline-block;
+    width: 49%;
+    height: 80rpx;
+    line-height: 80rpx;
+    background: #fff;
+}
+
+.wxapp-modal .content .footer button::after {
+    content: none;
+    border: none;
+}
+
+.wxapp-modal .content .footer .cancel {
+    color: #000;
+    border-right: 1px #eee solid;
+}
+
+.wxapp-modal .content .footer .confirm {
+    color: #00CD91;
+}
+
+.wxapp-modal .mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.clearfix:after {
+    content: " ";
+    display: table;
+    clear: both;
+}
+
+.show {
+    display: block!important;
+}
+
+.hide {
+    display: none!important;
+}
+
+.icon {
+    position: relative;
+    display: inline-block;
+    width: 20rpx;
+    height: 20rpx;
+    margin-right: 15rpx;
+}
+
+.icon image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.no-data-content {
+    width: 100%;
+    margin: 205rpx auto 0;
+    text-align: center;
+}
+
+.no-data-img {
+    width: 277rpx;
+    height: 165rpx;
+    margin: 0 auto;
+}
+
+.no-data-text {
+    margin-top: 35rpx;
+    font-size: 28rpx;
+    color: #aeb2b8;
+}
+
+.form-for-formid {
+    position: relative;
+}
+
+.form-for-formid button {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background: none;
+    background-color: transparent!important;
+}
+
+.form-for-formid button::after {
+    border: none;
+}
+
+.user-header {
+    display: block;
+    float: left;
+    font-size: 28rpx;
+}
+
+.user-logo {
+    float: left;
+    width: 90rpx;
+    height: 90rpx;
+    border-radius: 50%;
+}
+
+.user-name-box {
+    float: left;
+    margin-left: 20rpx;
+    margin-top: 5rpx;
+    line-height: 40rpx;
+}
+
+.user-name {
+    width: 410rpx;
+    font-weight: bold;
+}
+
+.user-time {
+    color: #999999;
+    font-size: 24rpx;
+}
+
+.fix-iphonex-button {
+    bottom: 68rpx!important;
+    z-index: 1001;
+}
+
+.fix-iphonex-button.has-footer-app {
+    bottom: 168rpx!important;
+}

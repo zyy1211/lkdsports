@@ -1,0 +1,140 @@
+.font3439 {
+    font-size: 34rpx;
+    color: #333;
+    font-weight: 900;
+}
+
+.diagram {
+    width: 100vw;
+    position: relative;
+}
+.topbarbg{
+    background-color: white;
+    opacity: 0;
+}
+.topbar{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    box-sizing: border-box;
+    z-index: 99;
+
+}
+.goback{
+    height: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    z-index: 100;
+
+}
+.isgoback{
+    padding: 10rpx 25rpx;
+}
+.iconback{
+    width: 50rpx;
+    height: 50rpx;
+    border-radius: 50%;
+    background-color: rgba(2255, 255, 255, 0.3);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.diagram .bannerimg {
+    width: 750rpx;
+    height: 568rpx;
+}
+
+.main {
+    position: relative;
+    width: 100vw;
+    border-top-left-radius: 50rpx;
+    border-top-right-radius: 50rpx;
+    background-color: white;
+    padding: 40rpx;
+    box-sizing: border-box;
+    margin-top: -40rpx;
+    z-index: 9;
+}
+
+.share {
+    width: 40rpx;
+    height: 38rpx;
+    flex-shrink: 0;
+    margin-top: 12rpx;
+}
+
+.docs {
+    width: 6rpx;
+    height: 6rpx;
+    background-color: rgba(153, 153, 153, 1);
+    border-radius: 50%;
+    margin: 0 16rpx;
+}
+
+.martb30 {
+    margin: 30rpx 0;
+}
+
+.text {
+    line-height: 40rpx;
+    margin-bottom: 10rpx;
+}
+
+.rate {
+    color: #fcd62c;
+    font-size: 32rpx;
+}
+
+.adr {
+    width: 34rpx;
+    height: 34rpx;
+    flex-shrink: 0;
+    margin-right: 12rpx;
+}
+.isit{
+    height: 70rpx;
+}
+.tagbtn{
+    padding:10rpx 20rpx;
+    box-sizing: border-box;
+    color: #4F6BDA;
+    border: 1rpx solid #4F6BDA;
+    background:rgba(79,107,218,0.12);
+    border-radius:20rpx;
+    font-size: 22rpx;
+    flex-shrink: 0;
+    margin-right: 23rpx;
+}
+.isTitle{
+    height: 100rpx;
+}
+.actItem{
+    width: 470rpx;
+    flex-shrink: 0;
+    background-color: white;
+    border: 1rpx solid #FFFFFF;
+    border-radius: 20rpx;
+}
+.nopadding{
+    padding: 25rpx 0;
+}
+.weekcl{
+    width: 85rpx;
+    height: 85rpx;
+    box-shadow: 6rpx 0 6rpx #c2c1c1;
+    align-items: center;
+    border-radius: 5rpx;
+}
+.weekActivity{
+    background-color: #246CFF;
+    color: white;
+    box-shadow:none;
+}
+.nobottom{
+    
+}

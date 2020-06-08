@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "nav-tabbar": "/pages/component/navTabbar/navTabbar"
+  }
+}

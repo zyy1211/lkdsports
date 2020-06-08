@@ -1,0 +1,29 @@
+<view class="relat">
+    <view class="dropdownv venueList flex_row_c">
+        <van-dropdown-menu>
+            <van-dropdown-item catchtouchmove="_touchmove" bind:change="changeName" data-key="sportType" value="{{ sportType }}"
+                options="{{ optionsDate }}" />
+        </van-dropdown-menu>
+        <view class="grow mar_l_15">
+            <van-search value="{{ name }}" bind:change="changeName" data-key="name" fieldClass="searchInput" shape="round" background="transparent"
+                placeholder="请输入搜索关键词" clearable />
+        </view>
+    </view>
+    <view class="drop_list">
+        <view class="drop_grad"></view>
+    </view>
+    <view class="actList venuesList">
+        <view wx:if="{{false}}" class="emptyimg">
+            <image class="emptyimg" src="/static/empty.png" mode="widthFix"></image>
+        </view>
+
+        <import src="/pages/component/template/venu_temp.wxml" />
+        <block wx:for="{{dataList}}">
+            <view class="itembg">
+                <template is="venueItem" data="{{item}}" />
+            </view>
+        </block>
+    </view>
+</view>
+
+<authorize id="authorize"></authorize>

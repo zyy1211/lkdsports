@@ -1,0 +1,62 @@
+<view class="activityDetail">
+    <view class="diagram">
+        <image class="bannerimg" src="https://image.likedong.top/20200514/2af2641a21e4a770e0969e7381b97474.png"
+            mode="widthFix"></image>
+        <view class="topbar topbarbg" style="opacity: {{opacity}};height:{{height}}rpx;">
+        </view>
+        <view class="topbar" style="height:{{height}}rpx;padding-top:{{barHeight}}rpx;">
+            <view class="goback">
+                <view class="isgoback" bindtap="backhome">
+                    <view class="iconback">
+                        <van-icon size="18" name="arrow-left" />
+                    </view>
+                </view>
+
+            </view>
+        </view>
+    </view>
+    <view class="main">
+        <view class="flex_row_btw_j">
+            <view class="font3439 van-multi-ellipsis--l2">西湖文体中心坐落于花蒋路与文一西路交叉口东南面，总投资11</view>
+            <image class="share" src="/static/share.png" mode="widthFix"></image>
+        </view>
+        <view class="flex_row_c martb30">
+            <van-rate size="12" readonly value="5" />
+            <view class="rate">5</view>
+            <view class="docs"></view>
+            <view class="font229">距离1.3km</view>
+        </view>
+        <view class="font226 text">西湖文体中心坐落于花蒋路与文一西路交叉口东南面，总投资11.7亿 元，总建筑面积12.6万平方米，按照功能巧妙地分两部分西侧半圆是
+            西湖区文体中心，东侧半圆是浙商文化中心。</view>
+        <view class="flex_row_c isit">
+            <image class="adr" src="/static/adr.png" mode="widthFix"></image>
+            <view class="font263">花蒋路与文一西路交叉口东南面</view>
+        </view>
+        <view class="flex_row_c isit">
+            <image class="adr" src="/static/tel.png" mode="widthFix"></image>
+            <view class="font263">13114132467</view>
+        </view>
+
+        <view style="margin-top: 20rpx;">
+            <scroll-view scroll-x="true">
+                <view class="flex_row_c">
+                    <view wx:for="[1,2,3,4,5,6,7,8]" class="tagbtn">有热水</view>
+                </view>
+            </scroll-view>
+        </view>
+
+        <!-- <view class="flex_row_btw isTitle mar_t_30">
+      <view class="weight lktitle">相关活动</view>
+      <view class="flex_row_c font249">
+        <view>更多活动</view>
+        <van-icon class="mar_l_15" size="14" name="arrow" />
+      </view>
+    </view>
+    <scroll-view scroll-x="true">
+      <view class="flex_row_c">
+      </view>
+    </scroll-view> -->
+
+
+    </view>
+</view>

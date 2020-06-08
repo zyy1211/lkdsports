@@ -1,0 +1,23 @@
+.venueList {
+    padding: 0 40rpx;
+    box-sizing: border-box;
+}
+
+.actList {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 100rpx 30rpx 0;
+    width: 100%;
+    box-sizing: border-box;
+
+}
+
+.itembg {
+    background-color: white;
+    border-radius: 30rpx;
+}
+
+.searchInput .field-index--van-field {
+    padding: 0 20rpx !important;
+}

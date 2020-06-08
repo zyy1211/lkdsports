@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "栎刻动体育",
+  "navigationBarBackgroundColor": "#246cff",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "authorize": "/pages/component/authorize/authorize",
+    "nav-tabbar": "/pages/component/navTabbar/navTabbar"
+  }
+}
