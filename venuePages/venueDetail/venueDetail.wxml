@@ -6,7 +6,7 @@
             </swiper-item>
         </swiper>
 
-        <view class="topbar topbarbg" style="opacity: {{opacity}};height:{{height}}rpx;">
+        <view class="topbar topbarbg" style="height:{{height}}rpx;">
         </view>
         <view class="topbar" style="height:{{height}}rpx;padding-top:{{barHeight}}rpx;">
             <view class="goback">
@@ -27,9 +27,9 @@
             <van-rate size="12" readonly value="5" />
             <view class="rate">5</view>
             <view class="docs"></view>
-            <view class="font229">距离{{main.distance == null ? '(未定位)' : (main.distance + 'km')}}</view>
+            <view class="font229">距离{{tools.formatDistant(main.distance)}}</view>
         </view>
-        <view class="font226 text">{{main.introduce}}</view>
+        <view class="font226 text">{{main.introduce ? main.introduce : '这个场馆很懒，什么介绍都没留下。'}}</view>
         <view class="flex_row_c isit" bindtap="openMap">
             <image class="adr" src="/static/adr.png" mode="widthFix"></image>
             <view class="font263">{{main.locationAddress}}</view>
@@ -47,24 +47,26 @@
             </scroll-view>
         </view>
 
-        <view class="stickys_tab" style="top: {{height}}rpx;">
+        <view class="stickys_tab" style="padding-top: {{height}}rpx;">
             <view class="lkdnav flex_row_btw nopadding">
                 <view class="weight lktitle">场馆预约</view>
                 <scroll-view scroll-x="true" style="height: 80rpx;width:calc(100vw - 220rpx);" scroll-anchoring="true">
                     <view class="flex_row_c" style="height: 100%;">
-                        <view style="height: 100%;" class="nav_tab flex_row_c" bindtap="tabVenuesList"
-                            data-id="{{item.id}}" data-key="matchId" data-businessHours='{{item.businessHours}}'
-                            wx:for="{{main.matchVoList}}" wx:key="{{index}}">
-                            <view class="{{matchId == item.id ? 'activity' : ''}}">
-                                <view style="padding: 0 6rpx;position: relative;">{{item.name}}</view>
+                        <block wx:for="{{main.matchVoList}}" wx:key="{{index}}">
+                            <view style="height: 100%;" class="nav_tab flex_row_c" bindtap="tabVenuesList"
+                                data-id="{{item.id}}" data-businesshours='{{item.businessHours}}'>
+                                <view class="{{matchId == item.id ? 'activity' : ''}}">
+                                    <view style="padding: 0 6rpx;position: relative;">{{item.name}}</view>
+                                </view>
                             </view>
-                        </view>
+                        </block>
+
                     </view>
                 </scroll-view>
             </view>
             <view class="flex_row_btw" style="padding: 10rpx 0;">
                 <block wx:for="{{weekend}}">
-                    <view bindtap="tabVenuesList" data-index="{{index}}" data-key="weekNo" data-id="{{item.weekNo}}"
+                    <view bindtap="tabWeek" data-index="{{index}}" data-item="{{item}}"
                         class="weekcl font223 flex_col_ard {{weekNo == item.weekNo ? 'weekActivity' : ''}}">
                         <view>{{item.time}}</view>
                         <view>{{item.week}}</view>
@@ -92,17 +94,22 @@
                                     {{item.name}}
                                 </view>
                                 <block wx:for="{{item.new_table}}" wx:for-item='itm' wx:for-index="idx">
-                                    <view bindtap="choiseBlock" data-itm="{{itm}}" data-name="{{item.name}}">
-                                        <view wx:if="{{tools.mergeblock(itm.merge,item,idx)=='true'}}">
-                                            <view class="diamond flex_row_c_c {{tools.typecolor(itm.status,item.type)}}"
+                                    <view bindtap="choiseBlock" data-type="{{item.type}}"
+                                        data-fieldid="{{item.fieldid}}" data-index="{{index}}" data-idx="{{idx}}"
+                                        data-item="{{itm}}" data-name="{{item.name}}">
+                                        <block wx:if="{{tools.mergeblock(itm.merge,item,idx)=='true'}}">
+                                            <view
+                                                class="diamond flex_row_c_c {{tools.typecolor(itm.status,item.type)}} {{itm.choose ? 'choosecolor' : ''}}"
                                                 style="height:{{tools.mergeheight(itm.merge)}}rpx;">
-                                                {{itm.price}}
+                                                {{itm.price ? '￥' + itm.price/100 : itm.price}}
                                             </view>
-                                        </view>
-                                        <view wx:if="{{ tools.mergeblock(itm.merge,item,idx)=='false' }}">
-                                            <view class="diamond flex_row_c_c {{tools.typecolor(itm.status,item.type)}}">
-                                                {{itm.basePrice}}</view>
-                                        </view>
+                                        </block>
+                                        <block wx:if="{{ tools.mergeblock(itm.merge,item,idx)=='false' }}">
+                                            <view
+                                                class="diamond flex_row_c_c {{tools.typecolor(itm.status,item.type)}} {{itm.choose ? 'choosecolor' : ''}}">
+                                                {{itm.basePrice ? '￥' + itm.basePrice/100 : itm.basePrice}}
+                                            </view>
+                                        </block>
                                     </view>
                                 </block>
                             </view>
@@ -136,16 +143,21 @@
             <view hidden="{{choiseList.length == 0}}">
                 <scroll-view scroll-x="true">
                     <view class="flex_row_c" style="padding: 0 4rpx;">
-                        <block wx:for="{{[1,2,3,4,5,6]}}">
+                        <block wx:for="{{choiseList}}" wx:key="{{index}}">
                             <view style="position: relative;">
                                 <view class="chcolor flex_row_btw">
                                     <view>
-                                        <view class="font1">5/15</view>
-                                        <view class="font3 van-ellipsis">一号场地打发大水方法</view>
+                                        <view class="font1">{{tools.formatTime(item.day)}}</view>
+                                        <view class="font3 van-ellipsis">{{item.choiseName}}</view>
                                     </view>
-                                    <view class="font2">22:00-23:00</view>
-                                    <view class="steps">
-                                        <van-stepper value="{{ 1 }}" min="1" max="100" />
+                                    <view class="font2 flex_row_c">
+                                        <view>{{item.startTime}}:00</view>
+                                        <view>-</view>
+                                        <view>{{item.endTime}}:00</view>
+                                    </view>
+                                    <view class="steps" wx:if="{{item.type == 1}}">
+                                        <van-stepper bind:change="stepChange" data-index="{{index}}"
+                                            value="{{ item.count }}" min="1" max="100" />
                                     </view>
                                 </view>
                                 <view class="tagnum">{{index+1}}</view>
@@ -160,12 +172,16 @@
         <view class="flex_row_btw tosett" hidden="{{choiseList.length == 0}}">
             <view class="flex_row_c total">
                 <view>合计:</view>
-                <view class="money">￥200.00</view>
+                <view class="money">￥{{num}}</view>
             </view>
-            <view class="sett">去结算</view>
+            <view class="sett" bindtap="tosum">去结算</view>
         </view>
     </view>
 
 </view>
 
 <authorize id="authorize"></authorize>
+<computed choiseList="{{choiseList}}" bind:wishSuccess="onwishSuccess"></computed>
+
+<van-dialog title="提示" show="{{ show }}" message="常规场次与散客场次不能同时购买" confirm-button-text="知道了">
+</van-dialog>

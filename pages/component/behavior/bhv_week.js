@@ -8,8 +8,9 @@ module.exports = Behavior({
       let weekend =[0,1,2,3,4,5,6].map(item =>{
         return this.getone(item)
       })
+      let weekTime = weekend[0];
       let weekNo = weekend[0].weekNo
-      this.setData({weekend,weekNo})
+      this.setData({weekend,weekNo,weekTime})
     },
     getone(AddDayCount){
       let dd = new Date();
@@ -21,12 +22,15 @@ module.exports = Behavior({
     
       let y = dd.getFullYear();
     
-      let m = (dd.getMonth() + 1) < 10 ? "0" + (dd.getMonth() + 1) : (dd.getMonth() + 1); //获取当前月份的日期，不足10补0  
+      let ms = (dd.getMonth() + 1) < 10 ? "0" + (dd.getMonth() + 1) : (dd.getMonth() + 1); //获取当前月份的日期，不足10补0  
     
-      let d = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate(); //获取当前几号，不足10补0  
+      let ds = dd.getDate() < 10 ? "0" + dd.getDate() : dd.getDate(); //获取当前几号，不足10补0  
+      let m = dd.getMonth() + 1;
+      let d = dd.getDate();
     
       return {
-        time: m + '-' + d,
+        time: m + '/' + d,
+        day:y+'-'+ms+'-'+ds,
         week: week,
         weekNo:weekNo
       }
@@ -35,6 +39,7 @@ module.exports = Behavior({
     formatData(tablemain){
       let self = this;
       let businessHours = this.data.businessHours;
+      console.log(businessHours)
       let businessHoursArr = businessHours.split('-')
       let startTime = parseInt(businessHoursArr[0]);
       let endTime = parseInt(businessHoursArr[1]);
@@ -68,7 +73,8 @@ module.exports = Behavior({
           if(i != endTime){
             let obj = {
               dataCode: it.code + (i < 10 ? ('0' + i) : i) + '-' + ((i + 1) < 10 ? ('0' + (i + 1)) : (i + 1)),
-              status: -1
+              status: -1,
+              choose:false
             }
             table_map.push(obj)
           }

@@ -1,0 +1,106 @@
+var formatTime = function (start,end) {
+  var st = start.split(' ')[1].substring(0,5)
+  var nd = end.split(' ')[1].substring(0,5)
+  return st + '-' + nd;
+}
+var formatDay = function(str){
+  // console.log(str)
+   return str.split(' ')[0].substring(5).replace('-','/')
+}
+var formatWeek = function(str){
+  var week = "周" + "日一二三四五六".charAt((str.substring(3,5))/1);
+  return week;
+}
+var formatStatus = function(status,refStatus){
+  // console.log(status)
+  // console.log(refStatus)
+  if(refStatus==40){
+    return '退款失败'
+  }
+  if(refStatus==30){
+    return '部分已退款'
+  }
+  if(refStatus==20){
+    return '已退款'
+  }
+  if(status ==100 || status == 101){
+    return '已取消'
+  }
+  if(status == 50){
+    return '已核销'
+  }
+  if(status == 40){
+    return '待核销'
+  }
+  if(status<40 && status >=20){
+    return '待支付'
+  }
+}
+var blockName = function(str){
+  return str.split('-')[1]
+}
+// var formatdfs = function(status,payWay,endCancelTime){
+//   // status>20已支付  payWay==cash现金支付  endCancelTime最晚取消时间
+//   let time_diff = new Date(endCancelTime) - (new Date().getTime());
+//   if(status >20 && payWay != 'cash' && time_diff > 0 ){
+//     return true;
+//   }
+//   return false;
+// }
+
+// var timer = function (str) {
+//   let diff = '';
+//   let time_diff = new Date(str) - new Date().getTime();
+//   if (time_diff < 0) {
+//     return
+//   }
+//   // 计算相差天数  
+//   let days = Math.floor(time_diff / (24 * 3600 * 1000));
+//   if (days > 0) {
+//     diff += days + '天';
+//   }
+//   // 计算相差小时数  
+//   let leave1 = time_diff % (24 * 3600 * 1000);
+//   let hours = Math.floor(leave1 / (3600 * 1000));
+//   if (hours > 0) {
+//     diff += hours + '小时';
+//   } else {
+//     if (diff !== '') {
+//       diff += hours + '小时';
+//     }
+//   }
+//   // 计算相差分钟数  
+//   let leave2 = leave1 % (3600 * 1000);
+//   let minutes = Math.floor(leave2 / (60 * 1000));
+//   if (minutes > 0) {
+//     diff += minutes + '分';
+//   } else {
+//     if (diff !== '') {
+//       diff += minutes + '分';
+//     }
+//   }
+
+//   // 计算相差秒数  
+//    let leave3 = leave2 % (60 * 1000);
+//    let seconds = Math.round(leave3 / 1000);
+//    if (seconds > 0) {
+//      diff += seconds + '秒';
+//    } else {
+//      if (diff !== '') {
+//        diff += seconds + '秒';
+//      }
+//    }
+
+//   return diff;
+// }
+
+
+
+module.exports = {
+  formatTime: formatTime,
+  formatDay:formatDay,
+  formatWeek:formatWeek,
+  blockName:blockName,
+  formatStatus:formatStatus
+
+}

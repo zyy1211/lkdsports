@@ -4,103 +4,229 @@ let bhv_back = require('../../pages/component/behavior/bhv_back.js');
 let bhv_refresh = require('../../pages/component/behavior/bhv_refresh.js');
 let bhv_location = require('../../pages/component/behavior/bhv_location')
 let http = require('../../utils/request')
-let app = getApp();
 let bhv_week = require('../../pages/component/behavior/bhv_week')
+let app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    main:{},
+    main: {},
     matchId: 0,
     businessHours: '',
-    tableData: '',
-    detailId:14,
-    tb_time:[],
-    latitude:'',
-    longitude:'',
-    choiseList:[]
+    detailId: 14,
+    tb_time: [],
+    latitude: '',
+    longitude: '',
+    choiseList: [],
+    show: false,
+    num: 0
   },
-  behaviors: [bhv_week,bhv_back,bhv_refresh,bhv_location],
+  behaviors: [bhv_week, bhv_back, bhv_refresh, bhv_location],
+
   /**
    * 生命周期函数--监听页面加载
    */
+  onwishSuccess(e) {
+    // console.log(e)
+    this.setData({
+      num: e.detail
+    })
+  },
   onLoad: function (options) {
     let self = this;
     // this.setData({detailId:options.id})
     app.isLogin(function () {
       self.initData();
       self.getweek()
-  })
+    })
 
   },
-  initData(){
-    // this.getAuthorLocation()
+  initData() {
     let self = this;
-    this.selectComponent("#authorize").getAuthorizeLocation((loca) =>{
+
+    this.selectComponent("#authorize").getAuthorizeLocation((loca) => {
       let longitude = loca.longitude;
       let latitude = loca.latitude;
       self.setData({
         latitude,
-        longitude
+        longitude,
+        choiseList: []
       })
       self.getDetail()
     })
   },
-  getDetail(){
+  getDetail() {
     let self = this;
-    let {detailId,latitude,longitude}  = self.data;
-    http.get('/venue/detail',{detailId,latitude,longitude}).then((res) =>{
-      if(res.code != 200){
+    let {
+      detailId,
+      latitude,
+      longitude
+    } = self.data;
+    http.get('/venue/detail', {
+      detailId,
+      latitude,
+      longitude
+    }).then((res) => {
+      if (res.code != 200) {
         return;
       }
       let main = res.response[0];
-      // console.log(main)
       let matchId = main.matchVoList[0].id;
       let businessHours = main.matchVoList[0].businessHours;
-      self.setData({main,matchId,businessHours})
+      // console.log(businessHours)
+      self.setData({
+        main,
+        matchId,
+        businessHours
+      })
       self.getTabel();
+
     })
   },
   getTabel() {
     let self = this;
-    let {detailId,matchId,weekNo} = this.data;
-    http.get('/venue/field',{detailId,matchId,weekNo}).then((res)=>{
-      if(res.code != 200){
+    let {
+      detailId,
+      matchId,
+      weekNo
+    } = this.data;
+    http.get('/venue/field', {
+      detailId,
+      matchId,
+      weekNo
+    }).then((res) => {
+      if (res.code != 200) {
         return;
       }
       let tablemain = res.response[0];
+      // console.log(tablemain)
+      if (tablemain.length == 0) {
+        self.setData({
+          tablemain,
+          tb_time: tablemain
+        })
+        return;
+      }
       self.formatData(tablemain)
-
-      // console.log(JSON.stringify(tablemain))
     })
   },
+  choiseBlock(e) {
+    let {
+      weekTime,
+      choiseList,
+    } = this.data;
+    let {
+      item,
+      name,
+      index,
+      idx,
+      fieldid,
+      type
+    } = e.currentTarget.dataset;
+    if (item.status != 0) {
+      return
+    }
+    if (!app.isNull(choiseList[0]) && type != choiseList[0].type) {
+      this.setData({
+        show: true
+      })
+      return;
+    }
+    let choose = item.choose;
+    let endTime = (item.dataCode.split('-')[1]) * 1;
+    let startTime = (item.dataCode.split('-')[1]) * 1 - 1;
+    if (!app.isNull(item.merge)) {
+      let mg = (item.merge.split('-')[2]) * 1;
+      endTime = startTime + mg;
+    }
+
+    let isprice = app.isNull(item.merge) ? item.basePrice : item.price;
+    if (!choose) {
+      let obj = {
+        startTime,
+        endTime,
+        fieldid,
+        choiseName: name,
+        day: weekTime.day,
+        merge: item.merge,
+        type,
+        count: 1,
+        isprice: isprice
+      }
+      choiseList.push(obj)
+    } else {
+      choiseList = choiseList.filter(it => it.merge != item.merge)
+    }
+    let iscu = 'tablemain[' + index + '].new_table[' + idx + '].choose';
+    this.setData({
+      choiseList,
+      [iscu]: !choose,
+    })
+    console.log(choiseList)
+  },
+  stepChange(e) {
+    let index = e.currentTarget.dataset.index;
+    let key = 'choiseList[' + index + '].count';
+    this.setData({
+      [key]: e.detail
+    })
+  },
+  tosum() {
+    let self = this;
+    let {
+      choiseList,
+      detailId,
+      main,
+      num
+    } = this.data;
+    let params = {
+      timesList: choiseList,
+      detailId
+    }
+    http.post('/venueReserved/detail', params, 1).then((res) => {
+      // console.log(res)
+      if (res.code == 200) {
+        let order = res.response[0];
+        let {
+          bussId,
+          oid
+        } = order;
+        // wx.setStorageSync('order',JSON.stringify({bussId,oid,isOnce:1}))
+        // wx.setStorageSync('orderphone',JSON.stringify({
+        //   contactNumber:main.contactNumber,
+        //   locationAddress:main.locationAddress,
+        //   name:main.name
+        // }))
+        wx.navigateTo({
+          url: '/venuePages/orderpay/orderpay?isOnce=1&bussId=' + bussId + '&oid=' + oid
+        })
+      }
+    })
+  },
+
   // 切换
   tabVenuesList: function (e) {
     let matchId = e.currentTarget.dataset.id;
-    let key = e.currentTarget.dataset.key;
+    let businessHours = e.currentTarget.dataset.businesshours;
+    // console.log(businessHours)
     this.setData({
-      [key]: matchId
+      matchId,
+      businessHours,
+      choiseList: []
     })
-    let businessHours = e.currentTarget.dataset.businessHours;
-    if(!app.isNull(businessHours)){
-      this.setData({businessHours})
-    }
-    console.log('fs')
     this.getTabel();
   },
-  choiseBlock(e){
-    console.log(e.currentTarget.dataset)
-    let item = e.currentTarget.dataset.itm;
-    let name = e.currentTarget.dataset.name;
-    let end = (item.dataCode.split('-')[1])*1 ;
-    let start =  (item.dataCode.split('-')[1])*1 -1;
-    if(!app.isNull(item.merge)){
-      let mg = (item.merge.split('-')[2])*1;
-      end = start + mg;
-    }
-    console.log(start +':00'+ '-' + end +':00')
+  tabWeek(e) {
+    let item = e.currentTarget.dataset.item;
+    this.setData({
+      weekNo: item.weekNo,
+      weekTime: item,
+      choiseList: []
+    })
+    this.getTabel();
   },
 
 
@@ -108,10 +234,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return{
-      title:'自定义标题',
+    return {
+      title: '自定义标题',
       path: '/activityPages/activityDetail/activityDetail',
-      imageUrl:'http://192.168.0.200:8091/user/actSharePic/1'
+      imageUrl: 'http://192.168.0.200:8091/user/actSharePic/1'
     }
   }
 })

@@ -28,7 +28,7 @@ var mergeblock = function (itm, item, idx) {
   }
 }
 var mergeheight = function (item) {
-  return (item.split('-')[2]) * 70 - 20
+  return ((item.split('-')[2]) * 70) - 20
 }
 // itm.status !=0 (-1 未开放 10已占场)(type :0非散客 1散客)
 var typecolor = function(status,type){
@@ -47,9 +47,25 @@ var typecolor = function(status,type){
   }
 
 }
+
+var formatDistant = function(str){
+  // if(str<999){
+  //   return ((str/1).toFixed(2)) + 'm'
+  // }
+  // if(str > 999){
+    return ((str/1000).toFixed(2)) + 'km'
+  // }
+}
+var formatTime = function(str){
+ return str.substring(5).replace('-','/')
+}
+
 module.exports = {
   tablebol: tablebol,
   mergeblock: mergeblock,
   mergeheight: mergeheight,
-  typecolor:typecolor
+  typecolor:typecolor,
+  formatDistant:formatDistant,
+  formatTime:formatTime
+
 }

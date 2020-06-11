@@ -14,7 +14,7 @@ let $http = {
         },
         data: data,
         success: function (res) {
-          console.log(res);
+          // console.log(res);
           if (res.data.code == 200) {
             resolve(res.data);
           }else if(res.data.code == 401){
@@ -70,6 +70,7 @@ let $http = {
           if (res.data.code == 200) {
             resolve(res.data);
           }else if(res.data.code == 401){
+            // console.log('fs')
             let App = getApp();
             wx.clearStorageSync();
             App.isSession(function(){

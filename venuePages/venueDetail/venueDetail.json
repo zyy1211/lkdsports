@@ -4,6 +4,7 @@
   "navigationStyle": "custom",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "authorize": "/pages/component/authorize/authorize"
+    "authorize": "/pages/component/authorize/authorize",
+    "computed":"./computed/computed"
   }
 }

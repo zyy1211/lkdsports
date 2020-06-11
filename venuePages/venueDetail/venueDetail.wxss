@@ -280,7 +280,8 @@
   color: #333;
   font-weight: 900;
   flex-grow: 1;
-  padding-right: 36rpx;
+  width: 160rpx;
+  /* padding-right: 36rpx; */
   flex-shrink: 0;
 }
 
@@ -294,9 +295,8 @@
   margin-top: 6rpx;
 }
 .steps{
-  width: 240rpx;
-  margin-left: -10rpx;
-  padding-right: 20rpx;
+  width: 220rpx;
+  margin-left: -20rpx;
   flex-shrink: 0;
 }
 .tagnum{
@@ -336,4 +336,8 @@
 }
 .money{
   margin-left: 20rpx;
+}
+.choosecolor{
+  background-color: #246CFF;
+  color: white;
 }

@@ -1,5 +1,4 @@
 const http = require('./utils/request.js');
-// import regeneratorRuntime from './utils/runtime'
 
 App({
   onLaunch: function () {
@@ -11,6 +10,7 @@ App({
       })
     }
     if (wx.canIUse("getUpdateManager")) {
+      wx.clearStorage();
       const updateManager = wx.getUpdateManager();
       updateManager.onCheckForUpdate(function (res) {})
       updateManager.onUpdateReady(function () {

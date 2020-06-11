@@ -1,0 +1,12 @@
+
+
+<view>
+  <block wx:for="{{mainlist}}" wx:key="{{index}}">
+    <view>{{item.bussName}}</view>
+    <view>{{item.itemsTitle}}</view>
+    <view>{{item.status}}</view>
+    <view>{{item.refStatus}}</view>
+    <van-button data-bussId="{{item.bussId}}" data-oid="{{item.oid}}" bindtap="orderDetail" wx:if="{{item.status ==40}}" type="primary">退款(待使用)</van-button>
+    <van-button data-bussId="{{item.bussId}}" data-oid="{{item.oid}}" bindtap="orderDetail" wx:if="{{item.status ==20}}" type="primary">(待支付)</van-button>
+  </block>
+</view>

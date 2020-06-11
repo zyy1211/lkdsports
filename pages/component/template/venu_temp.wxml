@@ -14,7 +14,7 @@
             <view class="van-ellipsis font2639">
               {{item.name}}</view>
             <view class="font249 van-ellipsis mar_t_20" style="width: 100%;">
-              {{item.locationAddress}}{{item.address}}
+              {{item.locationAddress}}
             </view>
           </view>
           <view class="flex_row">

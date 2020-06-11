@@ -2,6 +2,7 @@
 let bhv_refresh = require('../../pages/component/behavior/bhv_refresh')
 let bhv_bottom = require('../../pages/component/behavior/bhv_bottom')
 let http = require('../../utils/request')
+let app =  getApp();
 Page({
 
   /**
@@ -21,8 +22,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getSportType();
-    this.initData();
+    app.isLogin(() =>{
+      this.getSportType();
+      this.initData();
+    })
   },
   getData(concat){
     let self = this;

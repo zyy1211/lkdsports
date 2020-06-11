@@ -277,7 +277,7 @@ image {
 }
 .lkdnav .activity::before {
   position: absolute;
-  bottom: 0%;
+  bottom: 6rpx;
   left: 0;
   width: 100%;
   height: 40%;
@@ -295,7 +295,7 @@ image {
 }
 .stickys_tab {
   position: sticky;
-  top: 100rpx;
+  top: 0rpx;
   width: 100%;
   z-index: 9;
   background-color: white;

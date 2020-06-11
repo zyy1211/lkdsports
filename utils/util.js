@@ -110,6 +110,23 @@ let getTimeLeft = function (time) {
   return minutes + "分" + seconds + "秒"
 }
 
+let getLastTime = function(time){
+  let diff = '';
+  let days = Math.floor(time / (24 * 3600));
+  if (days > 0) {
+    diff += days + '天';
+  }
+  let leave1 = time % (24 * 3600);
+  let hours = Math.floor(leave1 / 3600);
+  if (hours > 0) {
+    diff += hours + '小时';
+  }
+  let leave2 = leave1 % 3600;
+  let minutes = Math.floor(leave2 / 60);
+  diff += minutes + '分';
+  return diff;
+}
+
 
 module.exports = {
   formatTime: formatTime,
@@ -118,5 +135,6 @@ module.exports = {
   totalMoney: totalMoney,
   formatStamp: formatStamp,
   timeSlot: timeSlot,
-  getTimeLeft: getTimeLeft
+  getTimeLeft: getTimeLeft,
+  getLastTime:getLastTime
 }

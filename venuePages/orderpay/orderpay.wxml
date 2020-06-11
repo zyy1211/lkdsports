@@ -1,0 +1,86 @@
+<view class="orderpay">
+  <view class="bgblue"></view>
+  <view class="bgnotify" wx:if="{{!(isOnce == 1)}}">
+    <view class="notify flex_row_c_c">
+      <van-icon size="16" color="#FFC400" name="info" />
+      <view wx:if="{{isNotify}}" style="margin-left: 22rpx;">订单{{tools.formatStatus(order.status,order.refStatus)}}</view>
+
+      <view wx:if="{{!isNotify}}" style="margin-left: 22rpx;">订单有效期{{lastTimer}}分钟，请在有效期内及时付款</view>
+    </view>
+  </view>
+  <view class="ordercontent">
+    <view class="ordercard">
+      <view class="title28">场馆信息</view>
+      <view class="flex_row_btw">
+        <view class="grow padl50">
+          <view class="addressName">{{orderphone.name}}</view>
+          <view class="flex_row_c" style="  padding-bottom: 30rpx;box-sizing: border-box;">
+            <image style="width: 30rpx;" src="/static/adr.png" mode="widthFix"></image>
+            <view class="address">{{orderphone.locationAddress}}</view>
+          </view>
+        </view>
+        <view class="phone flex_row_c_c" data-key="{{orderphone.contactNumber}}" bindtap="makeCall">
+          <image style="width: 33rpx;" src="/static/tel.png" mode="widthFix"></image>
+        </view>
+      </view>
+    </view>
+
+    <view class="ordercard">
+      <view class="title28">订单信息</view>
+      <view class="addressName">
+        <view class="padl50 mar20">订单编号：{{order.oid}}</view>
+        <view class="padl50 mar20">创建时间：{{order.createTime}}</view>
+      </view>
+    </view>
+    <wxs src="./filter_o.wxs" module="tools" />
+
+    <view class="ordercard">
+      <view class="title28">预约信息({{tools.formatDay(itemList[0].endTime)}})</view>
+      <view class="ordertable">
+        <view class="flex_row_c_c tbth">
+          <view class="weeks">星期</view>
+          <!-- <view class="weeks">日期</view> -->
+          <view class="time">时间段</view>
+          <view class="vlno">场地号</view>
+          <view class="prices">价格</view>
+          <view class="prices">状态</view>
+        </view>
+
+        <view class="flex_col">
+          <view class="flex_row_c_c tbtd" wx:for="{{itemList}}" wx:key="{{index}}">
+            <view class="weeks">{{tools.formatWeek(item.itemsSpecif)}}</view>
+            <!-- <view class="weeks">{{tools.formatDay(item.endTime)}}</view> -->
+            <view class="time">{{tools.formatTime(item.startTime,item.endTime)}}</view>
+            <view class="vlno van-ellipsis">{{tools.blockName(item.itemsTitle)}}</view>
+            <view class="prices van-ellipsis">￥{{item.itemsPrice/100}}</view>
+            <view class="prices van-ellipsis">{{tools.formatStatus(item.status,item.refStatus)}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="flex_row_btw tosett" wx:if="{{isOnce ==1 || !isNotify}}">
+      <view class="flex_row_c total">
+        <view>合计:</view>
+        <view class="money">￥{{payPrice/100}}</view>
+      </view>
+      <view class="sett" bindtap="submit">立即支付</view>
+    </view>
+
+    <view class="flex_row_btw tosett" wx:if="{{ableRefund}}">
+      <view class="flex_row_c total">
+        <view style="font-size: 26rpx;color: #666;">距离可退款剩余:</view>
+        <view>{{ableRefundTime}}</view>
+      </view>
+      <view class="sett" bindtap="orderRefund">退款</view>
+    </view>
+  </view>
+
+</view>
+
+<van-dialog use-slot show="{{ show }}" show-cancel-button closeOnClickOverlay="{{true}}" bind:confirm="toActivity">
+  <view class="flex_col_c_c" style="padding-top: 90rpx;">
+    <image style="width: 250rpx;" mode="widthFix" src="/static/logo.png" />
+    <view style="padding: 30rpx 0 50rpx 0;font-size: 28rpx;color: #333;">立即去平台发布活动</view>
+  </view>
+</van-dialog>

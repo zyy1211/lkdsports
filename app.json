@@ -1,18 +1,24 @@
 {
   "pages": [
+
     "venuePages/venueDetail/venueDetail",
 
-    "venuePages/venueList/venueList",
+    "myList/mylistVenues/mylistVenues",
+
     "pages/home/home",
 
+
+ 
+    "venuePages/orderpay/orderpay",
+    "venuePages/venueList/venueList",
     "activityPages/activityDetail/activityDetail",
     "activityPages/activityList/activityList",
     "pages/test/test",
     "pages/mine/mine",
     "pages/userInfo/userInfo",
     "activityPages/issue_a/issue_a"
-  ],
 
+  ],
   "tabBar": {
     "selectedColor": "#246CFF",
     "list": [

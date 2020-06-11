@@ -24,10 +24,18 @@ module.exports = Behavior({
         url: '/pages/home/home',
       })
     },
-    onPageScroll(e){
-      let opacity = e.scrollTop/100;
-      this.setData({opacity})
-    },
+    // onPageScroll(e){
+    //   if(e.scrollTop>100){
+    //     this.setData({opacity:1})
+    //     return;
+    //   }
+    //   if(e.scrollTop < 30){
+    //     this.setData({opacity:0})
+    //     return
+    //   }
+    //   let opacity = e.scrollTop/100;
+    //   this.setData({opacity})
+    // },
   },
 
 })
