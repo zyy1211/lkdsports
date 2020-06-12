@@ -300,6 +300,7 @@ image {
   z-index: 9;
   background-color: white;
 }
+
 .stickys_name{
   position: sticky;
   top: 300rpx;

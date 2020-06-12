@@ -1,14 +1,10 @@
 {
   "pages": [
-    "pages/home/home",
-
     "venuePages/venueDetail/venueDetail",
+    "pages/home/home",
 
     "myList/mylistVenues/mylistVenues",
 
-
-
- 
     "venuePages/orderpay/orderpay",
     "venuePages/venueList/venueList",
     "activityPages/activityDetail/activityDetail",

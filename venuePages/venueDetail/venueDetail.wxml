@@ -34,20 +34,24 @@
             <image class="adr" src="/static/adr.png" mode="widthFix"></image>
             <view class="font263">{{main.locationAddress}}</view>
         </view>
-        <view class="flex_row_c isit" bindtap="makeCall" data-key="{{main.contactNumber}}">
-            <image class="adr" src="/static/tel.png" mode="widthFix"></image>
-            <view class="font263">{{main.contactNumber}}</view>
+
+        <view style="position: relative;z-index: 8;margin-bottom: -{{height}}rpx;">
+            <view class="flex_row_c isit" bindtap="makeCall" data-key="{{main.contactNumber}}">
+                <image class="adr" src="/static/tel.png" mode="widthFix"></image>
+                <view class="font263">{{main.contactNumber}}</view>
+            </view>
+
+            <view style="margin-top: 20rpx;">
+                <scroll-view scroll-x="true">
+                    <view class="flex_row_c">
+                        <view wx:for="{{main.supportFacilitieList}}" wx:key="{{index}}" class="tagbtn">{{item}}</view>
+                    </view>
+                </scroll-view>
+            </view>
         </view>
 
-        <view style="margin-top: 20rpx;">
-            <scroll-view scroll-x="true">
-                <view class="flex_row_c">
-                    <view wx:for="{{main.supportFacilitieList}}" wx:key="{{index}}" class="tagbtn">{{item}}</view>
-                </view>
-            </scroll-view>
-        </view>
 
-        <view class="stickys_tab" style="padding-top: {{height}}rpx;">
+        <view class="stickys_tab" style="padding-top: {{height}}rpx;z-index: 7;">
             <view class="lkdnav flex_row_btw nopadding">
                 <view class="weight lktitle">场馆预约</view>
                 <scroll-view scroll-x="true" style="height: 80rpx;width:calc(100vw - 220rpx);" scroll-anchoring="true">
@@ -92,7 +96,8 @@
                                 <view class="cgname van-multi-ellipsis--l2">
                                     {{item.name}}
                                 </view>
-                                <block wx:for="{{item.new_table}}" wx:key="{{itm.dataCode}}" wx:for-item='itm' wx:for-index="idx">
+                                <block wx:for="{{item.new_table}}" wx:key="{{itm.dataCode}}" wx:for-item='itm'
+                                    wx:for-index="idx">
                                     <view class="opaBlock" bindtap="choiseBlock" data-type="{{item.type}}"
                                         data-fieldid="{{item.fieldid}}" data-index="{{index}}" data-idx="{{idx}}"
                                         data-item="{{itm}}" data-name="{{item.name}}">
