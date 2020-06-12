@@ -151,6 +151,7 @@ Page({
         fieldid,
         choiseName: name,
         day: weekTime.day,
+        dataCode:item.dataCode,
         merge: item.merge,
         type,
         count: 1,
@@ -158,14 +159,14 @@ Page({
       }
       choiseList.push(obj)
     } else {
-      choiseList = choiseList.filter(it => it.merge != item.merge)
+      choiseList = choiseList.filter(it => it.dataCode != item.dataCode)
     }
     let iscu = 'tablemain[' + index + '].new_table[' + idx + '].choose';
     this.setData({
       choiseList,
       [iscu]: !choose,
     })
-    console.log(choiseList)
+    // console.log(choiseList)
   },
   stepChange(e) {
     let index = e.currentTarget.dataset.index;

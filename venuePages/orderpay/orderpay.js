@@ -73,6 +73,7 @@ Page({
       } = res.response[0].extd;
       let {
         status,
+        refStatus,
         payWay,
         bussId,
         payPrice,
@@ -86,12 +87,12 @@ Page({
         statusMap,
         detailId: bussId
       })
-      self.isStatus(createTime, endCancelTime, status, payWay)
+      self.isStatus(createTime, endCancelTime, status, payWay,refStatus)
       self.orderDtl();
       self.venueDtl();
     })
   },
-  isStatus(createTime, endCancelTime, status, payWay) {
+  isStatus(createTime, endCancelTime, status, payWay,refStatus) {
 
     let self = this;
     let time_diff = parseInt((new Date().getTime() - new Date(createTime)) / 1000);
@@ -126,14 +127,16 @@ Page({
       }
     }
     if (status == 40 && payWay != 'cash') {
-      console.log(endCancelTime)
-      console.log(time_cancel)
-      if (time_cancel > 0) {
+      // console.log(endCancelTime)
+      // console.log(time_cancel)
+      // 0: 无退款 10：退款待审核/确认 20: 全额退款成功 30：部分退款成功 40：退款失败
+      // 订单状态;订单状态（0：订单创建 10: 待确认 20: 待支付 30: 待发货 35: 已发货 40: 待使用 50：已完成 60: 待结算 70：已结算 100: 系统取消 101：用户取消 120：订单删除）
+      if (time_cancel > 0 && ( refStatus == 0 || refStatus == 40)) {
         let ableRefundTime = unit.getLastTime(time_cancel)
         self.setData({
           ableRefundTime,
           ableRefund: true
-        })
+        })  
         // 剩余时间
       } else {
         self.setData({
@@ -236,9 +239,12 @@ Page({
   },
   // 退款
   orderRefund(){
+    let self = this;
     let {oid,payPrice} = this.data;
     http.post('/order/refund',{oid,refundPrice:payPrice},1).then((res)=>{
-      console.log(res)
+      // console.log(res)
+      if(res.code !=200 ){ return}
+      self.initData();
     })
   },
   toActivity() {

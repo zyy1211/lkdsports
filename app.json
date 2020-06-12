@@ -1,11 +1,11 @@
 {
   "pages": [
+    "pages/home/home",
 
     "venuePages/venueDetail/venueDetail",
 
     "myList/mylistVenues/mylistVenues",
 
-    "pages/home/home",
 
 
  

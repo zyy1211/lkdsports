@@ -1,7 +1,7 @@
 <view class="relat">
     <view class="dropdownv venueList flex_row_c">
         <van-dropdown-menu>
-            <van-dropdown-item catchtouchmove="_touchmove" bind:change="changeName" data-key="sportType" value="{{ sportType }}"
+            <van-dropdown-item bind:change="changeName" data-key="sportType" value="{{ sportType }}"
                 options="{{ optionsDate }}" />
         </van-dropdown-menu>
         <view class="grow mar_l_15">

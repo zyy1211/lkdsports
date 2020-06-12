@@ -52,7 +52,7 @@
                 <view class="weight lktitle">场馆预约</view>
                 <scroll-view scroll-x="true" style="height: 80rpx;width:calc(100vw - 220rpx);" scroll-anchoring="true">
                     <view class="flex_row_c" style="height: 100%;">
-                        <block wx:for="{{main.matchVoList}}" wx:key="{{index}}">
+                        <block wx:for="{{main.matchVoList}}" wx:key="{{item.id}}">
                             <view style="height: 100%;" class="nav_tab flex_row_c" bindtap="tabVenuesList"
                                 data-id="{{item.id}}" data-businesshours='{{item.businessHours}}'>
                                 <view class="{{matchId == item.id ? 'activity' : ''}}">
@@ -60,12 +60,11 @@
                                 </view>
                             </view>
                         </block>
-
                     </view>
                 </scroll-view>
             </view>
             <view class="flex_row_btw" style="padding: 10rpx 0;">
-                <block wx:for="{{weekend}}">
+                <block wx:for="{{weekend}}" wx:key="{{item.week}}">
                     <view bindtap="tabWeek" data-index="{{index}}" data-item="{{item}}"
                         class="weekcl font223 flex_col_ard {{weekNo == item.weekNo ? 'weekActivity' : ''}}">
                         <view>{{item.time}}</view>
@@ -93,8 +92,8 @@
                                 <view class="cgname van-multi-ellipsis--l2">
                                     {{item.name}}
                                 </view>
-                                <block wx:for="{{item.new_table}}" wx:for-item='itm' wx:for-index="idx">
-                                    <view bindtap="choiseBlock" data-type="{{item.type}}"
+                                <block wx:for="{{item.new_table}}" wx:key="{{itm.dataCode}}" wx:for-item='itm' wx:for-index="idx">
+                                    <view class="opaBlock" bindtap="choiseBlock" data-type="{{item.type}}"
                                         data-fieldid="{{item.fieldid}}" data-index="{{index}}" data-idx="{{idx}}"
                                         data-item="{{itm}}" data-name="{{item.name}}">
                                         <block wx:if="{{tools.mergeblock(itm.merge,item,idx)=='true'}}">
@@ -143,7 +142,7 @@
             <view hidden="{{choiseList.length == 0}}">
                 <scroll-view scroll-x="true">
                     <view class="flex_row_c" style="padding: 0 4rpx;">
-                        <block wx:for="{{choiseList}}" wx:key="{{index}}">
+                        <block wx:for="{{choiseList}}" wx:key="{{item.dataCode}}">
                             <view style="position: relative;">
                                 <view class="chcolor flex_row_btw">
                                     <view>
