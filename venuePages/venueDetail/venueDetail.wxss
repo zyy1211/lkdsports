@@ -180,7 +180,15 @@
 }
 .opaBlock{
   /* border: 1rpx solid red; */
+  width: 140rpx;
+  height: 70rpx;
+  padding-right:20rpx;
+  padding-bottom: 20rpx;
   box-sizing: border-box;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: stretch;
+  align-items: stretch;
 }
 .cgnametime {
   height: 80rpx;
@@ -188,15 +196,13 @@
 
 .cgname {
   text-align: center;
-  width: 128rpx;
+  width: 120rpx;
   height: 80rpx;
 }
 
 .diamond {
-  width: 128rpx;
-  height: 50rpx;
-  margin-right: 20rpx;
-  margin-bottom: 20rpx;
+  width: 120rpx;
+  box-sizing: border-box;
   background-color: #c3d7fe;
   text-align: center;
   border-radius: 10rpx;

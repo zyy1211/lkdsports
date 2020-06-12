@@ -28,7 +28,7 @@ var mergeblock = function (itm, item, idx) {
   }
 }
 var mergeheight = function (item) {
-  return ((item.split('-')[2]) * 70) - 20
+  return ((item.split('-')[2]) * 70)
 }
 // itm.status !=0 (-1 未开放 10已占场)(type :0非散客 1散客)
 var typecolor = function(status,type){

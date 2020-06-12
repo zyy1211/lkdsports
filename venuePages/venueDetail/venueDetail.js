@@ -151,7 +151,7 @@ Page({
         fieldid,
         choiseName: name,
         day: weekTime.day,
-        dataCode:item.dataCode,
+        dataCode: item.dataCode,
         merge: item.merge,
         type,
         count: 1,
