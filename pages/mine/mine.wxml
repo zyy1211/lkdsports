@@ -1,5 +1,84 @@
+<view class="mine">
+    <view class="mineInfo">
+        <image class="background_img" src="/static/1.png" mode="widthFix" lazy-load="false"></image>
+        <view class="Infomain">
+            <view class="user_img">
+                <van-image width="100%" height="100%" use-loading-slot use-error-slot fit="cover" lazy-load
+                    src="{{info.headImage}}">
+                    <van-loading slot="loading" type="spinner" size="20" vertical />
+                    <text slot="error">加载失败</text>
+                </van-image>
+            </view>
+            <view>
+                <view>{{info.nickname}}</view>
+                <view class="flex_row_c">
+                    <image wx:if="{{info.sex == 1}}" style="width: 25rpx;height: 25rpx;" src="/static/mine2.png"
+                        mode="widthFix" lazy-load="false"></image>
+                    <image wx:if="{{info.sex == 2}}" style="width: 25rpx;height: 25rpx;" src="/static/mine3.png"
+                        mode="widthFix" lazy-load="false"></image>
+                </view>
+            </view>
+        </view>
+    </view>
 
-<view class="" hover-class="none" hover-stop-propagation="false">
-    mine
+    <view class="mineList">
+        <view class="mineitem flex_row_btw border" bindtap="toBlockList" data-url="/myList/mylistVenues/mylistVenues">
+            <view class="flex_row_c_c">
+                <image class="imgicon" src="/static/mine4.png" mode="widthFix" lazy-load="false"></image>
+                <view class="marleft">我的订单</view>
+            </view>
+            <van-icon size="16" name="arrow" />
+        </view>
+
+        <view class="mineitem flex_row_btw border" bindtap="toBlockList">
+            <view class="flex_row_c_c">
+                <image class="imgicon" src="/static/mine5.png" mode="widthFix" lazy-load="false"></image>
+
+                <view class="marleft">我的账户</view>
+            </view>
+            <van-icon size="16" name="arrow" />
+        </view>
+
+        <view class="mineitem flex_row_btw border" bindtap="toBlockList">
+            <view class="flex_row_c_c">
+                <image class="imgicon" src="/static/mine6.png" mode="widthFix" lazy-load="false"></image>
+
+                <view class="marleft">我的会员卡</view>
+            </view>
+            <van-icon size="16" name="arrow" />
+        </view>
+
+        <view class="mineitem flex_row_btw border" bindtap="toBlockList">
+            <view class="flex_row_c_c">
+                <image class="imgicon" src="/static/mine7.png" mode="widthFix" lazy-load="false"></image>
+                <view class="marleft">我的报名</view>
+            </view>
+            <van-icon size="16" name="arrow" />
+        </view>
+
+        <view class="mineitem flex_row_btw border" bindtap="toBlockList">
+            <view class="flex_row_c_c">
+                <image class="imgicon" src="/static/mine8.png" mode="widthFix" lazy-load="false"></image>
+                <view class="marleft">我的发布</view>
+            </view>
+            <van-icon size="16" name="arrow" />
+        </view>
+
+        <view class="mineitem flex_row_btw border" bindtap="toBlockList">
+            <view class="flex_row_c_c">
+                <image class="imgicon" src="/static/mine9.png" mode="widthFix" lazy-load="false"></image>
+                <view class="marleft">我的足迹</view>
+            </view>
+            <van-icon size="16" name="arrow" />
+        </view>
+        <view class="flex_row_c_c">
+            <image style="width: 650rpx;height: 110rpx;margin-top: 50rpx;" src="/static/mine1.png" mode="widthFix"
+                lazy-load="false"></image>
+        </view>
+
+    </view>
+
 </view>
+
+
 <nav-tabbar active-index="2"></nav-tabbar>

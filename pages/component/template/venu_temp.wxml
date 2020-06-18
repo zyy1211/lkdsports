@@ -1,6 +1,6 @@
 
     <template name="venueItem">
-        <view class="listItem_ven" wx:key="{{index}}" data-url="/venuePages/venueDetail/venueDetail"
+        <view class="listItem_ven" data-url="/venuePages/venueDetail/venueDetail"
         data-id="{{item.id}}" bindtap="toDetail">
         <view class="ven_main_Img">
           <van-image width="100%" height="100%" use-loading-slot use-error-slot fit="cover" lazy-load
@@ -25,7 +25,7 @@
           <view class="flex_row_btw" style="width: 100%;">
             <view class="flex_row grow">
               <van-button round  color="#246CFF" class="mar_r_20" type="info" size="mini"
-                wx:for="{{tools.formatarr(item.supportFacilitie)}}" wx:for-item='itm' wx:key="{{itm}}">{{itm}}</van-button>
+                wx:for="{{tools.formatarr(item.supportFacilitie)}}" wx:for-item='itm' wx:key="*this">{{itm}}</van-button>
             </view>
             <view class="flex_row_btw">
               <image style="width: 15rpx;height:19rpx;" src="/static/v.png" mode="widthFix"></image>

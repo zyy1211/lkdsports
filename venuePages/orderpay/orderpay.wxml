@@ -3,7 +3,7 @@
   <view class="bgnotify" wx:if="{{!(isOnce == 1)}}">
     <view class="notify flex_row_c_c">
       <van-icon size="16" color="#FFC400" name="info" />
-      <view wx:if="{{isNotify}}" style="margin-left: 22rpx;">订单{{tools.formatStatus(order.status,order.refStatus)}}</view>
+      <view wx:if="{{isNotify}}" style="margin-left: 22rpx;">订单{{tools.formatStatus(order.status,order.refStatus,item.itemsType)}}</view>
 
       <view wx:if="{{!isNotify}}" style="margin-left: 22rpx;">订单有效期{{lastTimer}}分钟，请在有效期内及时付款</view>
     </view>
@@ -35,7 +35,10 @@
     <wxs src="./filter_o.wxs" module="tools" />
 
     <view class="ordercard">
-      <view class="title28">预约信息({{tools.formatDay(itemList[0].endTime)}})</view>
+      <view class="title28 flex_row_c">
+        <view>预约信息</view>
+        <view style="color: #FF2222;margin-left: 20rpx;">({{tools.formatDay(itemList[0].endTime)}})</view>
+      </view>
       <view class="ordertable">
         <view class="flex_row_c_c tbth">
           <view class="weeks">星期</view>
@@ -47,24 +50,24 @@
         </view>
 
         <view class="flex_col">
-          <view class="flex_row_c_c tbtd" wx:for="{{itemList}}" wx:key="{{index}}">
+          <view class="flex_row_c_c tbtd" wx:for="{{itemList}}" wx:key="index">
             <view class="weeks">{{tools.formatWeek(item.itemsSpecif)}}</view>
             <!-- <view class="weeks">{{tools.formatDay(item.endTime)}}</view> -->
             <view class="time">{{tools.formatTime(item.startTime,item.endTime)}}</view>
             <view class="vlno van-ellipsis">{{tools.blockName(item.itemsTitle)}}</view>
             <view class="prices van-ellipsis">￥{{item.itemsPrice/100}}</view>
-            <view class="prices van-ellipsis">{{tools.formatStatus(item.status,item.refStatus)}}</view>
+            <view class="prices van-ellipsis">{{tools.formatStatus(item.status,item.refStatus,item.itemsType)}}</view>
           </view>
         </view>
       </view>
     </view>
 
-    <view class="flex_row_btw tosett" wx:if="{{isOnce ==1 || !isNotify}}">
+    <view class="flex_row_btw tosett" wx:if="{{(isOnce ==1 || !isNotify) && !(order.status > 20)}}">
       <view class="flex_row_c total">
         <view>合计:</view>
         <view class="money">￥{{payPrice/100}}</view>
       </view>
-      <view class="sett" bindtap="submit">立即支付</view>
+      <view class="sett" bindtap="ordersubmit" data-payprice="{{payPrice/100}}" data-oid="{{order.oid}}">立即支付</view>
     </view>
 
     <view class="flex_row_btw tosett" wx:if="{{ableRefund}}">
@@ -72,7 +75,7 @@
         <view style="font-size: 26rpx;color: #666;">距离可退款剩余:</view>
         <view>{{ableRefundTime}}</view>
       </view>
-      <view class="sett" bindtap="orderRefund">退款</view>
+      <view class="sett" bindtap="orderRefund" data-oid="{{order.oid}}" data-payPrice="{{order.payPrice}}">退款</view>
     </view>
   </view>
 

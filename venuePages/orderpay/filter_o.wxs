@@ -11,7 +11,7 @@ var formatWeek = function(str){
   var week = "周" + "日一二三四五六".charAt((str.substring(3,5))/1);
   return week;
 }
-var formatStatus = function(status,refStatus){
+var formatStatus = function(status,refStatus,itemsType){
   // console.log(status)
   // console.log(refStatus)
   if(refStatus==40){
@@ -27,12 +27,18 @@ var formatStatus = function(status,refStatus){
     return '已取消'
   }
   if(status == 50){
-    return '已核销'
+    return '已完成'
   }
-  if(status == 40){
-    return '待核销'
+  if(status == 40 || status == 35 || status == 30){
+    if(itemsType == 5 || itemsType == 20){
+      return '已报名'
+    }else if(itemsType == 10){
+      return '待使用'
+    }else{
+      return '待完成'
+    }
   }
-  if(status<40 && status >=20){
+  if(!(status>20)){
     return '待支付'
   }
 }

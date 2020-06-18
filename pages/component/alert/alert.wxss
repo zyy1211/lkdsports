@@ -1,0 +1,22 @@
+/* pages/component/alert/alert.wxss */
+
+.wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.block {
+  width: 120px;
+  height: 120px;
+  padding: 30rpx 0;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+  background-color: rgba(0, 0, 0,0.6);
+  color: white;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 26rpx;
+}

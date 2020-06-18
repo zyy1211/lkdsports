@@ -8,8 +8,8 @@ module.exports = Behavior({
       setTimeout(() => {
         wx.stopPullDownRefresh();
       }, 300);
-      // console.log(this.pageNum)
-      if (!app.isNull(this.pageNum)) {
+
+      if (!app.isNull(this.data.pageNum)) {
         this.setData({
           pageNum: 1
         })
@@ -26,6 +26,15 @@ module.exports = Behavior({
       })
       // console.log(e)
     },
+    show(){
+      this.setData({isAlert:true})
+    },
+    hide(){
+      setTimeout(() => {
+        this.setData({isAlert:false})
+      }, 200);
+
+    }
   },
 
 })

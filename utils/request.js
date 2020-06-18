@@ -25,6 +25,7 @@ let $http = {
             });
           } else {
             wx.showToast({title: res.data.message,icon:'none',duration:3000});
+            resolve(res);
           }
         },
         fail: function (res) {

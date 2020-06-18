@@ -37,7 +37,8 @@ Page({
   },
   onLoad: function (options) {
     let self = this;
-    // this.setData({detailId:options.id})
+
+    this.setData({detailId:options.id})
     app.isLogin(function () {
       self.initData();
       self.getweek()
@@ -46,7 +47,7 @@ Page({
   },
   initData() {
     let self = this;
-
+    self.show();
     this.selectComponent("#authorize").getAuthorizeLocation((loca) => {
       let longitude = loca.longitude;
       let latitude = loca.latitude;
@@ -88,6 +89,7 @@ Page({
   },
   getTabel() {
     let self = this;
+    self.show();
     let {
       detailId,
       matchId,
@@ -98,6 +100,7 @@ Page({
       matchId,
       weekNo
     }).then((res) => {
+      self.hide();
       if (res.code != 200) {
         return;
       }
@@ -118,15 +121,21 @@ Page({
       weekTime,
       choiseList,
     } = this.data;
+
     let {
       item,
       name,
       index,
       idx,
       fieldid,
-      type
+      type,
+      id
     } = e.currentTarget.dataset;
-    if (item.status != 0) {
+
+    if (type == 1 && item.status != 0 && item.status != 999) {
+      return
+    }
+    if (type == 0 && item.status != 0) {
       return
     }
     if (!app.isNull(choiseList[0]) && type != choiseList[0].type) {
@@ -151,15 +160,15 @@ Page({
         fieldid,
         choiseName: name,
         day: weekTime.day,
-        dataCode: item.dataCode,
         merge: item.merge,
         type,
         count: 1,
-        isprice: isprice
+        isprice: isprice,
+        id: id
       }
       choiseList.push(obj)
     } else {
-      choiseList = choiseList.filter(it => it.dataCode != item.dataCode)
+      choiseList = choiseList.filter(it => it.id != item.id)
     }
     let iscu = 'tablemain[' + index + '].new_table[' + idx + '].choose';
     this.setData({
@@ -229,7 +238,6 @@ Page({
     })
     this.getTabel();
   },
-
 
   /**
    * 用户点击右上角分享

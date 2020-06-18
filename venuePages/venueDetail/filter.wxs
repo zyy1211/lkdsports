@@ -15,7 +15,10 @@ var tablebol = function (itm, item, idx) {
   }
   return false
 }
-var mergeblock = function (itm, item, idx) {
+var mergeblock = function (itm, item, idx) { 
+  // console.log(itm)
+  // console.log(item)
+  // console.log(idx)
   var lastitm = idx != item.new_table.length - 1 ? item.new_table[idx + 1].merge : '';
   var bfitem = idx != 0 ? item.new_table[idx - 1].merge : '';
 
@@ -28,12 +31,12 @@ var mergeblock = function (itm, item, idx) {
   }
 }
 var mergeheight = function (item) {
-  return ((item.split('-')[2]) * 70)
+  return ((item.split('-')[2]) * 31)
 }
-// itm.status !=0 (-1 未开放 10已占场)(type :0非散客 1散客)
+// itm.status !=0 (-1 未开放 10已占场，999过时间)(type :0非散客 1散客)
 var typecolor = function(status,type){
   if(type ==1){
-    if(status !=0){
+    if(status != 0 && status != 999){
       return 'disablecolor'
     }else{
       return 'guestcolor'

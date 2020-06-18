@@ -13,17 +13,19 @@
         <view class="drop_grad"></view>
     </view>
     <view class="actList venuesList">
-        <view wx:if="{{false}}" class="emptyimg">
-            <image class="emptyimg" src="/static/empty.png" mode="widthFix"></image>
-        </view>
 
         <import src="/pages/component/template/venu_temp.wxml" />
-        <block wx:for="{{dataList}}">
+        <block wx:for="{{dataList}}" data-key="id">
             <view class="itembg">
                 <template is="venueItem" data="{{item}}" />
             </view>
         </block>
+
+        <view wx:if="{{total == 0}}" class="emptyimg">
+            <image class="emptyimg" src="/static/empty.png" mode="widthFix"></image>
+        </view>
     </view>
 </view>
 
 <authorize id="authorize"></authorize>
+<alert isAlert="{{isAlert}}"></alert>

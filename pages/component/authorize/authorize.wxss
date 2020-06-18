@@ -112,7 +112,7 @@
     display: block!important;
 }
 
-.hide {
+.hide { 
     display: none!important;
 }
 

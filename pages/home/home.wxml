@@ -4,16 +4,17 @@
   </view>
   <view class="main flex_col_c_c glbpadding">
     <swiper class="swpView" circular="true" autoplay interval="3000">
-      <swiper-item wx:for="{{ [1,2,3] }}" wx:key="{{item}}" data-url="{{ item }}" bindtap="toActivityDetail">
+      <swiper-item wx:for="{{ [1,2,3] }}" wx:key="*this" data-url="{{ item }}" bindtap="toActivityDetail">
         <image class="banner" src="https://image.likedong.top/20200514/2af2641a21e4a770e0969e7381b97474.png"
           mode="widthFix"></image>
       </swiper-item>
     </swiper>
 
+    <!-- <button bindtap="toActiveList" data-key="/venuePages/venueDetail/venueDetail">详情</button> -->
 
     <view class="stickys">
       <view class="typeList flex_row_c_c">
-        <view class="typeItem flex_col_c_c" wx:for="{{mainList}}" wx:key="{{index}}" bindtap="toModalList"
+        <view class="typeItem flex_col_c_c" wx:for="{{mainList}}" wx:key="*this" bindtap="toModalList"
           data-key="{{item.url}}">
           <image class="type_img" src="{{item.icon }}" style="border-radius: 50%;"></image>
           <view class="mar_t_20">{{item.name}}</view>
@@ -26,7 +27,7 @@
       <scroll-view scroll-x="true" style="height: 80rpx;width:calc(100vw - 210rpx);" scroll-anchoring="true">
         <view class="flex_row_c" style="height: 100%;">
           <view style="height: 100%;" class="nav_tab flex_row_c" bindtap="tabVenuesList" data-index="{{index}}"
-            data-sporttype="{{item.sportsName}}" wx:for="{{typeList}}" wx:key="{{index}}">
+            data-sporttype="{{item.sportsName}}" wx:for="{{typeList}}" wx:key="sportsName">
             <view class="{{activityIndex == index ? 'activity' : ''}}">
               <view style="padding: 0 6rpx;position: relative;">{{item.sportsName}}</view>
             </view>

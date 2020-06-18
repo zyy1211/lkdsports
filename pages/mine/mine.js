@@ -1,6 +1,4 @@
-// pages/mine/mine.js
 let app = getApp();
-let http = require('../../utils/request')
 Page({
 
   /**
@@ -10,9 +8,6 @@ Page({
   data: {
 
   },
-
-
-
   navigate: function (e) {
     let isLogin = this.data.isLogin
     if (!isLogin) {
@@ -26,15 +21,19 @@ Page({
       })
     }
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  onLoad: function () {
+    let self = this;
+    app.isLogin(function () {
+      let info = app.getInfo()
+      console.log(info)
+      self.setData({info})
+    })
   },
-  onShow: function () {
-
-  },
+  toBlockList(e) {
+    let url = e.currentTarget.dataset.url
+    wx.navigateTo({
+      url: url,
+    })
+  }
 
 })

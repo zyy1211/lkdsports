@@ -11,7 +11,8 @@
 
 .topbarbg {
   background-color: white;
-  opacity: 0;
+  opacity: 1;
+  z-index: 998;
 }
 
 .topbar {
@@ -19,9 +20,8 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 99;
+  z-index: 999;
   box-sizing: border-box;
-
 }
 
 .goback {
@@ -131,7 +131,7 @@
 }
 
 .nopadding {
-  padding: 20rpx 0;
+  padding: 0 0 20rpx 0;
 }
 
 .weekcl {
@@ -149,23 +149,25 @@
 }
 
 .tb_time {
-  margin-top: -10rpx;
+  /* margin-top: -10rpx; */
   font-size: 22rpx;
 }
 
 .timeitem {
   width: 70rpx;
-  height: 70rpx;
+  /* height: 70rpx; */
+  height: 62rpx;
   box-sizing: border-box;
   flex-shrink: 0;
   /* background-color: lightcoral; */
   /* text-align: right; */
   position: relative;
+  /* border: 1rpx solid red; */
 }
 
 .timetext {
   position: absolute;
-  top: -16rpx;
+  top: -20rpx;
   right: 16rpx;
 }
 
@@ -179,16 +181,30 @@
   position: relative;
 }
 .opaBlock{
+  /* border: 1rpx solid red;
+  width: 106rpx;
+  height: 62rpx;
+  padding-right:6rpx;
+  padding-bottom: 6rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: stretch;
+  align-items: stretch; */
+
+
+
   /* border: 1rpx solid red; */
-  width: 140rpx;
-  height: 70rpx;
-  padding-right:20rpx;
-  padding-bottom: 20rpx;
+  width: 53px;
+  height: 31px;
+  padding-right:3px;
+  padding-bottom: 3px;
   box-sizing: border-box;
   display: flex;
   flex-flow: row nowrap;
   justify-content: stretch;
   align-items: stretch;
+
 }
 .cgnametime {
   height: 80rpx;
@@ -196,23 +212,24 @@
 
 .cgname {
   text-align: center;
-  width: 120rpx;
+  width: 100rpx;
   height: 80rpx;
 }
 
 .diamond {
-  width: 120rpx;
+  width: 100%;
+  /* width: 120rpx; */
   box-sizing: border-box;
   background-color: #c3d7fe;
   text-align: center;
   border-radius: 10rpx;
 }
 
-.mergeblock {
+/* .mergeblock {
   margin-bottom: 0;
-  height: 70rpx;
+  height: 61rpx;
   border-radius: 0rpx;
-}
+} */
 
 .disablecolor {
   background-color: #CCCCCC;

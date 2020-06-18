@@ -1,18 +1,16 @@
 {
   "pages": [
-    "venuePages/venueDetail/venueDetail",
+    "pages/mine/mine",
     "pages/home/home",
-
-
-
+    "venuePages/venueDetail/venueDetail",
     "myList/mylistVenues/mylistVenues",
-
-    "venuePages/orderpay/orderpay",
     "venuePages/venueList/venueList",
+  
+    "venuePages/orderpay/orderpay",
     "activityPages/activityDetail/activityDetail",
     "activityPages/activityList/activityList",
     "pages/test/test",
-    "pages/mine/mine",
+ 
     "pages/userInfo/userInfo",
     "activityPages/issue_a/issue_a"
 
@@ -52,7 +50,11 @@
     "van-dropdown-menu": "vant/dist/dropdown-menu/index",
     "van-dropdown-item": "vant/dist/dropdown-item/index",
     "van-search": "vant/dist/search/index",
-    "van-stepper": "vant/dist/stepper/index"
+    "van-stepper": "vant/dist/stepper/index",
+    "van-overlay": "vant/dist/overlay/index",
+    "van-loading": "vant/dist/loading/index",
+    "van-tab": "vant/dist/tab/index",
+    "van-tabs": "vant/dist/tabs/index"
   },
   "permission": {
     "scope.userLocation": {

@@ -66,12 +66,14 @@ App({
         // console.log(res)
         if (res.code) {
           http.getT('/login/auth/' + res.code, '').then(function (data) {
-            // console.log(data)
+            console.log('我是token')
+            console.log(data)
             let token = data.header.token;
             self.setToken(token);
             let info = data.data.response[0];
             // console.log('拿token')
-            if (self.isNull(info)) {
+            // console.log(info)
+            if (self.isNull(info) || self.isNull(info.nickname)) {
               info = '';
             }
             self.setInfo(info);
@@ -84,12 +86,12 @@ App({
   reqInfo(callback) {
     let self = this;
     if (self.isNull(self.getInfo())) {
-      // console.log('无info')
+      console.log('无info')
       wx.navigateTo({
         url: '/pages/userInfo/userInfo'
       })
     }else{
-      // console.log('有info')
+      console.log('有info')
       callback();
     }
   },
@@ -133,6 +135,7 @@ App({
     }
     return false;
   },
+
   globalData: {
     userInfo: null,
   }

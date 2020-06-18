@@ -5,8 +5,8 @@ module.exports = Behavior({
   },
   methods: {
     getweek(e){
-      let weekend =[0,1,2,3,4,5,6].map(item =>{
-        return this.getone(item)
+      let weekend =[0,1,2,3,4,5,6].map((item,index) =>{
+        return {...this.getone(item),first:index}
       })
       let weekTime = weekend[0];
       let weekNo = weekend[0].weekNo
@@ -39,7 +39,9 @@ module.exports = Behavior({
     formatData(tablemain){
       let self = this;
       let businessHours = this.data.businessHours;
-      console.log(businessHours)
+      // console.log(this.data.weekTime)
+      let {first,day:firstday} = this.data.weekTime;
+      // console.log(businessHours)
       let businessHoursArr = businessHours.split('-')
       let startTime = parseInt(businessHoursArr[0]);
       let endTime = parseInt(businessHoursArr[1]);
@@ -63,6 +65,7 @@ module.exports = Behavior({
       })
       // 基础table
       let tb_time = []
+      // console.log(first,firstday)
       tablemain.forEach((it,index) => {
         // 基础时间
         let table_map = [];
@@ -74,13 +77,16 @@ module.exports = Behavior({
             let obj = {
               dataCode: it.code + (i < 10 ? ('0' + i) : i) + '-' + ((i + 1) < 10 ? ('0' + (i + 1)) : (i + 1)),
               status: -1,
-              choose:false
+              choose:false,
+              id:index + '-'+ i
             }
             table_map.push(obj)
           }
         }
         // 加status
         let new_table = table_map.map(item => {
+          let blockStamp = firstday + ' ' + item.dataCode.split('-')[1] +':00' +':00'
+          let differStamp =  (new Date().getTime()) - new Date(blockStamp);
           let cfg = configurationDatas.get(item.dataCode)
           let lok = fieldLockList.get(item.dataCode)
           let obj = {...item};
@@ -94,8 +100,12 @@ module.exports = Behavior({
           if (!cfg && lok) {
             obj = {...item,...lok}
           }
+          if(first == 0 && differStamp > 0 && obj.status !=-1){
+            obj = {...obj, status:999}
+          }
           let mergeNum = (mergeArr.filter(x =>x == obj.merge)).length;
           obj.merge = mergeNum !=0 ? obj.merge +'-'+ mergeNum : obj.merge;
+          // console.log(obj)
           return obj
         })
         it['new_table'] = new_table;

@@ -1,0 +1,15 @@
+<!-- <view>
+  <van-overlay show="{{ show }}" z-index="9999">
+    
+  </van-overlay>
+
+</view> -->
+
+<van-overlay show="{{ isAlert }}" z-index="9998">
+  <view class="wrapper">
+    <view class="block">
+      <van-loading show="{{ isAlert }}" type="spinner" color="#1989fa" />
+      <view>加载中...</view>
+    </view>
+  </view>
+</van-overlay>

@@ -5,6 +5,7 @@
   "enablePullDownRefresh": true,
   "usingComponents": {
     "authorize": "/pages/component/authorize/authorize",
-    "computed":"./computed/computed"
+    "computed":"./computed/computed",
+    "alert":"/pages/component/alert/alert"
   }
 }

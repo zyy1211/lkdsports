@@ -25,6 +25,7 @@ module.exports = Behavior({
       // });
       let locationLongitude = self.data.main.locationLongitude;
       let locationLatitude = self.data.main.locationLatitude;
+
       wx.openLocation({
         longitude: locationLongitude,
         latitude: locationLatitude

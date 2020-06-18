@@ -1,7 +1,7 @@
 
 <template name="activityItem">
 
-  <view class="listItem flex_row"  wx:key="{{index}}" data-id="{{item.id}}" data-url="/activityPages/activityDetail/activityDetail" bindtap="toDetail">
+  <view class="listItem flex_row" data-id="{{item.id}}" data-url="/activityPages/activityDetail/activityDetail" bindtap="toDetail">
       <van-button class="expand" round type="default" size="mini">{{item.expand}}羽毛</van-button>
       <view class="mainImg">
         <van-image width="100%" height="100%" radius="6" use-loading-slot use-error-slot fit="cover" lazy-load src="{{apiImg + item.imageUri }}">

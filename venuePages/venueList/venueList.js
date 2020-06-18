@@ -24,14 +24,16 @@ Page({
   onLoad: function (options) {
     app.isLogin(() =>{
       this.getSportType();
-      this.initData();
+      this.initData(); 
     })
   },
   getData(concat){
     let self = this;
+    self.show();
     let {latitude,longitude,name,sportType,pageSize,pageNum} = this.data;
     http.get('/venue/venueList',{latitude,longitude,name,sportType,pageSize,pageNum}).then((res)=>{
       // console.log(res)
+      self.hide();
       if(res.code !=200){
         return
       }
@@ -75,8 +77,4 @@ Page({
     this.getData(0)
 
   },
-
-  onShareAppMessage: function () {
-
-  }
 })

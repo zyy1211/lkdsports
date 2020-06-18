@@ -1,7 +1,8 @@
 {
-  "navigationBarTitleText": "",
-  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTitleText": "栎刻动体育",
+  "navigationBarBackgroundColor": "#246cff",
   "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "nav-tabbar": "/pages/component/navTabbar/navTabbar"
   }

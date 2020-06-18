@@ -1,1 +1,121 @@
 /* myList/mylistVenues/mylistVenues.wxss */
+
+.list_ven{
+ background: #f7f7f7;  
+ min-height: 100vh;
+}
+.list_ven_nav{
+    font-size: 30rpx;
+    color: #666;
+    margin-bottom: 24rpx;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+}
+
+.ven_main{
+    width: 100vw;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    padding: 110rpx 30rpx 0;
+    box-sizing: border-box;
+}
+.ven_card{
+    width: 100%;
+    background: white;
+    border-bottom-right-radius: 20rpx;
+    border-bottom-left-radius: 20rpx;
+    box-shadow:0rpx 4rpx 9rpx 0rpx rgba(0, 0, 0, 0.14);
+    padding: 0 25rpx 25rpx;
+    box-sizing: border-box;
+    margin-bottom: 32rpx;
+}
+.card_title{
+    width: 100%;
+    height: 74rpx;
+    border-bottom: 1rpx solid #E2E2E2;
+    font-size: 28rpx;
+    color: #333;
+    font-weight: 900;
+}
+.marlf{
+    margin: 0 10rpx;
+}
+.status{
+    color: #FF0000;
+    font-size: 24rpx;
+}
+.itemcon{
+    font-size: 26rpx;
+    color: #333;
+    padding: 26rpx 0;
+    box-sizing: border-box;
+}
+.title{
+    font-weight: 900;
+
+}
+.imgcon{
+    width: 120rpx;
+    height: 120rpx;
+    margin-right: 18rpx;
+    /* border: 1rpx solid red; */
+    border-radius: 10rpx;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+.rights{
+    width: 100rpx;
+    flex-shrink: 0;
+    font-size: 24rpx;
+    color: #999;
+}
+.text_r{
+    width: 100%;
+    text-align: right;
+}
+.tt_price{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    font-size: 24rpx;
+    color: #999999;
+    margin-bottom: 32rpx;
+}
+.payprice{
+    font-size: 26rpx;
+    color: #333;
+    margin-left: 40rpx;
+}
+.font206{
+    font-size: 20rpx;
+    color: #666;
+}
+.btn_list{
+    width:124rpx;
+    height:45rpx;
+    line-height: 45rpx;
+    background: rgba(36,108,255,1);
+    border-radius:20px;
+    text-align: center;
+    font-size: 24rpx;
+    color: white;
+    margin-left: 13rpx;
+}
+.out_btn{
+    background-color: white;
+    border: 1rpx solid rgba(36,108,255,1);
+    color: rgba(36,108,255,1);
+}
+.ven_item{
+    color: #DB3131;
+    font-size: 20rpx;
+    margin-top: 16rpx;
+}
+.marleft{
+    margin-left: 10rpx;
+}
