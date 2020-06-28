@@ -85,8 +85,12 @@ module.exports = Behavior({
         }
         // 加status
         let new_table = table_map.map(item => {
-          let blockStamp = firstday + ' ' + item.dataCode.split('-')[1] +':00' +':00'
-          let differStamp =  (new Date().getTime()) - new Date(blockStamp);
+          let blockStamp = firstday + ' ' + item.dataCode.split('-')[0].substr(-2,2) +':00' +':00'
+          // console.log(blockStamp)
+          let differStamp =  (new Date().getTime()) - self.formatg(blockStamp);
+          // console.log(new Date().getTime())
+          // console.log(self.formatg(blockStamp))
+          // console.log(differStamp)
           let cfg = configurationDatas.get(item.dataCode)
           let lok = fieldLockList.get(item.dataCode)
           let obj = {...item};
@@ -101,7 +105,9 @@ module.exports = Behavior({
             obj = {...item,...lok}
           }
           if(first == 0 && differStamp > 0 && obj.status !=-1){
+    
             obj = {...obj, status:999}
+            // console.log(obj)
           }
           let mergeNum = (mergeArr.filter(x =>x == obj.merge)).length;
           obj.merge = mergeNum !=0 ? obj.merge +'-'+ mergeNum : obj.merge;
@@ -113,6 +119,9 @@ module.exports = Behavior({
       })
       self.setData({tb_time,tablemain})
 
+    },
+    formatg(str){
+      return new Date(str.replace(/-/g, '/')).getTime()
     }
 
   },

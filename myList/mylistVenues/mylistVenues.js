@@ -11,6 +11,7 @@ Page({
    */
   data: {
     isAlert:false,
+    noteShow:false,
     activityNav: null,
     navData: [{
         name: '全部',
@@ -20,10 +21,7 @@ Page({
         name: '待支付',
         id: [0, 10, 20]
       },
-      {
-        name: '已取消',
-        id: [100, 101]
-      },
+
       {
         name: '待完成',
         id: [30, 35, 40]
@@ -31,6 +29,10 @@ Page({
       {
         name: '已退款',
         id: 999
+      },
+      {
+        name: '已取消',
+        id: [100, 101]
       },
     ],
     pageSize: 10,
@@ -128,7 +130,8 @@ Page({
   },
 
   payStatus(item){
-        let time_diff = parseInt((new Date().getTime() - new Date(item.createTime)) / 1000);
+    let self = this;
+        let time_diff = parseInt((new Date().getTime() - self.formatg(item.createTime)) / 1000);
         if (!(item.status > 20) && time_diff < 300) {
           // item.isPay = true
           return true;
@@ -137,8 +140,9 @@ Page({
 
   },
   cancelStatus(item){
+    let self = this;
     // item.iscancel = false;
-    let time_cancel = parseInt((new Date(item.endCancelTime) - new Date().getTime()) / 1000);
+    let time_cancel = parseInt((self.formatg(item.endCancelTime) - new Date().getTime()) / 1000);
     if (item.status > 20 && item.status < 50 && time_cancel > 0 && (item.refStatus == 0 || item.refStatus == 40)) {
      return true;
     }
@@ -157,6 +161,9 @@ Page({
     })
     this.getData(0);
   },
+  formatg(str){
+    return new Date(str.replace(/-/g, '/')).getTime()
+  }
 
 
 })

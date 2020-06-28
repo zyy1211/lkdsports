@@ -16,7 +16,7 @@ Page({
     main: {},
     matchId: 0,
     businessHours: '',
-    detailId: 14,
+    detailId: 38,
     tb_time: [],
     latitude: '',
     longitude: '',

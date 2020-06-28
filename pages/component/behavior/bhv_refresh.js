@@ -32,7 +32,7 @@ module.exports = Behavior({
     hide(){
       setTimeout(() => {
         this.setData({isAlert:false})
-      }, 200);
+      }, 300);
 
     }
   },

@@ -15,7 +15,7 @@
     <view class="actList venuesList">
 
         <import src="/pages/component/template/venu_temp.wxml" />
-        <block wx:for="{{dataList}}" data-key="id">
+        <block wx:for="{{dataList}}" wx:key="id" data-key="id">
             <view class="itembg">
                 <template is="venueItem" data="{{item}}" />
             </view>

@@ -1,0 +1,10 @@
+
+
+<view style="width: 100vw;height: 100vh;position: relative;">
+  <image-cropper id="image-cropper" limit_move="{{true}}" disable_rotate="{{true}}" width="{{width}}" height="{{height}}" imgSrc="{{imgSrc}}" disable_width="{{true}}"  disable_height="{{true}}" bindload="cropperload" bindimageload="loadimage"></image-cropper>
+
+  <view class="cropper-buttons">
+    <van-button catchtap="toback" type="default">取消</van-button>
+    <van-button  color="#246cff" catchtap="clickcut" type="warning">生成图片</van-button>
+  </view>
+</view>

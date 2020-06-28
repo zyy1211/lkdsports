@@ -1,2 +1,327 @@
-<!--activityPages/issue_a/issue_a.wxml-->
-<text>activityPages/issue_a/issue_a.wxml</text>
+<view class="issue_a">
+  <!-- <form catchsubmit="formSubmit"> -->
+  <image bindtap="chooseImage" wx:if="{{headImage != ''}}" style="width:100%;border-radius: 10rpx;"
+    src="{{apiimg + headImage}}" mode="widthFix"></image>
+  <!-- imagePath -->
+  <view class="cardbg main_img" wx:else bindtap="chooseImage">
+    <image style="width:89rpx;height:89rpx" src="/static/actv5.png" mode="widthFix"></image>
+    <view style="font-size: 26rpx;color: #333;margin-top: 17rpx;font-weight: 900;">点击添加图片</view>
+    <view style="font-size: 20rpx;color: #999;margin-top: 4rpx;">（750*564px）</view>
+  </view>
+  <view class="cardbg">
+    <view class="rowItem">
+      <view class="left">活动类型</view>
+      <view class="right flex_row_c" bindtap="slideToggle">
+        <view class="grow">
+          <van-field input-class="vant_input" readonly data-key="type" value="{{ type.title }}" placeholder="请选择运动类型"
+            border="{{ false }}" />
+        </view>
+        <van-icon style="margin-left: 10rpx;" size="14" color="#999999" name="arrow" />
+      </view>
+
+    </view>
+    <view id="sportsBlock">
+      <view class="sportsBox">
+        <view class="flex_row_c_c it_block">
+          <image style="width:100rpx;height:100rpx;flex-shrink: 0;" src="/static/actv6.png" mode="widthFix"></image>
+          <view class="sptItem">
+            <block wx:for="{{sportTypeList.category10}}" wx:key="id">
+              <view class="act_blk {{typeId == item.id ? 'active_tab' : ''}}" bindtap="choiseTab" data-key="{{item}}">
+                {{item.title}}</view>
+            </block>
+          </view>
+        </view>
+        <view class="flex_row_c_c it_block">
+          <image style="width:100rpx;height:100rpx;flex-shrink: 0;" src="/static/actv1.png" mode="widthFix"></image>
+          <view class="sptItem">
+            <block wx:for="{{sportTypeList.category20}}" wx:key="id">
+              <view class="act_blk {{typeId == item.id ? 'active_tab' : ''}}" bindtap="choiseTab" data-key="{{item}}">
+                {{item.title}}</view>
+            </block>
+          </view>
+        </view>
+        <view class="flex_row_c_c it_block">
+          <image style="width:100rpx;height:100rpx;flex-shrink: 0;" src="/static/actv2.png" mode="widthFix"></image>
+          <view class="sptItem">
+            <block wx:for="{{sportTypeList.category30}}" wx:key="id">
+              <view class="act_blk {{typeId == item.id ? 'active_tab' : ''}}" bindtap="choiseTab" data-key="{{item}}">
+                {{item.title}}</view>
+            </block>
+          </view>
+        </view>
+
+      </view>
+      <view class="arrow_down">
+        <van-icon color="#999" name="arrow-up" bindtap="slideToggle" />
+      </view>
+    </view>
+  </view>
+
+  <view class="cardbg">
+    <view class="rowItem" style="position: relative;">
+      <view class="left">活动标题</view>
+      <view class="right">
+        <van-field maxlength="20" input-class="vant_input" data-key="title" value="{{ title }}" placeholder="请输入活动标题"
+          border="{{ false }}" bindinput="bindDate" />
+      </view>
+      <view class="titleLength">{{title.length ? title.length : 0 }}/20</view>
+    </view>
+    <view class="rowItem">
+      <view class="left">场馆名称</view>
+      <view class="right">
+        <van-field input-class="vant_input" data-key="venueName" value="{{ venueName }}" placeholder="请输入场馆名称"
+          border="{{ false }}" bindinput="bindDate" />
+      </view>
+    </view>
+    <view class="rowItem">
+      <view class="left">场馆地点</view>
+      <view class="right flex_row_c" bindtap="chooseLocation">
+        <view class="grow">
+          <van-field input-class="vant_input" readonly value="{{ location }}" placeholder="请选择场馆地点"
+            border="{{ false }}" />
+        </view>
+        <image style="width:34rpx;height:34rpx;flex-shrink: 0;margin-left: 20rpx;" src="/static/adr.png"
+          mode="widthFix"></image>
+      </view>
+    </view>
+    <view class="rowItem">
+      <view class="left">场地号</view>
+      <view class="right">
+        <van-field input-class="vant_input" data-key="filedNo" value="{{ filedNo }}" placeholder="请输入场地号"
+          border="{{ false }}" bindinput="bindDate" />
+      </view>
+    </view>
+    <view class="rowItem">
+      <view class="add_tag_box">
+        <block wx:for="{{defalutTab}}" wx:key="index">
+          <view bindtap="togg_tag" data-key="defalutTab" data-index="{{index}}"
+            class="add_tag {{item.checked ? 'active_tab' : ''}}">{{item.name}}</view>
+        </block>
+        <view class="add_tag flex_row_c_c" bindtap="addtag">
+          <van-icon color="#333" name="plus" />
+          <view>添加标签</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="cardbg">
+    <view class="rowItem">
+      <view class="left">总人数</view>
+      <view class="right_cel flex_row_c_c">
+        <view class="grow">
+          <view class="skuMaxnum" wx:if="{{numBol}}">
+            <block wx:for="{{skuTypeListArr}}" wx:key="id">
+              <view class="flex_row_c_c" style="height: 60rpx;" wx:if="{{item.checked}}">
+                <view style="width: 80rpx;">限{{item.title}}</view>
+                <view class="border">
+                  <van-field input-class="vant_input" data-arr="skuTypeListArr" data-key="maxNum" data-index="{{index}}"
+                    value="{{ item.maxNum }}" placeholder="" border="{{ false }}" bindinput="bindDateArr" />
+                </view>
+              </view>
+            </block>
+          </view>
+          <van-field wx:else input-class="vant_input" data-key="participantsNum" value="{{ participantsNum }}"
+            placeholder="请输入总人数" border="{{ false }}" bindinput="bindDate" />
+        </view>
+        <view wx:if="{{numBol}}" class="getbtn" bindtap="changeNum">返回</view>
+
+        <view wx:else class="getbtn" bindtap="changeNum">自定义</view>
+      </view>
+    </view>
+
+    <view class="rowItem">
+      <view class="add_tag_box" style="padding-top: 20rpx;">
+        <block wx:for="{{skuTypeListArr}}" wx:key="id">
+          <view bindtap="togg_tag" data-sku="sku" data-key="skuTypeListArr" data-index="{{index}}"
+            style="width: 100rpx;box-sizing: border-box;text-align: center;"
+            class="add_tag {{item.checked ? 'active_tab' : ''}}">{{item.title}}</view>
+        </block>
+      </view>
+    </view>
+    <view class="rowItem">
+      <view class="left">报名费用</view>
+      <view class="flex_row_c_c">
+        <van-dropdown-menu>
+          <van-dropdown-item bind:change="chargeChange" value="{{ chargeMode }}" options="{{ option1 }}" />
+        </van-dropdown-menu>
+        <view
+          style="background-color: white;width: 30rpx;height: 30rpx;z-index: 9;margin-left: -10rpx;margin-top: -6rpx;">
+          <van-icon size="14" color="#999999" name="arrow" />
+        </view>
+      </view>
+    </view>
+
+    <view class="rowItem" wx:if="{{chargeMode == 10}}">
+      <view class="right_cel flex_row_c_c" style="justify-content: flex-end;">
+        <block wx:for="{{skuTypeListArr}}" wx:key="id">
+          <view class="flex_row_c_c" wx:if="{{item.checked}}">
+            <image style="width:33rpx;height:41rpx;margin-left: 30rpx;" src="{{item.iconPath}}" mode="widthFix">
+            </image>
+            <view class="border van_price">
+              <van-field input-class="vant_input" data-arr="skuTypeListArr" data-key="price" data-index="{{index}}"
+                value="{{ item.price }}" placeholder="" border="{{ false }}" bindinput="bindDateArr" />
+            </view>
+            <view style="margin-right: 10rpx;">元</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view class="cardbg">
+    <view class="rowItem">
+      <view class="left">联系人</view>
+      <view class="right">
+        <van-field input-class="vant_input" data-key="contactName" value="{{ contactName }}" placeholder="请输入联系人"
+          border="{{ false }}" bindinput="bindDate" />
+      </view>
+    </view>
+
+    <view class="rowItem">
+      <view class="left">联系电话</view>
+      <view class="right flex_row_c">
+        <view class="grow">
+          <van-field input-class="vant_input" maxlength="11" data-key="phoneNum" value="{{ phoneNum }}"
+            placeholder="请输入联系电话" border="{{ false }}" bindinput="bindDate" />
+        </view>
+        <button class="getbtn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取</button>
+      </view>
+    </view>
+
+    <view class="rowItem">
+      <view class="left">联系微信号</view>
+      <view class="right">
+        <van-field input-class="vant_input" data-key="vxNum" value="{{ vxNum }}" placeholder="请输入微信号"
+          border="{{ false }}" bindinput="bindDate" />
+      </view>
+    </view>
+  </view>
+
+  <view class="cardbg">
+    <view class="rowItem">
+      <view class="left">活动开始时间</view>
+      <view class="right flex_row_c" bindtap="startTime">
+        <view class="grow">
+          <van-field input-class="vant_input" readonly data-key="startTime" value="{{ startTime }}"
+            placeholder="请选择活动开始时间" border="{{ false }}" bindtap="showPicker" />
+        </view>
+        <van-icon style="margin-left: 10rpx;" size="14" color="#999999" name="arrow" />
+      </view>
+    </view>
+    <view class="rowItem">
+      <view class="left">活动结束时间</view>
+      <view class="right flex_row_c" bindtap="startTime">
+        <view class="grow">
+          <van-field input-class="vant_input" readonly data-key="endTime" value="{{ endTime }}" placeholder="请选择活动结束时间"
+            border="{{ false }}" bindtap="showPicker" />
+        </view>
+        <van-icon style="margin-left: 10rpx;" size="14" color="#999999" name="arrow" />
+      </view>
+    </view>
+    <view class="rowItem">
+      <view class="left">活动详情</view>
+      <view class="right flex_row_c" bindtap="toIssue_detail">
+        <view class="grow">
+          <van-field input-class="vant_input" readonly placeholder="编辑活动详情" border="{{ false }}" />
+        </view>
+        <van-icon style="margin-left: 10rpx;" size="14" color="#999999" name="arrow" />
+      </view>
+    </view>
+
+    <view class="textar" wx:if="{{detailsText != ''}}">{{detailsText}}</view>
+    <view wx:if="{{detailsImageArr.length != 0}}"
+      style="display:flex;flex-flow: row wrap;padding: 36rpx;box-sizing: border-box;">
+      <view wx:for="{{detailsImageArr}}" wx:key="url"
+        style="width: 110rpx;height: 110rpx;border: 1rpx solid #999;margin-top: 20rpx;margin-right: 20rpx;box-sizing: border-box;">
+        <image style="width:100%" src="{{item.url}}" mode="widthFix"></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="cardbg">
+    <view class="rowItem">
+      <view class="left">高级设置</view>
+      <view class="right flex_row_c" bindtap="moreToggle">
+        <view class="grow">
+          <van-field input-class="vant_input" readonly placeholder="更多设置" border="{{ false }}" />
+        </view>
+        <van-icon style="margin-left: 10rpx;" size="14" color="#999999" name="arrow" />
+      </view>
+    </view>
+
+    <view id="moreSetup">
+      <view class="rowItem">
+        <view class="left">截止报名时间</view>
+        <view class="right flex_row_c" bindtap="startTime">
+          <view class="grow">
+            <van-field input-class="vant_input" readonly data-key="uptoTime" value="{{ uptoTime }}"
+              placeholder="请选择截止报名时间" border="{{ false }}" bindtap="showPicker" />
+          </view>
+          <van-icon style="margin-left: 10rpx;" size="14" color="#999999" name="arrow" />
+        </view>
+      </view>
+      <view class="rowItem">
+        <view class="left">取消报名截止</view>
+        <view class="right flex_row_c" bindtap="startTime">
+          <view class="grow">
+            <van-field input-class="vant_input" readonly data-key="cancelTime" value="{{ cancelTime }}"
+              placeholder="请选择取消报名截止" border="{{ false }}" bindtap="showPicker" />
+          </view>
+          <van-icon style="margin-left: 10rpx;" size="14" color="#999999" name="arrow" />
+        </view>
+      </view>
+      <view class="rowItem">
+        <view class="left">允许带人</view>
+        <view class="right">
+          <van-switch active-value="1" inactive-value="0" checked="{{ withPeople }}" data-key="withPeople"
+            active-color="#246cff" size="24px" bindinput="switchDate" />
+        </view>
+      </view>
+      <view class="rowItem">
+        <view class="left">活动公开</view>
+        <view class="right">
+          <van-switch active-value="1" inactive-value="0" checked="{{ isOpen }}" data-key="isOpen"
+            active-color="#246cff" size="24px" bindinput="switchDate" />
+        </view>
+      </view>
+      <view class="rowItem">
+        <view class="left">取消报名处罚</view>
+        <view class="right">
+          <van-switch active-value="1" inactive-value="0" checked="{{ isPenal }}" data-key="isPenal"
+            active-color="#246cff" size="24px" bindinput="switchDate" />
+        </view>
+      </view>
+      <view class="rowItem penalbox">
+        <view class="penalSum">处罚最高比例为报名费的</view>
+        <van-stepper style="color: #333;" disable-input value="{{ penalSum }}" bind:change="penalChange" min="1" max="30" />
+        <view class="penalSum">%</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="flex_row_c_c" style="padding: 50rpx 0;">
+    <view class="submit grow" bindtap="submitActive">立即发布</view>
+    <view class="submitReady">预览</view>
+  </view>
+  <!-- </form> -->
+
+</view>
+
+<authorize id="authorize"></authorize>
+<lkdpicker id="lkdpicker" bindchoisePicker="choisePicker"></lkdpicker>
+
+<view class="wxapp-modal" hidden="{{dialogShow}}">
+  <view bindtap="closeAddModal" class="mask"></view>
+  <view class="content">
+    <view class="header">新增标签</view>
+    <view class="body">
+      <input bindinput="usernameInput" class="add-modle-input" maxlength="10" value="{{tagName}}"></input>
+    </view>
+    <view class="footer">
+      <button bindtap="closeAddModal" class="cancel">取消</button>
+      <button bindtap="tapDialogButton" class="confirm">确定</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,15 @@
+
+
+<view class="issueDetail">
+  <view class="textarea_box">
+    <textarea bindinput="bindData" value="{{detailsText}}" class="textareaself" auto-height placeholder="请编辑活动详情……" placeholder-class="pldClass" auto-focus="{{true}}" disable-default-padding="{{true}}" maxlength="-1"></textarea>
+  </view>
+  <view class="uploadbox">
+    <van-uploader file-list="{{ detailsImageArr }}"  max-count="6" bind:after-read="afterRead" deletable="{{ true }}" bind:delete="delectimg" />
+  </view>
+</view>
+
+<view class="fiexBtn">
+  <view class="btn sure" bindtap="sure">立即保存</view>
+  <view class="btn cancel" bindtap="cancel">取消</view>
+</view>

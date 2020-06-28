@@ -25,7 +25,7 @@ Page({
     let self = this;
     app.isLogin(function () {
       let info = app.getInfo()
-      console.log(info)
+      // console.log(info)
       self.setData({info})
     })
   },

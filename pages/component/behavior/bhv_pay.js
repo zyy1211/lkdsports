@@ -12,11 +12,13 @@ module.exports = Behavior({
         payprice
       } = e.currentTarget.dataset;
       if (payprice == 0) {
-        self.orderSubmitNoPrice(oid);
+        self.orderSubmitNoPrice(oid,bussId);
         return
       }
-      console.log('fsfsfsf去支付')
+      // console.log('fsfsfsf去支付')
+      self.show();
       http.get('/pay/wxPay/' + oid).then((res) => {
+        self.hide();
         if (res.code != 200) {
           return
         }
@@ -36,19 +38,18 @@ module.exports = Behavior({
           paySign: paySign,
           success(res) {
             console.log(res)
-            self.setData({
-              isOnce: !1,
-              show: true
-            });
-            if (self.data.iscurrent !== 1) {
+            if (self.data.iscurrent != 1) {
               wx.navigateTo({
                 url: '/venuePages/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
               })
-   
-            }else{
-              self.initData();
+
+            } else {
+              self.setData({
+                isOnce: !1,
+                showToActivity: true
+              });
             }
-            
+
           },
           fail(res) {
             wx.showToast({
@@ -60,41 +61,77 @@ module.exports = Behavior({
         })
       })
     },
-    // 退款
-    orderRefund(e) {
+    orderSubmitNoPrice(oid,bussId) {
       let self = this;
       self.show();
-      let {
-        oid,
-        payprice,
-        bussId
-      } = e.currentTarget.dataset;
-      if (payprice == 0) {
-        self.orderCancel(oid)
-        return;
-      }
-      http.post('/order/refund', {
-        oid,
-        refundPrice: payprice,
-        refundOpt: 1
-      }, 1).then((res) => {
+      http.get('/pay/noPay/' + oid).then((res) => {
         console.log(res)
         self.hide();
         if (res.code != 200) {
           return
         }
-        if (self.data.iscurrent !== 1) {
+        if (self.data.iscurrent != 1) {
           wx.navigateTo({
             url: '/venuePages/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
           })
-
-        }else{
-          self.initData();
+          return
+        } else {
+          self.setData({
+            isOnce: !1,
+            showToActivity: true
+          });
         }
 
       })
     },
-    orderCancel(oid) {
+    // 退款
+    orderRefund(e) {
+      let self = this;
+      let currentItem = e.currentTarget.dataset;
+      console.log(currentItem);
+      self.setData({noteShow:true,currentItem});
+    },
+    noteConfirm(){
+      this.orderRefundPrice();
+    },
+    orderRefundPrice(){
+      let self = this;
+      let currentItem = self.data.currentItem;
+      let {
+        oid,
+        payprice,
+        bussId
+      } = currentItem;
+      if (payprice == 0) {
+        self.orderRefundNoPrice(oid,bussId)
+        return;
+      }
+      self.show();
+      http.post('/order/refund', {
+        oid,
+        refundPrice: payprice,
+        refundOpt: 1
+      }, 1).then((res) => {
+
+        self.hide();
+        if (res.code != 200) {
+          return
+        }
+        if (self.data.iscurrent != 1) {
+          wx.navigateTo({
+            url: '/venuePages/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+          })
+
+        } else {
+          self.setData({
+            successShow: true
+          })
+        }
+
+      })
+    },
+
+    orderRefundNoPrice(oid,bussId) {
       let self = this;
       self.show();
       http.get('/order/cancel/' + oid).then((res) => {
@@ -103,36 +140,35 @@ module.exports = Behavior({
         if (res.code != 200) {
           return
         }
-        if (self.data.iscurrent !== 1) {
+        console.log(self.data.iscurrent)
+        if (self.data.iscurrent != 1) {
+          console.log('fsfsfsfsfsfs')
           wx.navigateTo({
             url: '/venuePages/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
           })
           return
-        }else{
-          self.initData();
+        } else {
+          self.setData({
+            successShow: true
+          })
         }
 
       })
     },
-    orderSubmitNoPrice(oid) {
-      let self = this;
-      self.show();
-      http.get('/pay/noPay/' + oid).then((res) =>{
-        console.log(res)
-        self.hide();
-        if (res.code != 200) {
-          return
-        }
-        if (self.data.iscurrent !== 1) {
-          wx.navigateTo({
-            url: '/venuePages/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
-          })
-          return
-        }else{
-          self.initData();
-        }
 
+    // 成功弹窗
+    showSuccess() {
+
+      this.initData();
+    },
+    // 去活动弹窗
+    toActivity() {
+      wx.navigateTo({
+        url: '/activityPages/issue_a/issue_a',
       })
+    },
+    notoActivity() {
+      this.initData();
     }
 
   },

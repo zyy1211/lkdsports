@@ -154,9 +154,9 @@
 }
 
 .timeitem {
-  width: 70rpx;
+  width: 35px;
   /* height: 70rpx; */
-  height: 62rpx;
+  height: 31px;
   box-sizing: border-box;
   flex-shrink: 0;
   /* background-color: lightcoral; */
@@ -167,8 +167,8 @@
 
 .timetext {
   position: absolute;
-  top: -20rpx;
-  right: 16rpx;
+  top: -10px;
+  right: 8px;
 }
 
 .diamondbox {

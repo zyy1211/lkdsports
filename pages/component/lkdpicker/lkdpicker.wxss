@@ -1,0 +1,61 @@
+/* pages/component/picker/picker.wxss */
+
+
+.columnModal {
+  height: 200px;
+  position: relative;
+}
+
+.sheetBtns {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1001;
+  font-size: 28rpx;
+  width: 100%;
+  height: 40px;
+  background-color: white;
+}
+
+.cancelbtn {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 40px;
+  line-height: 40px;
+  color: #666;
+  width: 60px;
+  text-align: center;
+  z-index: 1001;
+  letter-spacing: 4rpx;
+}
+
+.surebtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 40px;
+  line-height: 40px;
+  color: #246cff;
+  width: 60px;
+  text-align: center;
+  z-index: 1001;
+  letter-spacing: 4rpx;
+}
+.sheetBtns .disablebtn{
+  color: #666;
+}
+.viewSty {
+  width: 100%;
+  height: 200px;
+}
+
+.columnSty {
+  line-height: 50px;
+  text-align: center;
+  font-size: 26rpx;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}

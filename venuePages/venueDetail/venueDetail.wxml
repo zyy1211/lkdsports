@@ -91,7 +91,7 @@
                             <view class="col_item">
                                 <view class="cgname van-multi-ellipsis--l2">
                                     {{item.name}}
-                                </view>
+                                </view> 
                                 <block wx:for="{{item.new_table}}" wx:key="id" wx:for-item='itm' wx:for-index="idx">
                                     <view class="opaBlock" bindtap="choiseBlock" data-id="{{itm.id}}"
                                         data-type="{{item.type}}" data-fieldid="{{item.fieldid}}" data-index="{{index}}"

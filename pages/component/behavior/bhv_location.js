@@ -1,3 +1,4 @@
+const http = require('../../../utils/request.js');
 module.exports = Behavior({
   data: {},
   methods: {
@@ -9,20 +10,6 @@ module.exports = Behavior({
     },
     openMap() {
       let self = this;
-      // this.selectComponent("#authorize").getAuthorizeLocation((location) => {
-      //   let longitude = location.longitude;
-      //   let latitude = location.latitude;
-      //   let locationLongitude = self.data.main.locationLongitude;
-      //   let locationLatitude = self.data.main.locationLatitude;
-      //   self.setData({
-      //     latitude,
-      //     longitude
-      //   })
-      //   wx.openLocation({
-      //     longitude: locationLongitude,
-      //     latitude: locationLatitude
-      //   });
-      // });
       let locationLongitude = self.data.main.locationLongitude;
       let locationLatitude = self.data.main.locationLatitude;
 
@@ -32,6 +19,57 @@ module.exports = Behavior({
       });
 
     },
+    chooseLocation() {
+      let self = this;
+      self.selectComponent("#authorize").getAuthorizeLocation(function (a) {
+        if (!self.data.editId) {
+          let latitude = self.data.addressLatitude;
+          let longitude = self.data.addressLongitude;
+          wx.chooseLocation({
+            type: "gcj02",
+            latitude: latitude,
+            longitude: longitude,
+            success: function (a) {
+              self.setData({
+                location: a.name,
+                addressLongitude: a.longitude,
+                addressLatitude: a.latitude
+              })
+            }
+          });
+        } else {
+          wx.chooseLocation({
+            type: "gcj02",
+            success: function (a) {
+              self.setData({
+                location: a.name,
+                addressLongitude: a.longitude,
+                addressLatitude: a.latitude
+              })
+            }
+          });
+        }
+      });
+    },
+    getPhoneNumber: function (e) {
+      console.log('fs')
+      let self = this;
+      console.log(e)
+      let params = {
+        encryptedData: e.detail.encryptedData,
+        iv: e.detail.iv
+      }
+      http.post('/user/getPhone', params).then(function (res) {
+        console.log(res)
+        let phone = res.response[0];
+        self.setData({
+          phoneNum: phone
+        });
+      })
+    },
+
+
+
   },
 
 })

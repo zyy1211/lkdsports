@@ -1,9 +1,10 @@
 <view class="orderpay">
   <view class="bgblue"></view>
-  <view class="bgnotify" wx:if="{{!(isOnce == 1)}}">
+  <view class="bgnotify">
     <view class="notify flex_row_c_c">
       <van-icon size="16" color="#FFC400" name="info" />
-      <view wx:if="{{isNotify}}" style="margin-left: 22rpx;">订单{{tools.formatStatus(order.status,order.refStatus,item.itemsType)}}</view>
+      <view wx:if="{{isNotify}}" style="margin-left: 22rpx;">
+        订单{{tools.formatStatus(order.status,order.refStatus,item.itemsType)}}</view>
 
       <view wx:if="{{!isNotify}}" style="margin-left: 22rpx;">订单有效期{{lastTimer}}分钟，请在有效期内及时付款</view>
     </view>
@@ -34,7 +35,7 @@
     </view>
     <wxs src="./filter_o.wxs" module="tools" />
 
-    <view class="ordercard">
+    <view class="ordercard" wx:if="{{itemsType == 10}}">
       <view class="title28 flex_row_c">
         <view>预约信息</view>
         <view style="color: #FF2222;margin-left: 20rpx;">({{tools.formatDay(itemList[0].endTime)}})</view>
@@ -62,7 +63,7 @@
       </view>
     </view>
 
-    <view class="flex_row_btw tosett" wx:if="{{(isOnce ==1 || !isNotify) && !(order.status > 20)}}">
+    <view class="flex_row_btw tosett" wx:if="{{(!isNotify) && !(order.status > 20)}}">
       <view class="flex_row_c total">
         <view>合计:</view>
         <view class="money">￥{{payPrice/100}}</view>
@@ -81,9 +82,30 @@
 
 </view>
 
-<van-dialog use-slot show="{{ show }}" show-cancel-button closeOnClickOverlay="{{true}}" bind:confirm="toActivity">
+<van-dialog use-slot show="{{ showToActivity }}" show-cancel-button closeOnClickOverlay="{{false}}"
+  bind:confirm="toActivity" bind:cancel="notoActivity">
   <view class="flex_col_c_c" style="padding-top: 90rpx;">
     <image style="width: 250rpx;" mode="widthFix" src="/static/logo.png" />
-    <view style="padding: 30rpx 0 50rpx 0;font-size: 28rpx;color: #333;">立即去平台发布活动</view>
+    <view style="padding: 30rpx 0 50rpx 0;font-size: 28rpx;color: #333;">
+      <view>支付成功！</view>
+      <view style="margin-top: 30rpx;">立即去平台发布活动</view>
+    </view>
+  </view>
+</van-dialog>
+
+
+<van-dialog use-slot show="{{ successShow }}" show-cancel-button closeOnClickOverlay="{{false}}"
+  bind:confirm="showSuccess" bind:cancel="showSuccess">
+  <view class="flex_col_c_c" style="padding-top: 90rpx;">
+    <image style="width: 250rpx;" mode="widthFix" src="/static/logo.png" />
+    <view style="padding: 30rpx 0 50rpx 0;font-size: 28rpx;color: #333;">退款成功！</view>
+  </view>
+</van-dialog>
+
+<van-dialog use-slot show="{{ noteShow }}" show-cancel-button closeOnClickOverlay="{{true}}"
+  bind:confirm="noteConfirm">
+  <view class="flex_col_c_c" style="padding-top: 90rpx;">
+    <image style="width: 250rpx;" mode="widthFix" src="/static/logo.png" />
+    <view style="padding: 30rpx 0 50rpx 0;font-size: 28rpx;color: #333;">确定要退款？</view>
   </view>
 </van-dialog>

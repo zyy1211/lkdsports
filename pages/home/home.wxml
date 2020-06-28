@@ -4,13 +4,12 @@
   </view>
   <view class="main flex_col_c_c glbpadding">
     <swiper class="swpView" circular="true" autoplay interval="3000">
-      <swiper-item wx:for="{{ [1,2,3] }}" wx:key="*this" data-url="{{ item }}" bindtap="toActivityDetail">
-        <image class="banner" src="https://image.likedong.top/20200514/2af2641a21e4a770e0969e7381b97474.png"
-          mode="widthFix"></image>
+      <swiper-item wx:for="{{ banner }}" wx:key="id" data-key="{{ item }}" bindtap="toBannerMain">
+        <image class="banner" src="{{item.img}}" mode="widthFix"></image>
       </swiper-item>
     </swiper>
 
-    <!-- <button bindtap="toActiveList" data-key="/venuePages/venueDetail/venueDetail">详情</button> -->
+    <!-- <button bindtap="test" data-key="/venuePages/venueDetail/venueDetail">详情</button> -->
 
     <view class="stickys">
       <view class="typeList flex_row_c_c">
@@ -27,9 +26,9 @@
       <scroll-view scroll-x="true" style="height: 80rpx;width:calc(100vw - 210rpx);" scroll-anchoring="true">
         <view class="flex_row_c" style="height: 100%;">
           <view style="height: 100%;" class="nav_tab flex_row_c" bindtap="tabVenuesList" data-index="{{index}}"
-            data-sporttype="{{item.sportsName}}" wx:for="{{typeList}}" wx:key="sportsName">
+            data-sporttype="{{item}}" wx:for="{{sprotTypes}}" wx:key="*this">
             <view class="{{activityIndex == index ? 'activity' : ''}}">
-              <view style="padding: 0 6rpx;position: relative;">{{item.sportsName}}</view>
+              <view style="padding: 0 6rpx;position: relative;">{{item}}</view>
             </view>
           </view>
         </view>
@@ -39,7 +38,7 @@
 
     <view class="venuesList">
       <import src="/pages/component/template/venu_temp.wxml" />
-      <block wx:for="{{[1,2,3,4,5]}}">
+      <block wx:for="{{dataList}}" wx:key="id" data-key="id">
         <template is="venueItem" data="{{item}}" />
       </block>
       <view class="flex_row_c_c font249" style="line-height: 88rpx;" bindtap="toActiveList"
@@ -55,7 +54,7 @@
 
     <view class="cardList">
       <import src="/pages/component/template/activity_temp.wxml" />
-      <block wx:for="{{[1,2,3,4,5,6]}}">
+      <block wx:for="{{[1]}}" wx:key="*this">
         <view class="marb45">
           <template is="activityItem" data="{{item}}" />
         </view>
@@ -68,25 +67,6 @@
     </view>
   </view>
 </view>
-
-
-
-
-
-
-<!-- <view class="" hover-class="none" hover-stop-propagation="false">
-  <view style="position: relative;" >
-    <view style="position: absolute;left: 0;top: 0;"></view>
-    <view class="flex_row" wx:for="data.data.bVenueFieldCopyList">
-      <view>{{item.name}}</view>
-      <view wx:if="{{item.type != 1}}">
-        <block wx:for="{{item.table_map}}" wx:for-item="itm">
-          <view>{{itm}}</view>
-        </block>
-      </view>
-    </view>
-  </view>
-</view> -->
 
 <nav-tabbar active-index="0"></nav-tabbar>
 <authorize id="authorize"></authorize>

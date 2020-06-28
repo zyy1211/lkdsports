@@ -1,19 +1,21 @@
 {
   "pages": [
-    "pages/mine/mine",
+    "activityPages/issue_a/issue_a",
     "pages/home/home",
-    "venuePages/venueDetail/venueDetail",
+    "activityPages/issueDetail/issueDetail",
+
+    "activityPages/img-cropper/img-cropper",
+
     "myList/mylistVenues/mylistVenues",
+    "venuePages/venueDetail/venueDetail",
     "venuePages/venueList/venueList",
-  
     "venuePages/orderpay/orderpay",
+    "pages/mine/mine",
     "activityPages/activityDetail/activityDetail",
     "activityPages/activityList/activityList",
     "pages/test/test",
- 
     "pages/userInfo/userInfo",
-    "activityPages/issue_a/issue_a"
-
+    "pages/webview/webview"
   ],
   "tabBar": {
     "selectedColor": "#246CFF",
@@ -54,7 +56,12 @@
     "van-overlay": "vant/dist/overlay/index",
     "van-loading": "vant/dist/loading/index",
     "van-tab": "vant/dist/tab/index",
-    "van-tabs": "vant/dist/tabs/index"
+    "van-tabs": "vant/dist/tabs/index",
+    "van-field": "vant/dist/field/index",
+    "van-switch": "vant/dist/switch/index",
+    "van-action-sheet": "vant/dist/action-sheet/index",
+    "van-picker": "vant/dist/picker/index",
+    "van-uploader": "vant/dist/uploader/index"
   },
   "permission": {
     "scope.userLocation": {

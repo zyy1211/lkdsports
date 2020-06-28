@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "图片裁剪",
+  "navigationBarBackgroundColor": "#246cff",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "image-cropper": "/pages/component/cropper/cropper"
+  }
+}
