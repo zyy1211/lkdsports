@@ -1,0 +1,44 @@
+var isNull = function (str) {
+  if (str == undefined || str == null || str == '' || str == "undefined") {
+    return true;
+  }
+  return false;
+}
+var formatarr = function (str) {
+
+  if (!isNull(str)) {
+    return (JSON.parse(str).slice(0, 2))
+  }
+  return ''
+}
+var formatDistant = function (str) {
+  // if(str<999){
+  //   return ((str/1).toFixed(2)) + 'm'
+  // }
+  // if(str > 999){
+  return ((str / 1000).toFixed(1)) + 'km'
+  // }
+}
+var status = function (status) {
+  if (status == 0) {
+    return '未审核'
+  }
+  if (status == 10) {
+    return '审核失败'
+  }
+  if (status == 20) {
+    return '报名中'
+  }
+  if (status == 30) {
+    return '活动已结束'
+  }
+  if (status == 100) {
+    return '活动取消'
+  }
+}
+
+module.exports = {
+  formatarr: formatarr,
+  formatDistant: formatDistant,
+  status: status
+}

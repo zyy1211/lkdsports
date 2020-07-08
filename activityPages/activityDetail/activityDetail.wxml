@@ -1,8 +1,8 @@
 <view class="activityDetail">
-    <view class="diagram">
-        <image class="bannerimg" src="https://image.likedong.top/20200514/2af2641a21e4a770e0969e7381b97474.png"
-            mode="widthFix"></image>
-        <view class="topbar topbarbg" style="opacity: {{opacity}};height:{{height}}rpx;">
+    <view class="diagram" id="lkdnav">
+        <image class="bannerimg" src="{{apiimg + activityHeadImage[0].path}}" mode="widthFix"></image>
+
+        <view class="topbar topbarbg" style="height:{{height}}rpx;background-color:rgba(255,255,255,{{opacity}})">
         </view>
         <view class="topbar" style="height:{{height}}rpx;padding-top:{{barHeight}}rpx;">
             <view class="goback">
@@ -11,52 +11,176 @@
                         <van-icon size="18" name="arrow-left" />
                     </view>
                 </view>
-
             </view>
         </view>
     </view>
+    <wxs src="../filter_actvd.wxs" module="tools" />
     <view class="main">
         <view class="flex_row_btw_j">
-            <view class="font3439 van-multi-ellipsis--l2">西湖文体中心坐落于花蒋路与文一西路交叉口东南面，总投资11</view>
+            <view class="font3439 van-multi-ellipsis--l2">{{activities.title}}</view>
             <image class="share" src="/static/share.png" mode="widthFix"></image>
         </view>
-        <view class="flex_row_c martb30">
-            <van-rate size="12" readonly value="5" />
-            <view class="rate">5</view>
-            <view class="docs"></view>
-            <view class="font229">距离1.3km</view>
-        </view>
-        <view class="font226 text">西湖文体中心坐落于花蒋路与文一西路交叉口东南面，总投资11.7亿 元，总建筑面积12.6万平方米，按照功能巧妙地分两部分西侧半圆是
-            西湖区文体中心，东侧半圆是浙商文化中心。</view>
-        <view class="flex_row_c isit">
-            <image class="adr" src="/static/adr.png" mode="widthFix"></image>
-            <view class="font263">花蒋路与文一西路交叉口东南面</view>
-        </view>
-        <view class="flex_row_c isit">
-            <image class="adr" src="/static/tel.png" mode="widthFix"></image>
-            <view class="font263">13114132467</view>
-        </view>
 
-        <view style="margin-top: 20rpx;">
+        <view style="margin-top: 26rpx;">
             <scroll-view scroll-x="true">
                 <view class="flex_row_c">
-                    <view wx:for="[1,2,3,4,5,6,7,8]" class="tagbtn">有热水</view>
+                    <view wx:for="{{activities.tagArr}}" wx:key="*this" class="tagbtn">{{item}}</view>
                 </view>
             </scroll-view>
         </view>
 
-        <!-- <view class="flex_row_btw isTitle mar_t_30">
-      <view class="weight lktitle">相关活动</view>
-      <view class="flex_row_c font249">
-        <view>更多活动</view>
-        <van-icon class="mar_l_15" size="14" name="arrow" />
-      </view>
-    </view>
-    <scroll-view scroll-x="true">
-      <view class="flex_row_c">
-      </view>
-    </scroll-view> -->
+        <view class="flex_row_c sexbox">
+            <block wx:for="{{activitiesSkuList}}" wx:key="id">
+                <image class="sex_icon" src="{{apiimg + item.iconPath }}" mode="widthFix"></image>
+                <view class="font246 marl12">{{item.price}}元/人</view>
+            </block>
+        </view>
 
+        <view class="flex_row_c isit">
+            <image class="ad_icon" src="/static/actvd3.png" mode="widthFix"></image>
+            <view class="font263">{{activities.location}}</view>
+        </view>
+        <view class="flex_row_c isit">
+            <image class="ad_icon" src="/static/actvd6.png" mode="widthFix"></image>
+            <view class="font263">{{tools.formatTime(activities.startTime,activities.endTime)}}</view>
+        </view>
+        <view class="flex_row_c isit">
+            <image class="ad_icon" src="/static/actvd1.png" mode="widthFix"></image>
+            <view class="font263">{{activities.cancelTime}} 前可取消报名</view>
+        </view>
+        <view class="flex_row_c isit">
+            <image class="ad_icon" src="/static/actvd4.png" mode="widthFix"></image>
+            <view class="font263">{{activities.filedNo}}号场地</view>
+        </view>
 
+        <view class="flex_row_btw isTitle">
+            <view class="weight lktitle">已报名({{activities.appliedNum}}/{{activities.participantsNum}})</view>
+            <view class="flex_row_c font249" bindtap="tosignlist">
+                <view>查看全部</view>
+                <van-icon class="mar_l_15" size="14" name="arrow" />
+            </view>
+        </view>
+        <view class="imgBox flex_row_c">
+            <block wx:for="{{ headImage }}" wx:key="*this">
+                <image class="imgBlock" src="{{item}}" mode="cover"></image>
+            </block>
+            <image wx:if="headImage.length != 0" class="imgBlock" src="/static/actvd.png" mode="widthFix"></image>
+
+        </view>
+        <view class="userCard">
+            <view class="flex_col_btw" style="height: 100%;">
+                <view class="flex_row_c">
+                    <image style="width: 86rpx;height: 86rpx;border-radius: 86rpx;" src="{{ cUserDTO.headImage}}"
+                        mode="cover">
+                    </image>
+                    <view class="flex_row" style="align-items: flex-end;">
+                        <view class="font2839" style="margin: 0 11rpx 0 16rpx;">{{cUserDTO.nickname}}</view>
+                        <image wx:if="{{cUserDTO.sex == 1}}" style="width: 25rpx;height: 25rpx;" src="/static/mine2.png"
+                            mode="widthFix" lazy-load="false"></image>
+                        <image wx:if="{{cUserDTO.sex == 2}}" style="width: 25rpx;height: 25rpx;" src="/static/mine3.png"
+                            mode="widthFix" lazy-load="false"></image>
+                    </view>
+                </view>
+                <view class="flex_row_c_c" style="width: 100%;">
+                    <view bindtap="makeWx" data-key="{{activities.vxNum}}" class="btn_border"
+                        style="margin-right: 33rpx;" wx:if="{{activities.vxNum != null && activities.vxNum != ''}}">
+                        <image class="imgBlock" style="width: 45rpx;height: 45rpx;" src="/static/actvd5.png"
+                            mode="cover">
+                        </image>
+                        <view>获取微信</view>
+                    </view>
+                    <view bindtap="makeCall" class="btn_border" data-key="{{activities.phoneNum}}">
+                        <image class="imgBlock" style="width: 45rpx;height: 45rpx;" src="/static/actvd2.png"
+                            mode="cover">
+                        </image>
+                        <view>拨打电话</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+
+        <view class="lkdcollapse">
+            <van-collapse value="{{ activeNames }}" bind:change="onChange">
+                <van-collapse-item name="1">
+                    <view slot="title">
+                        <view class="weight lktitle">活动详情</view>
+                    </view>
+                    <view class="detailMain">
+                        <text class="detailText">
+                            {{activities.detailsText}}
+                        </text>
+                        <view class="detailImg" wx:for="{{ activityDetailImage }}" wx:key="id">
+                            <van-image width="100%" height="100%" use-loading-slot use-error-slot fit="widthFix"
+                                lazy-load src="{{apiimg + item.path}}">
+                                <van-loading slot="loading" type="spinner" size="20" vertical />
+                                <text slot="error">加载失败</text>
+                            </van-image>
+                        </view>
+                    </view>
+                </van-collapse-item>
+            </van-collapse>
+        </view>
+
+        <view wx:if="{{isApplySign != '0'}}">
+            <view class="fixedBtns" wx:if="{{flag}}">
+                <block wx:if="{{isApplySign == '1'}}">
+                    <view class="flex_row_c_c borderg" style="height: 100%;">
+                        <view class="font2669">结束报名剩余：</view>
+                        <view class="font28r9">10小时20分</view>
+                    </view>
+                    <view class="fixbtn flex_row_c_c" bindtap="updateSign">修改报名</view>
+                </block>
+                <block wx:else>
+                    <view class="flex_col_c_c borderg" style="height: 100%;flex:2;flex-shrink: 0;">
+                        <view class="font2269">结束报名剩余</view>
+                        <view class="font22r9">10小时20分</view>
+                    </view>
+                    <view class="flex_row_c_c twobtn" style="flex:3;">
+                        <view class="fidbtn flex_row_c_c" bindtap="updateSign">修改报名</view>
+                        <view style="height: 60%;top: 20%;width: 2rpx;background-color: white;"></view>
+                        <view class="fidbtn flex_row_c_c" bindtap="toSignup">继续报名</view>
+                    </view>
+                </block>
+            </view>
+            <view class="fixedBtns" wx:else>
+                <view class="flex_row_c_c borderg" style="height: 100%;">
+                    <view class="font2669">结束报名剩余：</view>
+                    <view class="font28r9">10小时20分</view>
+                </view>
+                <view class="fixbtn flex_row_c_c" bindtap="toSignup">我要报名</view>
+            </view>
+        </view>
     </view>
 </view>
+<authorize id="authorize"></authorize>
+<alert isAlert="{{isAlert}}"></alert>
+
+<van-action-sheet show="{{ showSignList }}" close-on-click-overlay="{{true}}" overlay="{{true}}" round="{{false}}"
+    close-on-click-action="{{false}}" bind:click-overlay="closeSheet">
+    <view class="sheetBox">
+        <view class="sheetbtnBox">
+            <van-button class="shcancel" size="mini" type="default" bindtap="closeSheet">取消</van-button>
+            <van-button class="shsure" size="mini" type="info" bindtap="sureSheet">确定</van-button>
+        </view>
+        <van-radio-group value="{{ radio }}" bind:change="radioChange">
+            <block wx:for="{{skuLock}}" wx:key="index" wx:for-item="items">
+                <van-radio name="{{items.index}}">
+                    <view class="flex_row_c" style="width:600rpx;">
+                        <view class="grow">
+                            <view class="font2439" style="margin-bottom: 20rpx;">报名人数{{items.total}}人</view>
+                            <view class="flex_row_c" style="margin-right: 20rpx;">
+                                <block wx:for="{{items.list}}" wx:key="id" wx:for-item="itm">
+                                    <image class="sex_icon" src="{{apiimg + itm.iconPath }}" mode="widthFix"></image>
+                                    <view style="margin-left: 10rpx;" class="font223">x</view>
+                                    <view class="font223" style="margin-right: 30rpx;margin-left: 10rpx;"> {{itm.num}}人
+                                    </view>
+                                </block>
+                            </view>
+                        </view>
+                        <view class="font20r9">￥{{items.money}}元</view>
+                    </view>
+                </van-radio>
+            </block>
+        </van-radio-group>
+    </view>
+</van-action-sheet>

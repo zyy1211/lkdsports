@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "我的模板",
+  "navigationBarBackgroundColor": "#246CFF",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
+}

@@ -211,7 +211,7 @@ Page({
         //   name:main.name
         // }))
         wx.navigateTo({
-          url: '/venuePages/orderpay/orderpay?isOnce=1&bussId=' + bussId + '&oid=' + oid
+          url: '/myList/orderpay/orderpay?isOnce=1&bussId=' + bussId + '&oid=' + oid
         })
       }
     })
@@ -243,10 +243,12 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    let stap = new Date();
+
     return {
       title: '自定义标题',
       path: '/activityPages/activityDetail/activityDetail',
-      imageUrl: 'http://192.168.0.200:8091/user/actSharePic/1'
+      imageUrl: 'http://192.168.0.200:8091/user/actSharePic/35?'+ stap
     }
   }
 })

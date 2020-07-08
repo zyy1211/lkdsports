@@ -42,12 +42,20 @@ Component({
   data: {
     ...tabbar_config,
     showAddModal: !1,
-    dataList: [{
+    dataList: [
+      {
       pagePath: "/activityPages/issue_a/issue_a",
       text: "活动发布",
       iconPath: "/static/m_huod.png",
       type: "activity"
-    }]
+    },
+    {
+      pagePath: "/myList/mytmplt/mytmplt",
+      text: "我的模板",
+      iconPath: "/static/m_huod.png",
+      type: "activity"
+    }
+  ]
   },
 
   /**

@@ -1,0 +1,46 @@
+<view class="signlist">
+  <view class="bgblue"></view>
+  <view class="signfixed">
+    <view class="signTab">
+      <view wx:for="{{tablist}}" bindtap="tabChange" wx:key="value" data-key="{{item.value}}"
+        class="itemtab {{status==item.value ? 'activity' :''}}">{{item.name}}</view>
+    </view>
+  </view>
+  <wxs src="../template/filter_t.wxs" module="tools"></wxs>
+  <view class="main">
+    <import src="/myList/template/activ_temp.wxml" />
+    <view class="cardList myis">
+      <block wx:for="{{dataList}}" wx:key="id" data-key="id">
+        <view class="itembg" style="position: relative;">
+          <!-- <view class="statuss">{{tools.status(item.status)}}</view> -->
+          <template is="activItem" data="{{item,apiimg}}" />
+
+          <view class="flex_row_btw btnboxs">
+            <view class="flex_row_c_c bmrs">
+              <view>已报名人数：</view>
+              <view>{{item.appliedNum}}/{{item.participantsNum}}</view>
+            </view>
+            <!-- <view class="flex_row_c" wx:if="{{item.isApplySign != '0'}}">
+              <view wx:if="{{item.flag}}}}" data-key="{{item.id}}" bindtap="toissue_a" class="btnsis">修改报名</view>
+              <view wx:if="{{item.flag && isApplySign != '1'}}" data-key="{{item.id}}" bindtap="bindCancel" class="btnsis">继续报名</view>
+              <view wx:if="{{!item.flag && isApplySign != '1'}}" data-key="{{item.id}}" bindtap="bindCancel" class="btnsis">立即报名</view>
+            </view> -->
+          </view>
+        </view>
+      </block>
+      <view wx:if="{{total == 0}}" class="emptyimg">
+        <image class="emptyimg" src="/static/empty.png" mode="widthFix"></image>
+      </view>
+    </view>
+
+  </view>
+
+</view>
+<alert isAlert="{{isAlert}}"></alert>
+
+<van-dialog use-slot show="{{ noteShow }}" show-cancel-button closeOnClickOverlay="{{true}}" bind:confirm="noteConfirm">
+  <view class="flex_col_c_c" style="padding-top: 90rpx;">
+    <image style="width: 250rpx;" mode="widthFix" src="/static/logo.png" />
+    <view style="padding: 30rpx 0 50rpx 0;font-size: 28rpx;color: #333;">确定要取消？</view>
+  </view>
+</van-dialog>

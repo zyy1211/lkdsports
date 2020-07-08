@@ -10,8 +10,6 @@
 }
 
 .topbarbg {
-  background-color: white;
-  opacity: 1;
   z-index: 998;
 }
 

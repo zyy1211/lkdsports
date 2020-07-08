@@ -1,0 +1,56 @@
+<view class="signup">
+  <view class="card">
+    <view class="weight lktitle">基本信息</view>
+    <view class="rowItem" style="margin-top: 10rpx;">
+      <view class="left">联系人</view>
+      <view class="right">
+        <van-field disabled="{{disabel}}" input-class="vant_input" data-key="trueName" value="{{ trueName }}" placeholder="请输入联系人"
+          border="{{ false }}" bindinput="bindDate" />
+      </view>
+    </view>
+    <view class="rowItem">
+      <view class="left">联系电话</view>
+      <view class="right flex_row_c">
+        <view class="grow">
+          <van-field disabled="{{disabel}}" input-class="vant_input" maxlength="11" data-key="phone" value="{{ phone }}" placeholder="请输入联系电话"
+            border="{{ false }}" bindinput="bindDate" />
+        </view>
+        <button wx:if="{{!disabel}}" class="getbtn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取</button>
+      </view>
+    </view>
+  </view>
+  <view class="card" style="margin-top: 18rpx;">
+    <view class="weight lktitle">
+      <view class="flex_row_c">
+        <view>报名人员</view>
+        <view style="font-size: 24rpx;color: #666;font-weight: 300;">
+          (此活动还剩{{ activities.participantsNum/1 - activities.appliedNum/1   }}个可报名人数)</view>
+      </view>
+    </view>
+    <view class="rowItem flex_row_c_c" style="margin-top: 10rpx;">
+      <block wx:for="{{activitiesSkuList}}" wx:key="id">
+        <view style="width: 50%;" class="flex_row_c_c">
+          <view class="font283" style="margin-right: 50rpx;">{{item.title}}</view>
+          <view>
+            <van-stepper data-key="{{index}}" integer="{{true}}" value="{{ item.num }}" max="{{item.max}}"
+              min="{{item.min}}" bind:change="stepChange" />
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view wx:if="{{edit}}">
+    <view class="flex_row_c_c fixedSub">
+      <view class="submits" bindtap="submit">修改报名</view>
+    </view>
+  </view>
+  <view wx:else>
+    <view class="flex_row_c_c fixedSub"> 
+      <view class="submits" bindtap="submit"> {{is_user_self==1  ? '立即报名' : '去支付（' + totalNum +'）元'}}</view>
+    </view>
+  </view>
+
+</view>
+<alert isAlert="{{isAlert}}"></alert>
+<computed activitiesSkuList="{{activitiesSkuList}}" bind:wishSuccess="onwishSuccess"></computed>

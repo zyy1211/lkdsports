@@ -1,0 +1,180 @@
+.orderpay {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.bgblue {
+  width: 100vw;
+  height: 35rpx;
+  background-color: #246CFF;
+
+}
+
+.bgnotify {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+
+.notify {
+  height: 70rpx;
+  background-color: white;
+  box-shadow: 0rpx 9rpx 24rpx 0rpx rgba(6, 0, 1, 0.3);
+  border-radius: 5rpx;
+  color: #FFC400;
+  font-size: 24rpx;
+}
+
+.ordercontent {
+  position: absolute;
+  top: 70rpx;
+  right: 0;
+  left: 0;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.ordercard {
+  box-shadow: 0rpx 9rpx 24rpx 0rpx rgba(6, 0, 1, 0.3);
+  border-radius: 10rpx;
+  width: 100%;
+  margin-bottom: 35rpx;
+  box-sizing: border-box;
+}
+
+.title28 {
+  font-size: 28rpx;
+  color: #333;
+  height: 68rpx;
+  line-height: 68rpx;
+  border-bottom: 1rpx solid #E8E8E8;
+  box-sizing: border-box;
+  font-weight: 900;
+}
+
+.padl50 {
+  padding-left: 50rpx;
+  box-sizing: border-box;
+}
+
+.ordertable {
+  padding-bottom: 40rpx;
+}
+
+.addressName {
+  font-size: 24rpx;
+  color: #666;
+  padding: 22rpx 0;
+  box-sizing: border-box;
+  font-weight: 900;
+}
+
+.mar20 {
+  margin: 10rpx 0;
+}
+
+.address {
+  font-size: 22rpx;
+  color: #999;
+  margin-left: 10rpx;
+  align-items: center;
+}
+
+.phone {
+  width: 130rpx;
+  height: 65rpx;
+  border-left: 1rpx solid #E5E5E5;
+  flex-shrink: 0;
+}
+
+.tbth {
+  font-size: 22rpx;
+  color: #999;
+  padding: 20rpx 0;
+  text-align: center;
+}
+
+.tbtd {
+  font-size: 26rpx;
+  color: #333;
+  text-align: center;
+  font-weight: 900;
+  padding: 10rpx 0;
+}
+
+.weeks {
+  width: 90rpx;
+  flex-shrink: 0;
+}
+
+.prices {
+  width: 110rpx;
+  flex-shrink: 0;
+
+}
+
+.time {
+  width: 180rpx;
+  flex-shrink: 0;
+}
+
+.vlno {
+  width: 180rpx;
+  flex-shrink: 0;
+}
+
+.tosett {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 91rpx;
+  font-size: 30rpx;
+  color: #FF0000;
+  font-weight: 900;
+  border-top: 1rpx solid #E6E6E6;
+}
+
+.total {
+  padding-left: 38rpx;
+  box-sizing: border-box;
+}
+
+.money {
+  margin-left: 20rpx;
+}
+
+.sett {
+  width: 250rpx;
+  height: 100%;
+  background-color: #246CFF;
+  border-top-left-radius: 6rpx;
+  border-bottom-left-radius: 6rpx;
+  font-size: 32rpx;
+  color: white;
+  line-height: 90rpx;
+  text-align: center;
+}
+
+.sex_icon {
+  width: 31rpx;
+  height: 37rpx;
+}
+.font269{
+  font-size: 26rpx;
+  color: #999;
+  text-align: center;
+  /* font-weight: 600; */
+}
+.fong229{
+  font-size: 22rpx;
+  color: 999;
+  text-align: center;
+  /* font-weight: 600; */
+}

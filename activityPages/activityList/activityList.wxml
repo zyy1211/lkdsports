@@ -1,13 +1,14 @@
 <view class="relat">
     <view class="dropdownv">
         <van-dropdown-menu>
-            <van-dropdown-item catchtouchmove="_touchmove" bind:change="tabsChange" data-key="time" value="{{ time }}"
+            <van-dropdown-item catchtouchmove="_touchmove" bind:change="tabsChange" data-key="date" value="{{ date }}"
                 options="{{ optionsDate }}" />
-            <van-dropdown-item catchtouchmove="_touchmove" bind:change="tabsChange" data-key="distance"
-                value="{{ distance }}" options="{{ addressList }}" />
-            <van-dropdown-item catchtouchmove="_touchmove" bind:change="tabsChange" data-key="type" value="{{ type }}"
+            <van-dropdown-item popup-style="menuPop" catchtouchmove="_touchmove" bind:change="tabsChange"
+                data-key="distance" value="{{ distance }}" options="{{ addressList }}" />
+            <van-dropdown-item bind:change="changeName" data-key="sportType" value="{{ sportTypeId }}"
                 options="{{ selectType }}" />
         </van-dropdown-menu>
+
     </view>
     <view class="drop_list">
         <view class="drop_grad"></view>
@@ -18,10 +19,16 @@
         </view>
 
         <import src="/pages/component/template/activity_temp.wxml" />
-        <block wx:for="{{[1,2,3,4,5,6]}}">
+        <block wx:for="{{dataList}}" wx:key="id" data-key="id">
             <view class="itembg">
-                <template is="activityItem" data="{{item}}" />
+                <template is="activityItem" data="{{item,apiimg}}" />
             </view>
         </block>
+        <view wx:if="{{total == 0}}" class="emptyimg">
+            <image class="emptyimg" src="/static/empty.png" mode="widthFix"></image>
+        </view>
     </view>
 </view>
+
+<authorize id="authorize"></authorize>
+<alert isAlert="{{isAlert}}"></alert>

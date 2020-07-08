@@ -5,7 +5,7 @@
     <textarea bindinput="bindData" value="{{detailsText}}" class="textareaself" auto-height placeholder="请编辑活动详情……" placeholder-class="pldClass" auto-focus="{{true}}" disable-default-padding="{{true}}" maxlength="-1"></textarea>
   </view>
   <view class="uploadbox">
-    <van-uploader file-list="{{ detailsImageArr }}"  max-count="6" bind:after-read="afterRead" deletable="{{ true }}" bind:delete="delectimg" />
+    <van-uploader file-list="{{ detailsImageArr }}"  max-count="5" bind:after-read="afterRead" deletable="{{ true }}" bind:delete="delectimg" />
   </view>
 </view>
 

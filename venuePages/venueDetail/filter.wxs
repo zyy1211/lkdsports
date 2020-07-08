@@ -60,7 +60,7 @@ var formatDistant = function(str){
   // }
 }
 var formatTime = function(str){
- return str.substring(5).replace('-','/')
+ return str.substring(5).replace(getRegExp('-','g'),'/')
 }
 
 module.exports = {

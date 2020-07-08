@@ -33,7 +33,7 @@
         <view class="padl50 mar20">创建时间：{{order.createTime}}</view>
       </view>
     </view>
-    <wxs src="./filter_o.wxs" module="tools" />
+    <wxs src="../orderpay/filter_o.wxs" module="tools" />
 
     <view class="ordercard" wx:if="{{itemsType == 10}}">
       <view class="title28 flex_row_c">

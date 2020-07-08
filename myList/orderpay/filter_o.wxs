@@ -5,7 +5,7 @@ var formatTime = function (start,end) {
 }
 var formatDay = function(str){
   // console.log(str)
-   return str.split(' ')[0].substring(5).replace('-','/')
+   return str.split(' ')[0].substring(5).replace(getRegExp('-','g'),'/')
 }
 var formatWeek = function(str){
   var week = "周" + "日一二三四五六".charAt((str.substring(3,5))/1);

@@ -1,0 +1,50 @@
+<view class="signlist">
+  <view class="bgblue"></view>
+  <view class="signfixed">
+    <view class="signTab">
+      <view wx:for="{{tablist}}" bindtap="tabChange" wx:key="value" data-key="{{item.value}}"
+        class="itemtab {{status==item.value ? 'activity' :''}}">{{item.name}}</view>
+    </view>
+  </view>
+  <view class="main">
+
+    <view class="totalCard flex_row_c">
+      <view class="totalcount flex_col_c_c">
+        <image style="width: 46rpx;height: 43rpx;" src="/static/total.png" mode="widthFix"></image>
+        <view class="sku">总人数</view>
+        <view class="count">{{total}}人</view>
+      </view>
+      <view class="linhe"></view>
+      <view class="skulist">
+        <view wx:for="{{activitiesSkus}}" wx:key="index" wx:for-item="itm">
+          <image class="sex_icon" style="width: 34rpx;" src="{{apiimg + itm.iconPath}}" mode="widthFix"></image>
+          <view class="sku">{{itm.title}}性</view>
+          <view class="count flex_row_c_c">
+            <view class="cheng">x</view>{{itm.occupyNum}}
+          </view>
+        </view>
+
+      </view>
+    </view>
+    <wxs src="../filter_actvd.wxs" module="tools"></wxs>
+    <view class="itemCard" wx:for="{{activitiesApplySkuVOS}}" wx:key="index">
+      <view class="flex_row_c">
+        <image class="userimg" src="{{item.userInfo.headImage}}" mode="widthFix"></image>
+        <view class="userinfo">
+          <view class="title">{{item.userInfo.nickname}}</view>
+          <view class="time">{{tools.splitTime(item.applySkuLocks[0].createTime)}}</view>
+          <view class="time">{{item.userInfo.phone}}</view>
+        </view>
+        <view>
+          <view class="flex_row_c mart10" wx:for="{{item.applySkuLocks}}" wx:key="index" wx:for-item="itm">
+            <image class="sex_icon" src="{{apiimg + itm.iconPath}}" mode="widthFix"></image>
+            <view class="countsmall flex_row_c_c">
+              <view class="cheng">x</view>{{itm.num}}
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="title flex_row_c_c">总人数<view style="margin: 0 4rpx;">{{item.total}}</view>人</view>
+    </view>
+  </view>
+</view>

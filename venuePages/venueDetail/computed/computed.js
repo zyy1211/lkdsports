@@ -12,6 +12,5 @@ Component({
       this.triggerEvent('wishSuccess', num/100, '');
 
     }
-
   }
 })

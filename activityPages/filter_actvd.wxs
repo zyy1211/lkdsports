@@ -1,0 +1,61 @@
+var isNull = function (str) {
+  if (str == undefined || str == null || str == '' || str == "undefined") {
+    return true;
+  }
+  return false;
+}
+var formatTime = function (star, end,noweek) {
+
+  if (!isNull(star) && !isNull(end)) {
+    console.log('fsfsf')
+    star = star.replace(getRegExp('-','g'),'/');
+    end = end.replace(getRegExp('-','g'),'/');
+    console.log(star)
+    console.log(end)
+    var str = ''
+    var time_st = getDate(star)
+    var time_end = getDate(end)
+    var month1 = time_st.getMonth() + 1;
+    var month2 = time_end.getMonth() + 1;
+    var day1 = time_st.getDate()
+    var day2 = time_end.getDate()
+    var star_arr = star.split(' ')
+    var end_arr = end.split(' ')
+    var weekNo = time_st.getDay();
+    var week = "周" + "日一二三四五六".charAt(weekNo);
+
+    if (day1 == day2) {
+      str =  week + '  ' + month1 + '/' + day1 + ' ' + star_arr[1] + '--' + end_arr[1]
+    } else {
+      str =  week + '  ' + month1 + '/' + day1 + ' ' + star_arr[1] +'--'+ month2 + '/' + day2 +' ' + end_arr[1]
+    }
+    if(noweek==1){
+      str = str.substring(3)
+    }
+    if(noweek == 0){
+      str = str.slice(0,3)
+      // console.log('11111111')
+      // console.log(str)
+    }
+    return str;
+  }
+  return ''
+}
+var formatWeek = function (star) {
+  if (!isNull(star)) {
+    var time_st = getDate(star)
+    var weekNo = time_st.getDay();
+    var week = "周" + "日一二三四五六".charAt(weekNo);
+    return week + ' ' + start
+  }
+}
+var splitTime = function(str){
+  return str.substring(5,16)
+}
+
+
+module.exports = {
+  formatTime: formatTime,
+  formatWeek: formatWeek,
+  splitTime:splitTime
+}

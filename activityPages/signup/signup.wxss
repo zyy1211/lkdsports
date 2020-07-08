@@ -1,0 +1,100 @@
+/* activityPages/signup/signup.wxss */
+
+.signup {
+  padding: 18rpx 30rpx 50rpx;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f3f3f3;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+
+}
+
+.font283 {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.rowItem {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card {
+  width: 100%;
+  border-radius: 10rpx;
+  background-color: white;
+  padding: 22rpx;
+  box-sizing: border-box;
+}
+
+.left {
+  font-size: 28rpx;
+  color: #333;
+  height: 80rpx;
+  line-height: 80rpx;
+  flex-shrink: 0;
+  /* border: 1rpx solid red; */
+}
+
+.right {
+  font-size: 24rpx;
+  color: #666;
+  height: 80rpx;
+  line-height: 80rpx;
+  /* border: 1rpx solid red; */
+  flex-grow: 1;
+  text-align: right;
+  padding-left: 30rpx;
+  box-sizing: border-box;
+
+}
+
+.right .vant_input {
+  /* border: 1rpx solid red; */
+  height: 70rpx;
+  line-height: 70rpx;
+  margin-top: 5rpx;
+  text-align: right;
+  font-size: 24rpx;
+  color: #666;
+}
+
+.getbtn {
+  width: 100rpx;
+  height: 44rpx;
+  background: #246cff;
+  border-radius: 10rpx;
+  text-align: center;
+  color: white;
+  line-height: 44rpx;
+  margin-left: 10rpx;
+  font-size: 22rpx;
+  flex-shrink: 0;
+}
+.fixedSub{
+  position: fixed;
+  bottom: 70rpx;
+  left: 0;
+  right: 0;
+}
+.submits {
+
+  width: 670rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  background: rgba(36, 108, 255, 1);
+  border-radius: 36rpx;
+  color: white;
+  font-size: 34rpx;
+  text-align: center;
+}
+
+.right .van-cell {
+  padding: 0 0;
+}

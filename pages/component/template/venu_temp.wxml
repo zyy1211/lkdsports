@@ -4,7 +4,7 @@
         data-id="{{item.id}}" bindtap="toDetail">
         <view class="ven_main_Img">
           <van-image width="100%" height="100%" use-loading-slot use-error-slot fit="cover" lazy-load
-            src="{{item.image}}">
+            src="{{apiimg + item.image}}">
             <van-loading slot="loading" type="spinner" size="20" vertical />
             <text slot="error">加载失败</text>
           </van-image>

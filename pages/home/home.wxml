@@ -13,7 +13,7 @@
 
     <view class="stickys">
       <view class="typeList flex_row_c_c">
-        <view class="typeItem flex_col_c_c" wx:for="{{mainList}}" wx:key="*this" bindtap="toModalList"
+        <view class="typeItem flex_col_c_c" wx:for="{{mainList}}" wx:key="name" bindtap="toModalList"
           data-key="{{item.url}}">
           <image class="type_img" src="{{item.icon }}" style="border-radius: 50%;"></image>
           <view class="mar_t_20">{{item.name}}</view>
@@ -39,7 +39,7 @@
     <view class="venuesList">
       <import src="/pages/component/template/venu_temp.wxml" />
       <block wx:for="{{dataList}}" wx:key="id" data-key="id">
-        <template is="venueItem" data="{{item}}" />
+        <template is="venueItem" data="{{item,apiimg}}" />
       </block>
       <view class="flex_row_c_c font249" style="line-height: 88rpx;" bindtap="toActiveList"
         data-key="/venuePages/venueList/venueList">
@@ -54,16 +54,16 @@
 
     <view class="cardList">
       <import src="/pages/component/template/activity_temp.wxml" />
-      <block wx:for="{{[1]}}" wx:key="*this">
+      <block wx:for="{{activityList}}" wx:key="id" data-key="id">
         <view class="marb45">
-          <template is="activityItem" data="{{item}}" />
+          <template is="activityItem" data="{{item,apiimg}}" />
         </view>
       </block>
       <view class="flex_row_c_c font249" style="line-height: 88rpx;margin-top: -20rpx;" bindtap="toActiveList"
-      data-key="/activityPages/activityList/activityList">
-      <view>查看更多活动</view>
-      <van-icon size="16" name="arrow" />
-    </view>
+        data-key="/activityPages/activityList/activityList">
+        <view>查看更多活动</view>
+        <van-icon size="16" name="arrow" />
+      </view>
     </view>
   </view>
 </view>

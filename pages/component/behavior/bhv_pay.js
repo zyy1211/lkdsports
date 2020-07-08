@@ -4,15 +4,23 @@ module.exports = Behavior({
   data: {},
   methods: {
     // 支付
-    ordersubmit(e) {
+    ordersubmit(e, signup) {
       let self = this;
+      console.log(signup);
+      let params = e;
+      if (!signup) {
+        params = e.currentTarget.dataset;
+      }
       let {
         oid,
-        bussId,
+        bussid,
         payprice
-      } = e.currentTarget.dataset;
+      } = params;
+
+      payprice = payprice * 100;
+      console.log(params)
       if (payprice == 0) {
-        self.orderSubmitNoPrice(oid,bussId);
+        self.orderSubmitNoPrice(oid, bussid);
         return
       }
       // console.log('fsfsfsf去支付')
@@ -40,7 +48,7 @@ module.exports = Behavior({
             console.log(res)
             if (self.data.iscurrent != 1) {
               wx.navigateTo({
-                url: '/venuePages/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+                url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussid + '&oid=' + oid
               })
 
             } else {
@@ -61,7 +69,7 @@ module.exports = Behavior({
         })
       })
     },
-    orderSubmitNoPrice(oid,bussId) {
+    orderSubmitNoPrice(oid, bussId) {
       let self = this;
       self.show();
       http.get('/pay/noPay/' + oid).then((res) => {
@@ -72,7 +80,7 @@ module.exports = Behavior({
         }
         if (self.data.iscurrent != 1) {
           wx.navigateTo({
-            url: '/venuePages/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+            url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
           })
           return
         } else {
@@ -88,13 +96,16 @@ module.exports = Behavior({
     orderRefund(e) {
       let self = this;
       let currentItem = e.currentTarget.dataset;
-      console.log(currentItem);
-      self.setData({noteShow:true,currentItem});
+      // console.log(currentItem);
+      self.setData({
+        noteShow: true,
+        currentItem
+      });
     },
-    noteConfirm(){
+    noteConfirm() {
       this.orderRefundPrice();
     },
-    orderRefundPrice(){
+    orderRefundPrice() {
       let self = this;
       let currentItem = self.data.currentItem;
       let {
@@ -103,7 +114,7 @@ module.exports = Behavior({
         bussId
       } = currentItem;
       if (payprice == 0) {
-        self.orderRefundNoPrice(oid,bussId)
+        self.orderRefundNoPrice(oid, bussId)
         return;
       }
       self.show();
@@ -119,9 +130,8 @@ module.exports = Behavior({
         }
         if (self.data.iscurrent != 1) {
           wx.navigateTo({
-            url: '/venuePages/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+            url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
           })
-
         } else {
           self.setData({
             successShow: true
@@ -131,7 +141,7 @@ module.exports = Behavior({
       })
     },
 
-    orderRefundNoPrice(oid,bussId) {
+    orderRefundNoPrice(oid, bussId) {
       let self = this;
       self.show();
       http.get('/order/cancel/' + oid).then((res) => {
@@ -144,7 +154,7 @@ module.exports = Behavior({
         if (self.data.iscurrent != 1) {
           console.log('fsfsfsfsfsfs')
           wx.navigateTo({
-            url: '/venuePages/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+            url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
           })
           return
         } else {

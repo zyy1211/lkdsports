@@ -1,0 +1,25 @@
+<template name="activItem">
+  <wxs src="./filter_t.wxs" module="tools" />
+  <view>
+    <view class="flex_row myissue" data-id="{{item.id}}" data-url="/activityPages/activityDetail/activityDetail"
+      bindtap="toDetail">
+     
+      <view class="mainImg">
+        <van-image width="100%" height="100%" radius="6" use-loading-slot use-error-slot fit="cover" lazy-load
+          src="{{apiimg + item.image }}">
+          <van-loading slot="loading" type="spinner" size="20" vertical />
+          <text slot="error">加载失败</text>
+        </van-image>
+      </view>
+      <view class="atv_item">
+        <view class="van-multi-ellipsis--l2 font2639">{{item.title}}</view>
+        <view class="flex_row_btw font249" style="width: 100%;">
+          <view style="width: 200rpx;" class="van-ellipsis grow">{{item.location}}</view>
+        </view>
+        <view class="font249">{{item.startTime}}</view>
+        <view class="flex_row_btw font249" style="width: 100%;">
+        </view>
+      </view>
+    </view>
+  </view>
+</template>

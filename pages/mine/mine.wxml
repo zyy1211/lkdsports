@@ -22,7 +22,7 @@
     </view>
 
     <view class="mineList">
-        <view class="mineitem flex_row_btw border" bindtap="toBlockList" data-url="/myList/mylistVenues/mylistVenues">
+        <view class="mineitem flex_row_btw border" bindtap="toBlockList" data-url="/myList/myorder/myorder">
             <view class="flex_row_c_c">
                 <image class="imgicon" src="/static/mine4.png" mode="widthFix" lazy-load="false"></image>
                 <view class="marleft">我的订单</view>

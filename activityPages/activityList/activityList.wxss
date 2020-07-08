@@ -16,3 +16,7 @@
       box-sizing: border-box;
       margin-bottom: 30rpx;
   }
+  .menuPop{
+      background-color: red;
+      flex-flow: column;
+  }

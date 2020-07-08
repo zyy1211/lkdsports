@@ -3,12 +3,14 @@ let bhv_refresh = require('../../pages/component/behavior/bhv_refresh')
 let bhv_bottom = require('../../pages/component/behavior/bhv_bottom')
 let http = require('../../utils/request')
 let app =  getApp();
+let Api = require('../../utils/config')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    apiimg:Api.API_IMG,
     sportType:'',
     name:'',
     dataList:[],
@@ -22,9 +24,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let self = this;
     app.isLogin(() =>{
-      this.getSportType();
-      this.initData(); 
+      self.getSportType();
+      self.initData(); 
     })
   },
   getData(concat){

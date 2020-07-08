@@ -28,6 +28,7 @@ let bhv_refresh = require('../component/behavior/bhv_refresh')
 
 Page({
     data: {
+        apiimg:Api.API_IMG,
         activityIndex: 0,
         mainList: [{
             name: '活动报名',
@@ -99,15 +100,34 @@ Page({
                 return
             }
             let main = res.response[0].records;
-            let total = res.response[0].total;
             self.setData({
-                dataList: main,
-                total
+                dataList: main
             })
         })
     },
     getActivity() {
-
+        let self = this;
+        self.show();
+        let {
+            latitude,
+            longitude
+        } = this.data;
+        http.get('/activities/activitiesList', {
+            latitude,
+            longitude,
+            pageSize: 3,
+            pageNum: 1
+        }).then((res) => {
+            // console.log(res)
+            self.hide();
+            if (res.code != 200) {
+                return
+            }
+            let main = res.response[0].records;
+            self.setData({
+                activityList: main,
+            })
+        })
     },
     toBannerMain(e) {
         let key = e.currentTarget.dataset.key;

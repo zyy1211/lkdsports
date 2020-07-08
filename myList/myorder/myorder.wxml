@@ -3,14 +3,13 @@
     <van-tabs bind:change="changeNav" line-height="1" color="#246CFF" z-index="99" swipe-threshold='5'>
       <van-tab wx:for="{{navData}}" wx:key="name" title="{{item.name}}"></van-tab>
     </van-tabs>
-
   </view>
-  <wxs src="../../venuePages/orderpay/filter_o.wxs" module="tools" />
+  <wxs src="../orderpay/filter_o.wxs" module="tools" />
   <view class="ven_main">
     <block wx:for="{{dataList}}" wx:key="id">
       <view class="ven_card">
-        <view class="card_title flex_row_btw" bindtap="orderDetail" data-bussId="{{item.bussId}}"
-        data-oid="{{item.parentOid}}">
+        <view class="card_title flex_row_btw" bindtap="orderDetail" data-bussid="{{item.bussId}}"
+        data-oid="{{item.parentOid}}" data-itemstype="{{item.itemsType}}">
           <view class="flex_row_c_c">
             <image class="marlf" style="width: 30rpx;height: 30rpx;" src="" mode="widthFix" src="/static/a1.png">
             </image>
@@ -21,11 +20,11 @@
           <view class="status">{{tools.formatStatus(item.status,item.refStatus,item.itemsType)}}</view>
         </view>
         <block wx:for="{{item.children}}" wx:key="oid" wx:for-item="itm">
-          <view class="itemcon flex_row" bindtap="orderDetail" data-bussId="{{item.bussId}}"
-            data-oid="{{item.parentOid}}">
+          <view class="itemcon flex_row" bindtap="orderDetail" data-bussid="{{item.bussId}}"
+            data-oid="{{item.parentOid}}" data-itemsType="{{item.itemsType}}">
             <view class="imgcon">
               <van-image width="100%" height="100%" use-loading-slot use-error-slot fit="cover" lazy-load
-                src="{{itm.itemsImage}}">
+                src="{{apiimg + itm.itemsImage}}">
                 <van-loading slot="loading" type="spinner" size="20" vertical />
                 <text slot="error">加载失败</text>
               </van-image>
@@ -55,7 +54,7 @@
               </view>
             </view>
 
-            <view class="rights flex_col" wx:if="{{item.itemsType == 10}}">
+            <view class="rights flex_col" >
               <view class="text_r">￥{{itm.itemsPrice/100}}</view>
               <view class="text_r" style="margin-top: 16rpx;">x {{itm.itemsNum}}</view>
             </view>
@@ -69,9 +68,9 @@
           <view class="font206">订单号：{{item.parentOid}}</view>
           <view class="flex_row_c_c">
             <view wx:if="{{item.iscancel}}" class="btn_list out_btn" data-oid="{{item.parentOid}}"
-              data-payprice="{{item.payPrice}}" data-bussId="{{item.bussId}}" bindtap="orderRefund">退款</view>
-            <view wx:if="{{item.isPay}}" class="btn_list" data-payprice="{{payPrice/100}}" data-oid="{{item.parentOid}}"
-              data-bussId="{{item.bussId}}" bindtap="ordersubmit">支付</view>
+              data-payprice="{{item.payPrice}}" data-bussid="{{item.bussId}}" bindtap="orderRefund">退款</view>
+            <view wx:if="{{item.isPay}}" class="btn_list" data-payprice="{{item.payPrice}}" data-oid="{{item.parentOid}}"
+              data-bussid="{{item.bussId}}" bindtap="ordersubmit">支付</view>
           </view>
         </view>
 

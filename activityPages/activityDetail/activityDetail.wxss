@@ -1,18 +1,53 @@
+.activityDetail{
+    padding-bottom: 60rpx;
+}
 .font3439 {
     font-size: 34rpx;
     color: #333;
     font-weight: 900;
 }
+.font2839 {
+    font-size: 28rpx;
+    color: #333;
+    font-weight: 900;
+}
+
+.font246 {
+    font-size: 24rpx;
+    color: #666;
+}
+.font2669 {
+    font-size: 26rpx;
+    color: #666;
+    font-weight: 900;
+}
+.font2269 {
+    font-size: 22rpx;
+    color: #666;
+    font-weight: 900;
+}
+.font22r9{
+    font-size: 22rpx;
+    color: #FF0000;
+    font-weight: 900;
+}
+.font28r9{
+    font-size: 28rpx;
+    color: #FF0000;
+    font-weight: 900;
+}
+
 
 .diagram {
     width: 100vw;
     position: relative;
 }
-.topbarbg{
-    background-color: white;
-    opacity: 0;
+
+.topbarbg {
+ z-index: 998;
 }
-.topbar{
+
+.topbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -22,7 +57,8 @@
     z-index: 99;
 
 }
-.goback{
+
+.goback {
     height: 100%;
     display: flex;
     flex-flow: row nowrap;
@@ -30,10 +66,12 @@
     z-index: 100;
 
 }
-.isgoback{
+
+.isgoback {
     padding: 10rpx 25rpx;
 }
-.iconback{
+
+.iconback {
     width: 50rpx;
     height: 50rpx;
     border-radius: 50%;
@@ -68,73 +106,169 @@
     margin-top: 12rpx;
 }
 
-.docs {
-    width: 6rpx;
-    height: 6rpx;
-    background-color: rgba(153, 153, 153, 1);
-    border-radius: 50%;
-    margin: 0 16rpx;
-}
-
 .martb30 {
     margin: 30rpx 0;
 }
 
-.text {
-    line-height: 40rpx;
-    margin-bottom: 10rpx;
+.sex_icon {
+    width: 31rpx;
+    height: 37rpx;
 }
 
-.rate {
-    color: #fcd62c;
-    font-size: 32rpx;
-}
-
-.adr {
-    width: 34rpx;
-    height: 34rpx;
+.ad_icon {
+    width: 28rpx;
+    height: 30rpx;
     flex-shrink: 0;
-    margin-right: 12rpx;
+    margin-right: 16rpx;
 }
-.isit{
-    height: 70rpx;
+
+.isit {
+    height: 64rpx;
 }
-.tagbtn{
-    padding:10rpx 20rpx;
+
+.tagbtn {
+    padding: 10rpx 20rpx;
     box-sizing: border-box;
     color: #4F6BDA;
     border: 1rpx solid #4F6BDA;
-    background:rgba(79,107,218,0.12);
-    border-radius:20rpx;
+    background: rgba(79, 107, 218, 0.12);
+    border-radius: 20rpx;
     font-size: 22rpx;
     flex-shrink: 0;
     margin-right: 23rpx;
 }
-.isTitle{
+
+.isTitle {
     height: 100rpx;
 }
-.actItem{
-    width: 470rpx;
-    flex-shrink: 0;
+
+.marl12 {
+    margin: 0 30rpx 0 12rpx;
+}
+
+.sexbox {
+    margin: 30rpx 0 20rpx 0;
+}
+
+.imgBox {
+    margin-bottom: 40rpx;
+}
+
+.imgBlock {
+    width: 50rpx;
+    height: 50rpx;
+    border-radius: 25rpx;
+    margin-right: 14rpx;
+}
+
+.userCard {
+    width: 670rpx;
+    height: 250rpx;
     background-color: white;
-    border: 1rpx solid #FFFFFF;
+    box-shadow: 0rpx 9rpx 24rpx 0rpx rgba(4, 0, 0, 0.3);
     border-radius: 20rpx;
+    padding: 30rpx;
+    box-sizing: border-box;
+
 }
-.nopadding{
-    padding: 25rpx 0;
-}
-.weekcl{
-    width: 85rpx;
-    height: 85rpx;
-    box-shadow: 6rpx 0 6rpx #c2c1c1;
+.btn_border{
+    /* width: 245rpx; */
+    flex:1;
+    height: 66rpx;
+    border-radius: 66rpx;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
     align-items: center;
-    border-radius: 5rpx;
+    font-size: 24rpx;
+    color: #666;
+    border:2rpx solid rgba(153,153,153,1);
 }
-.weekActivity{
-    background-color: #246CFF;
+.lkdcollapse .van-cell{
+    padding: 30rpx 0rpx;
+    background-color: transparent;
+}
+
+.detailText{
+    font-size: 24rpx;
+    color: #999;
+    text-indent:2;
+    padding-bottom: 30rpx;
+}
+.detailImg{
+    width: 610rpx;
+    /* height: 100rpx; */
+}
+.fixedBtns{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 90rpx;
+    background-color: white;
+    z-index: 9;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    overflow: hidden;
+}
+.borderg{
+    border-top: 2rpx solid #E6E6E6;
+    flex: 1;
+}
+.fixbtn{
+    width: 274rpx;
+    font-size: 30rpx;
     color: white;
-    box-shadow:none;
+    font-weight: 900;
+    background-color: #246CFF;
+    border-top-left-radius: 6rpx;
+    border-bottom-left-radius: 6rpx;
 }
-.nobottom{
-    
+.twobtn{
+    font-size: 30rpx;
+    color: white;
+    font-weight: 900;
+    background-color: #246CFF; 
+    border-top-left-radius: 6rpx;
+    border-bottom-left-radius: 6rpx;
+}
+.twobtn .fidbtn{
+    flex: 1;
+}
+.sheetBox{
+    position: relative;
+    padding: 80rpx 30rpx;
+
+}
+.sheetbtnBox{
+    position: absolute;
+    top: 20rpx;
+    left: 20rpx;
+    right: 20rpx;  
+}
+.shcancel{
+    position: absolute;
+    top: 0rpx;
+    left: 0rpx;
+}
+.shsure{
+    position: absolute;
+    top: 0rpx;
+    right: 0rpx;
+    z-index: 9999;
+}
+.font20r9{
+    font-size: 20rpx;
+    color: #D91B1B;
+    font-weight: 900;
+}
+.font223{
+    font-size: 22rpx;
+    color: #333;
+}
+.font2439{
+    font-size: 24rpx;
+    color: #333;
+    font-weight: 900;
 }

@@ -4,6 +4,7 @@ let bhv_refresh = require('../../pages/component/behavior/bhv_refresh')
 let bhv_pay = require('../../pages/component/behavior/bhv_pay')
 let unit = require('../../utils/util')
 let app = getApp()
+let Api = require('../../utils/config')
 
 Page({
 
@@ -12,16 +13,17 @@ Page({
    */
   data: {
     iscurrent: 1,
-    successShow:false,
+    successShow: false,
     showToActivity: false,
-    noteShow:false,
+    noteShow: false,
     itemList: [],
     ableRefund: false, //是否可退款
     ableRefundTime: '',
     isOnce: 1, //仅一次
     isNotify: true,
     lastTimer: '',
-    itemsType:'',
+    itemsType: '',
+    apiimg: Api.API_IMG
   },
   behaviors: [bhv_location, bhv_refresh, bhv_pay],
 
@@ -36,6 +38,7 @@ Page({
       oid,
       isOnce
     } = options;
+    console.log(options)
     // bussId = 38;
     // oid = '194038548842680320';
     // isOnce = !1;
@@ -103,6 +106,7 @@ Page({
         detailId: bussId,
         itemsType
       })
+      // console.log(children)
       self.isStatus(createTime, endCancelTime, status, payWay, refStatus)
       self.otherType(itemsType)
 
@@ -113,22 +117,18 @@ Page({
 
     if (refStatus == 30 || refStatus == 20 || refStatus == 10) {
       self.setData({
-        isNotify: true,
+        isNotify: true, 
         ableRefund: false
       })
     } else {
+      // if(status ==100 || status == 101 ||status == 50)
       let time_diff = parseInt((new Date().getTime() - self.formatg(createTime)) / 1000);
-      // console.log(createTime)
-      // console.log(self.formatg(createTime))
-      // console.log((new Date().getTime() - self.formatg(createTime)))
-      // console.log((new Date().getTime() - self.formatg(createTime)) / 1000)
+
       let time_cancel = parseInt((self.formatg(endCancelTime) - new Date().getTime()) / 1000);
       // 待支付
-      // console.log(status)
+
       if (!(status > 20)) {
-        // console.log('《=20')
-        // console.log(status)
-        // console.log(time_diff)
+
         if (time_diff < 300) {
           let leftTime = 300 - time_diff;
           self.setData({
@@ -159,7 +159,7 @@ Page({
           })
         }
       } else {
-        if (status < 50 && status >20 && payWay != 'cash') {
+        if (status < 50 && status > 20 && payWay != 'cash') {
           // console.log(time_cancel)
           // console.log(refStatus)
           // 0: 无退款 10：退款待审核/确认 20: 全额退款成功 30：部分退款成功 40：退款失败
@@ -175,6 +175,10 @@ Page({
               ableRefund: false
             })
           }
+        }else{
+          self.setData({
+            ableRefund: false
+          })
         }
         self.setData({
           isNotify: true
@@ -182,25 +186,32 @@ Page({
       }
     }
   },
-  otherType(itemsType){
+  otherType(itemsType) {
     let self = this;
-    self.venueDtl();
-    if(itemsType == 5){
+    if (itemsType == 5) {
+      self.getSkuList()
+      self.getUserInfo()
+      self.getDetail();
       // 活动
-    }else if(itemsType == 10){
+
+    } else if (itemsType == 10) {
       // 场馆
+      self.venueDtl();
       self.orderDtl();
 
-    }else if(itemsType == 12){
+    } else if (itemsType == 12) {
+      self.venueDtl();
       // 会员卡
-  
-    }else if(itemsType == 15){
+
+    } else if (itemsType == 15) {
+      self.venueDtl();
       // 会员卡充值
-    }else if(itemsType == 20){
+    } else if (itemsType == 20) {
       // 赛事
-    }else if(itemsType == 30){
+    } else if (itemsType == 30) {
       // 商品
-    }else if(itemsType == 40){
+    } else if (itemsType == 40) {
+      self.venueDtl();
       // 次数卡核销
     }
   },
@@ -252,6 +263,88 @@ Page({
       })
     })
   },
+  // 用户信息
+  getUserInfo() {
+    let {
+      bussId
+    } = this.data;
+    let self = this;
+    http.get('/user/getInfo/' + bussId).then((res) => {
+      console.log(res)
+      if (res.code != 200) {
+        return
+      }
+      let main = res.response[0];
+      self.setData({
+        userInfo: main
+      })
+    })
+  },
+
+  getDetail() {
+    let self = this;
+    let {
+      itemsId,
+    } = self.data.order;
+    self.show();
+    http.get('/activities/selectActivity/' + itemsId).then((res) => {
+      self.hide()
+      // console.log(res)
+      if (res.code != 200) {
+        return;
+      }
+      let main = res.response[0];
+
+      let {
+        activities,
+        activitiesSkuList,
+        headImage,
+        activityHeadImage,
+        activityDetailImage,
+        cUserDTO,
+        flag,
+      } = main;
+      self.setData({
+        activities,
+        activitiesSkuList,
+        headImage,
+        activityHeadImage,
+        activityDetailImage,
+        cUserDTO,
+        flag,
+      })
+
+    })
+  },
+
+  getSkuList(){
+    let self = this;
+    let {
+      itemsId,
+    } = this.data.order;
+    let {children} = this.data;
+    http.get('/activities/getApplySku/'+itemsId).then((res) =>{
+      console.log(res)
+      if(res.code !=200){return}
+      let main = res.response[0];
+      let skuMap = new Map()
+      main.forEach((item) =>{
+        skuMap.set(item.id,item.iconPath)
+      })
+      let total = 0; 
+      children.forEach((item) =>{
+        let iconurl = skuMap.get(item.skuId);
+        item['iconurl'] = iconurl;
+        console.log(item)
+        console.log('fsfssf')
+        total +=item.itemsNum *item.itemsPrice
+      })
+ 
+      children = {children,total:(total/100)}
+      console.log(children)
+      self.setData({children})
+    })
+  },
 
   // 倒计时
   // 20<status<=40可退款
@@ -271,6 +364,4 @@ Page({
   formatg(str) {
     return new Date(str.replace(/-/g, '/')).getTime()
   }
-
-
 })

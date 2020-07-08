@@ -2,6 +2,7 @@ let http = require('../../utils/request')
 let bhv_refresh = require('../../pages/component/behavior/bhv_refresh')
 let bhv_bottom = require('../../pages/component/behavior/bhv_bottom')
 let bhv_pay = require('../../pages/component/behavior/bhv_pay')
+let Api = require('../../utils/config')
 let app = getApp()
 
 Page({
@@ -13,6 +14,7 @@ Page({
     isAlert:false,
     noteShow:false,
     activityNav: null,
+    apiimg:Api.API_IMG,
     navData: [{
         name: '全部',
         id: null
@@ -114,7 +116,7 @@ Page({
         return;
       }
       dataList = dataList.concat(neworder)
-      // console.log(dataList.length)
+      // console.log(dataList)
       self.setData({
         dataList,
         total
@@ -122,11 +124,24 @@ Page({
     })
   },
   orderDetail(e) {
-    let bussId = e.currentTarget.dataset.bussId;
+    // console.log(e)
+    let bussId = e.currentTarget.dataset.bussid;
     let oid = e.currentTarget.dataset.oid;
-    wx.navigateTo({
-      url: '/venuePages/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid,
-    })
+    // let itemsType = e.currentTarget.dataset.itemstype;
+    console.log(bussId)
+    console.log(oid)
+    // console.log(itemsType)
+    // return;
+    // if(itemsType==5){
+    //   wx.navigateTo({
+    //     url: '/myList/signpay/signpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid,
+    //   })
+    // }else{
+      wx.navigateTo({
+        url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid,
+      })
+    // }
+
   },
 
   payStatus(item){
@@ -162,8 +177,9 @@ Page({
     this.getData(0);
   },
   formatg(str){
-    return new Date(str.replace(/-/g, '/')).getTime()
+    if(str !='' && str != null && str != undefined){
+      return new Date(str.replace(/-/g, '/')).getTime()
+    }
+   return ''
   }
-
-
 })

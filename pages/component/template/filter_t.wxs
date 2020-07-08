@@ -17,7 +17,7 @@ var formatDistant = function(str){
   //   return ((str/1).toFixed(2)) + 'm'
   // }
   // if(str > 999){
-    return ((str/1000).toFixed(2)) + 'km'
+    return ((str/1000).toFixed(1)) + 'km'
   // }
 }
 

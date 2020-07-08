@@ -8,9 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    detailsImageArr:[],
-    detailsText:'',
-    apiimg:API.API_IMG
+    detailsImageArr: [],
+    detailsText: '',
+    apiimg: API.API_IMG
   },
 
   /**
@@ -18,20 +18,35 @@ Page({
    */
   onLoad: function (options) {
     let issueDetail = JSON.parse(wx.getStorageSync('issueDetail'));
-    console.log(issueDetail)
-    let {detailsImageArr,detailsText} = issueDetail;
+    // console.log(issueDetail)
+    let {
+      detailsImageArr,
+      detailsText
+    } = issueDetail;
+    delete detailsImageArr.activityId;
+    delete detailsImageArr.createTime;
+    delete detailsImageArr.id;
+    delete detailsImageArr.type;
+    delete detailsImageArr.updateTime;
+    // console.log(detailsText)
     console.log(detailsImageArr)
-    console.log(detailsText)
-    this.setData({detailsImageArr,detailsText})
+    this.setData({
+      detailsImageArr,
+      detailsText
+    })
   },
-  bindData(e){
+  bindData(e) {
     // console.log(e)
     let detailsText = e.detail.value;
-    this.setData({detailsText})
+    this.setData({
+      detailsText
+    })
   },
   afterRead(event) {
     let self = this;
-    let { detailsImageArr } = self.data;
+    let {
+      detailsImageArr
+    } = self.data;
     let token = wx.getStorageSync('token');
     const {
       file
@@ -51,13 +66,13 @@ Page({
         console.log(res);
         let datas = JSON.parse(res.data)
         if (datas.code != 200) {
-          if(datas.code == 401){
+          if (datas.code == 401) {
             wx.clearStorageSync();
-            app.isSession(function(){
+            app.isSession(function () {
               self.afterRead(event)
             });
             return
-          }else{
+          } else {
             return wx.showToast({
               title: datas.message,
               icon: 'none',
@@ -67,39 +82,52 @@ Page({
           return
         }
         let urlfile = datas.response[0].url;
-        let {apiimg} = self.data;
-        // console.log(urlfile)
+        let {
+          apiimg
+        } = self.data;
+        detailsImageArr.push({
+          url: apiimg + urlfile,
+          deletable: true,
+          path: urlfile
+        });
         // console.log(detailsImageArr)
-        detailsImageArr.push({url:apiimg + urlfile,deletable:true,path:urlfile});
-        // console.log(detailsImageArr)
-        self.setData({ detailsImageArr });
+        self.setData({
+          detailsImageArr
+        });
         // console.log(self.data)
       },
-      complete:function(){  wx.hideLoading(); }
+      complete: function () {
+        wx.hideLoading();
+      }
     })
   },
-  delectimg(event){
+  delectimg(event) {
     let detailsImageArr = this.data.detailsImageArr;
-    detailsImageArr.splice(event.detail.index,1)
-    this.setData({detailsImageArr})
+    detailsImageArr.splice(event.detail.index, 1)
+    this.setData({
+      detailsImageArr
+    })
     // console.log(event)
 
   },
-  sure(){
-    let {detailsText,detailsImageArr} = this.data;
+  sure() {
+    let {
+      detailsText,
+      detailsImageArr
+    } = this.data;
     // let detailsText = detailsText.split('\n').join('&hc');
     let pages = getCurrentPages();
     let prevPage = pages[pages.length - 2];
     prevPage.setData({
       detailsText,
       detailsImageArr
-  })
-  this.cancel();
+    })
+    this.cancel();
     // console.log(detailsText)
     // console.log(detailsText)
-    // console.log(detailsImageArr)
+    console.log(detailsImageArr)
   },
-  cancel(){
+  cancel() {
     wx.navigateBack({
       delta: 1
     })

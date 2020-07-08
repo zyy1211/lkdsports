@@ -1,34 +1,8 @@
-<!-- <van-action-sheet show="{{ sheetShow }}" z-index="999" overlay="{{true}}" round="{{false}}"
-  close-on-click-overlay="{{true}}" bind:click-overlay="closeSheet">
-  <view class="columnModal">
-    <view class="sheetBtns">
-      <view class="cancelbtn" bindtap="closeSheet">取消</view>
-      <view class="surebtn {{isend ? '' : 'disablebtn'}}" bindtap="sureSheet">确定</view>
-    </view>
-    <picker-view indicator-style="height: 50px;" class="viewSty" value="{{isColume}}" bindchange="bindChange"
-      bindpickstart="pickStart" bindpickend="pickEnd">
-      <picker-view-column>
-        <view wx:for="{{pickList.dayList}}" wx:key="time" class="columnSty">
-          <view style="margin-right: 10rpx;">{{item.week}}</view>
-          <view>{{item.tmShow}}</view>
-        </view>
-      </picker-view-column>
-      <picker-view-column>
-        <view wx:for="{{pickList.hourList}}" wx:key="*this" class="columnSty">{{item}}时
-        </view>
-      </picker-view-column>
-      <picker-view-column>
-        <view wx:for="{{pickList.minuteList}}" wx:key="*this" class="columnSty">
-          {{item}}分</view>
-      </picker-view-column>
-    </picker-view>
-  </view>
-</van-action-sheet> -->
 
 <view class="lkdpicker">
   <van-action-sheet show="{{ sheetShow }}" z-index="999" overlay="{{true}}" round="{{false}}"
   close-on-click-overlay="{{true}}" bind:click-overlay="closeSheet">
-  <van-picker show-toolbar columns="{{ pickList }}" value-key="week" default-index="{{ defaultIndex }}"
+  <van-picker id="lkdvanpicker" show-toolbar columns="{{ pickList }}" value-key="tmShow"
     bind:cancel="onCancel" bind:confirm="onConfirm" />
 </van-action-sheet>
 </view>

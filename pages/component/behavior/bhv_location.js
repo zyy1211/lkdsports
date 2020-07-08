@@ -4,9 +4,24 @@ module.exports = Behavior({
   methods: {
     makeCall(e) {
       let phone = e.currentTarget.dataset.key;
+      
       wx.makePhoneCall({
         phoneNumber: phone
       })
+    },
+    makeWx: function (e) {
+      let vxNum = e.currentTarget.dataset.key;
+      wx.setClipboardData({
+        data: vxNum,
+        success: function () {
+          // wx.showModal({
+          //   title: "提示",
+          //   content: "微信号已复制到剪切板",
+          //   showCancel: !1,
+          //   confirmText: "知道了"
+          // });
+        }
+      });
     },
     openMap() {
       let self = this;
@@ -67,6 +82,12 @@ module.exports = Behavior({
         });
       })
     },
+    string_to_arr(str){
+      if(str != '' && str != null){
+        str = str.substring(0,str.length-1);
+        return str.split(',')
+      }
+    }
 
 
 

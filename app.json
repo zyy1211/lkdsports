@@ -1,21 +1,27 @@
 {
   "pages": [
-    "activityPages/issue_a/issue_a",
     "pages/home/home",
-    "activityPages/issueDetail/issueDetail",
-
-    "activityPages/img-cropper/img-cropper",
-
-    "myList/mylistVenues/mylistVenues",
-    "venuePages/venueDetail/venueDetail",
-    "venuePages/venueList/venueList",
-    "venuePages/orderpay/orderpay",
-    "pages/mine/mine",
     "activityPages/activityDetail/activityDetail",
     "activityPages/activityList/activityList",
+    "venuePages/venueList/venueList",
+    "activityPages/issue_a/issue_a",
+    "activityPages/issueDetail/issueDetail",
+    "activityPages/img-cropper/img-cropper",
+    "myList/myorder/myorder",
+    "venuePages/venueDetail/venueDetail",
+    "myList/orderpay/orderpay",
+    "pages/mine/mine",
     "pages/test/test",
     "pages/userInfo/userInfo",
-    "pages/webview/webview"
+    "pages/webview/webview",
+    "activityPages/signup/signup",
+    "myList/signpay/signpay",
+    "activityPages/signlist/signlist",
+    "myList/myIssue/myIssue",
+    "myList/myJoin/myJoin",
+    "myList/mytmplt/mytmplt",
+    "venuePages/settledIn/settledIn"
+
   ],
   "tabBar": {
     "selectedColor": "#246CFF",
@@ -61,7 +67,9 @@
     "van-switch": "vant/dist/switch/index",
     "van-action-sheet": "vant/dist/action-sheet/index",
     "van-picker": "vant/dist/picker/index",
-    "van-uploader": "vant/dist/uploader/index"
+    "van-uploader": "vant/dist/uploader/index",
+    "van-radio": "vant/dist/radio/index",
+    "van-radio-group": "vant/dist/radio-group/index"
   },
   "permission": {
     "scope.userLocation": {

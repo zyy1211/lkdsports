@@ -1,36 +1,38 @@
-
 <template name="activityItem">
+  <wxs src="./filter_t.wxs" module="tools" />
+  <view class="listItem flex_row" data-id="{{item.id}}" data-url="/activityPages/activityDetail/activityDetail"
+    bindtap="toDetail">
+    <van-button class="expand" round type="default" size="mini">{{item.type_name}}</van-button>
+    <view class="mainImg">
+      <van-image width="100%" height="100%" radius="6" use-loading-slot use-error-slot fit="cover" lazy-load
+        src="{{apiimg + item.image }}">
+        <van-loading slot="loading" type="spinner" size="20" vertical />
+        <text slot="error">加载失败</text>
+      </van-image>
+    </view>
 
-  <view class="listItem flex_row" data-id="{{item.id}}" data-url="/activityPages/activityDetail/activityDetail" bindtap="toDetail">
-      <van-button class="expand" round type="default" size="mini">{{item.expand}}羽毛</van-button>
-      <view class="mainImg">
-        <van-image width="100%" height="100%" radius="6" use-loading-slot use-error-slot fit="cover" lazy-load src="{{apiImg + item.imageUri }}">
-          <van-loading slot="loading" type="spinner" size="20" vertical />
-          <text slot="error">加载失败</text>
-        </van-image>
+    <view class="atv_item">
+      <view class="van-multi-ellipsis--l2 font2639">{{item.title}}</view>
+      <view class="flex_row_btw font249" style="width: 100%;">
+        <view style="width: 200rpx;" class="van-ellipsis grow">{{item.location}}</view>
+        <view style="flex-shrink: 0;width: 100rpx;text-align: right;">{{tools.formatDistant(item.distance)}}</view>
       </view>
-
-      <view class="atv_item">   
-        <view class="van-multi-ellipsis--l2 font2639">{{item.title}}羽毛羽毛羽毛羽毛羽毛羽羽毛羽毛羽毛羽毛羽羽毛羽毛羽毛羽毛羽毛羽毛毛羽毛毛</view>
-        <view class="flex_row_btw font249" style="width: 100%;">
-          <view style="width: 200rpx;" class="van-ellipsis grow">{{item.location}}羽毛</view>
-          <view style="flex-shrink: 0;width: 100rpx;text-align: right;">{{item.distance}}11km</view>
+      <view class="font249">{{item.start_time}}</view>
+      <view class="flex_row_btw font249" style="width: 100%;">
+        <view class="flex_row" style="line-height:44rpx;">
+          <view>已报名：</view>
+          <view class="font2639">{{item.applied_num}}</view>
+          <view>/{{item.participants_num}}</view>
         </view>
-        <view class="font249">{{item.setime}}11-55-66</view>
-        <view class="flex_row_btw font249" style="width: 100%;">
-          <view class="flex_row" style="line-height:44rpx;">
-            <view>已报名：</view>
-            <view class="font2639">{{item.appliedNum}}1</view>
-            <view>/{{item.participantsNum}}5</view>
-          </view>
 
-          <view wx:if="{{ item.chargeMode == 0 }}" class="font3409" >免费</view>
-          <view wx:elif="{{ item.chargeMode == 2 }}" class="font3409" >线下收费</view>
-          <view wx:else class="flex_row_c">
-            <view class="font3409">{{item.price}}30</view>
-            <view>元起</view>
-          </view>
+        <view wx:if="{{ item.charge_mode == 0 }}" class="font3409">免费</view>
+        <view wx:elif="{{ item.charge_mode == 20 }}" class="font3409">线下收费</view>
+        <view wx:elif="{{ item.charge_mode == 30 }}" class="font3409">AA收款</view>
+        <view wx:else class="flex_row_c">
+          <view class="font3409">{{item.low_price == null ? 0 : item.low_price/100}}</view>
+          <view>元起</view>
         </view>
       </view>
     </view>
+  </view>
 </template>

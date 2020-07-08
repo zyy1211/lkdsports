@@ -1,7 +1,11 @@
 // activityPages/activityDetail/activityDetail.js
 
+let Api = require('../../utils/config')
 let bhv_back = require('../../pages/component/behavior/bhv_back.js');
 let bhv_refresh = require('../../pages/component/behavior/bhv_refresh.js');
+let bhv_location = require('../../pages/component/behavior/bhv_location')
+let http = require('../../utils/request')
+let app = getApp();
 
 Page({
 
@@ -9,267 +13,184 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // opacity:0,
-    // barHeight:app.globalData.barHeight,
-    // height:app.globalData.height,
-    arr:[{status:1},{status:1},{status:1},{status:0},{status:2},{status:2},{status:0},{status:3},{status:3},{status:3},{status:3},{status:0}],
-    typeList: [{
-      sportsName: '羽毛球'
-    }, {
-      sportsName: '篮球'
-    }, {
-      sportsName: '网球'
-    }, {
-      sportsName: '羽毛球'
-    }],
-    activityIndex: 0,
-    isweek: 0,
-    businessHours: '09:00-22:00',
-    weekCode: '01',
-    tableData: {
-      "bVenueFieldCopyList": [{
-          "lockList": [{
-              "originalPrice": 45,
-              "configId": 3,
-              "price": 45,
-              "id": 1,
-              "status": 1,
-              "dataCode": "0010111-12"
-            },
-            {
-              "originalPrice": 45,
-              "configId": 5,
-              "price": 60,
-              "id": 2,
-              "status": 1,
-              "dataCode": "0010109-10"
-            },
-            {
-              "originalPrice": 45,
-              "configId": 5,
-              "price": 60,
-              "id": 3,
-              "status": 2,
-              "dataCode": "0010110-11"
-            }
-          ],
-          "name": "1号馆",
-          "id": 1,
-          "code": '001',
-          "configList": [{
-              "seniorConfigId": 2,
-              "baseConfigId": 1,
-              "mergeIdentification": "2-0",
-              "id": 1,
-              "dataCode": "0010109-10",
-              "basePrice": 45,
-              "peice": 60
-            },
-            {
-              "seniorConfigId": 2,
-              "baseConfigId": 1,
-              "mergeIdentification": "2-0",
-              "id": 2,
-              "dataCode": "0010110-11",
-              "basePrice": 45,
-              "peice": 60
-            },
-            {
-              "seniorConfigId": 0,
-              "baseConfigId": 1,
-              "mergeIdentification": "",
-              "id": 3,
-              "dataCode": "0010111-12",
-              "basePrice": 45,
-              "peice": 0
-            },
-            {
-              "seniorConfigId": 2,
-              "baseConfigId": 1,
-              "mergeIdentification": "2-1",
-              "id": 4,
-              "dataCode": "0010114-15",
-              "basePrice": 50,
-              "peice": 110
-            },
-            {
-              "seniorConfigId": 2,
-              "baseConfigId": 1,
-              "mergeIdentification": "2-1",
-              "id": 5,
-              "dataCode": "0010115-16",
-              "basePrice": 50,
-              "peice": 110
-            },
-            {
-              "seniorConfigId": 2,
-              "baseConfigId": 1,
-              "mergeIdentification": "2-1",
-              "id": 5,
-              "dataCode": "0010116-17",
-              "basePrice": 50,
-              "peice": 110
-            }
-          ],
-          "type": 0
-        },
-        {
-          "lockList": [],
-          "name": "散客1号馆",
-          "id": 2,
-          "code": '002',
-          "configList": [{
-            "seniorConfigId": 2,
-            "baseConfigId": 1,
-            "mergeIdentification": "",
-            "id": 10,
-            "dataCode": "0020110-12",
-            "basePrice": 45,
-            "peice": 25
-          },{
-            "seniorConfigId": 2,
-            "baseConfigId": 1,
-            "mergeIdentification": "",
-            "id": 10,
-            "dataCode": "0020113-15",
-            "basePrice": 45,
-            "peice": 25
-          },{
-            "seniorConfigId": 2,
-            "baseConfigId": 1,
-            "mergeIdentification": "",
-            "id": 10,
-            "dataCode": "0020115-20",
-            "basePrice": 45,
-            "peice": 25
-          }],
-          "type": 1
-        }
-      ]
-    }
+    radio: '',
+    flag: false,
+    apiimg: Api.API_IMG,
+    activeNames: [],
+    latitude: '',
+    longitude: '',
+    activityId: 8,
+    showSignList: false
   },
-  behaviors: [bhv_back,bhv_refresh],
+  behaviors: [bhv_back, bhv_refresh, bhv_location],
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.initData()
+    let self = this;
+    this.setData({
+      activityId: options.id
+    })
+    app.isLogin(function () {
+      self.initData();
+    })
   },
 
   initData() {
-    let bVenueFieldCopyList = this.data.tableData.bVenueFieldCopyList;
-    let businessHours = this.data.businessHours;
-    let businessHoursArr = businessHours.split('-')
-    let weekCode = this.data.weekCode;
-    let startTime = parseInt(businessHoursArr[0]);
-    let endTime = parseInt(businessHoursArr[1]);
-
-    let lockList = new Map();
-    let configList = new Map();
-    bVenueFieldCopyList.forEach(it => {
-      it.lockList.forEach(item => {
-        lockList.set(item.dataCode, {
-          status: item.status
-        })
+    let self = this;
+    this.selectComponent("#authorize").getAuthorizeLocation((loca) => {
+      let longitude = loca.longitude;
+      let latitude = loca.latitude;
+      self.setData({
+        latitude,
+        longitude,
       })
-      it.configList.forEach(item => {
-        configList.set(item.dataCode, item)
-      })
+      self.getDetail()
     })
-    // console.log(lockList)
-    // console.log(configList)
-    bVenueFieldCopyList.forEach(it => {
-      let table_map = [];
-      if (it.type == 0) {
-        // console.log(it)
-        for (let i = startTime; i < endTime; i++) {
-          let obj = {
-            dataCode: it.code + weekCode + (i < 10 ? ('0' + i) : i) + '-' + ((i + 1) < 10 ? ('0' + (i + 1)) : (i + 1)),
-            status: -1
-          }
-          table_map.push(obj)
-        }
-        let new_table = table_map.map(item => {
-          let cfg = configList.get(item.dataCode)
-          let lok = lockList.get(item.dataCode)
-          if (cfg && lok) {
-            return {
-              ...item,
-              ...cfg,
-              ...lok
-            }
-          }
-          if (cfg && !lok) {
-            return {
-              ...item,
-              ...cfg
-            }
-          }
-          if (!cfg && lok) {
-            return {
-              ...item,
-              ...lok
-            }
-          }
-          return item
-        })
-        it['new_table'] = new_table;
-        // console.log(new_table)
+  },
+  getDetail() {
+    let self = this;
+    let {
+      activityId,
+    } = self.data;
+    self.show();
+    http.get('/activities/selectActivity/' + activityId).then((res) => {
+      self.hide()
+      // console.log(res)
+      if (res.code != 200) {
+        return;
       }
+
+      let main = res.response[0];
+      let {
+        activities,
+        activitiesSkuList,
+        headImage,
+        activityHeadImage,
+        activityDetailImage,
+        cUserDTO,
+        flag,
+        skuLock,
+      } = main;
+      activities.detailsText = activities.detailsText.split('&hc').join('\n');
+
+      activities['tagArr'] = self.string_to_arr(activities.tag);
+      let isApplySign = self.bolapplySign(activities.uptoTime,activities.participantsNum,activities.appliedNum);
+      if(app.isNull(skuLock)){
+        skuLock = [];
+      }
+      console.log(skuLock)
+      let skuLock11 = skuLock.map((list, index) => {
+        let total = 0;
+        let money = 0;
+        list.forEach((item) => {
+          total += item.num;
+          money += (item.num) * item.price
+        })
+        let obj = {};
+        obj['total'] = total;
+        obj['money'] = money/100;
+        obj['list'] = list;
+        obj['index'] = index;
+        // console.log('ffffffffffffffff')
+        // console.log(obj)
+        return obj;
+      })
+      console.log(skuLock11)
+      // console.log(isApplySign)
+      this.setData({
+        activities,
+        activitiesSkuList,
+        headImage,
+        activityHeadImage,
+        activityDetailImage,
+        cUserDTO,
+        flag,
+        skuLock:skuLock11,
+        isApplySign
+      })
+      // console.log(activities)
+      // console.log(activitiesSkuList)
+      // console.log(headImage)
+      // console.log(activityHeadImage)
+      // console.log(activityDetailImage)
+      // console.log(cUserDTO)
     })
   },
-  // 切换
-  tabVenuesList: function (e) {
-    let activityIndex = e.currentTarget.dataset.index;
-    let key = e.currentTarget.dataset.key;
+  bolapplySign(uptoTime,participantsNum,appliedNum){
+    let date  = new Date();
+    let strap = new Date(uptoTime.replace((/-/g),'/'));
+    let timer = strap - date;
+    if(timer > 0){
+      if(participantsNum != appliedNum){
+        console.log(true)
+        return '2'
+      }else{
+        console.log('空')
+        return '1'
+      }
+    }
+    console.log(false)
+    return '0'
+    //  console.log(date)
+    //  console.log(strap)
+    //  console.log(strap - date)
+    //  console.log(participantsNum)
+    //  console.log(appliedNum)
+
+  },
+  toSignup() {
+    let {
+      activities
+    } = this.data;
+    wx.navigateTo({
+      url: '/activityPages/signup/signup?id=' + activities.id,
+    })
+  },
+  updateSign() {
     this.setData({
-      [key]: activityIndex
+      showSignList: true
     })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  onChange(event) {
+    this.setData({
+      activeNames: event.detail,
+    });
+  },
+  radioChange(event) {
+    this.setData({
+      radio: event.detail,
+    });
+  },
+  closeSheet(){
+    this.setData({showSignList:false})
+  },
+  sureSheet(){
+    let {activities,radio} = this.data;
+    console.log(this.data.radio)
+    wx.navigateTo({
+      url: '/activityPages/signup/signup?id=' + activities.id + '&edit=' + radio,
+    })
+    this.closeSheet();
   },
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
+  tosignlist(){
+    let {activityId} = this.data;
+    wx.navigateTo({
+      url: '/activityPages/signlist/signlist?activityId='+activityId,
+    })
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    return{
-      title:'自定义标题',
+    let stap = new Date();
+    let {activities,activityId} = this.data;
+    return {
+      title:activities.title ,
       path: '/activityPages/activityDetail/activityDetail',
-      imageUrl:'/static/111.png'
+      imageUrl: 'http://192.168.0.200:8091/user/actSharePic/' + activityId +'?'+ stap
     }
   }
 })

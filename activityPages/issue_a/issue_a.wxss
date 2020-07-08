@@ -177,7 +177,11 @@
 }
 
 .right_cel .vant_input {
+  text-align: center;
+}
+.other_cel .vant_input {
   text-align: right;
+  padding-right: 20rpx;
 }
 
 .right_cel .van-cell {
@@ -377,12 +381,12 @@
 }
 
 .textar {
-  padding: 24rpx;
-  padding-bottom: 0rpx;
+  padding: 0 24rpx;
   box-sizing: border-box;
   word-break: break-all;
   word-wrap: break-word;
-  white-space: pre-wrap;
+  font-size: 24rpx;
+  color: #999;
 }
 .penalSum{
   font-size: 22rpx;

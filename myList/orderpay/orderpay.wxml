@@ -1,0 +1,197 @@
+<view class="orderpay">
+  <view class="bgblue"></view>
+  <view class="bgnotify">
+    <view class="notify flex_row_c_c">
+      <van-icon size="16" color="#FFC400" name="info" />
+      <view wx:if="{{isNotify}}" style="margin-left: 22rpx;">
+        订单{{tools.formatStatus(order.status,order.refStatus,item.itemsType)}}</view>
+
+      <view wx:if="{{!isNotify}}" style="margin-left: 22rpx;">订单有效期{{lastTimer}}分钟，请在有效期内及时付款</view>
+    </view>
+  </view>
+  <view class="ordercontent">
+
+    <view class="ordercard">
+      <view style="padding: 0 30rpx;">
+        <view class="title28">订单信息</view>
+      </view>
+      <view class="addressName">
+        <view class="padl50 mar20">订单编号：{{order.oid}}</view>
+        <view class="padl50 mar20">创建时间：{{order.createTime}}</view>
+      </view>
+    </view>
+
+    <view class="ordercard" wx:if="{{itemsType != 5}}">
+      <view style="padding: 0 30rpx;">
+        <view class="title28">场馆信息</view>
+      </view>
+
+      <view class="flex_row_btw">
+        <view class="grow padl50">
+          <view class="addressName">{{orderphone.name}}</view>
+          <view class="flex_row_c" style="  padding-bottom: 30rpx;box-sizing: border-box;">
+            <image style="width: 30rpx;" src="/static/adr.png" mode="widthFix"></image>
+            <view class="address">{{orderphone.locationAddress}}</view>
+          </view>
+        </view>
+        <view class="phone flex_row_c_c" data-key="{{orderphone.contactNumber}}" bindtap="makeCall">
+          <image style="width: 33rpx;" src="/static/tel.png" mode="widthFix"></image>
+        </view>
+      </view>
+    </view>
+
+    <view class="ordercard" wx:if="{{itemsType == 5}}">
+      <view style="padding: 0 30rpx;">
+        <view class="title28">发布者信息</view>
+      </view>
+      <view class="flex_row_btw">
+        <view class="grow padl50">
+          <view class="flex_row_c">
+            <image style="width: 82rpx;height: 82rpx;border-radius: 41rpx;flex-shrink: 0;" src="{{userInfo.headImage }}"
+              mode="widthFix"></image>
+            <view class="flex_col_c" style="margin-left: 30rpx;">
+              <view class="flex_row_c">
+                <view class="addressName" style="margin-right: 10rpx;">{{userInfo.nickname}}</view>
+                <image wx:if="{{userInfo.sex == 1}}" style="width: 25rpx;height: 25rpx;" src="/static/mine2.png"
+                  mode="widthFix" lazy-load="false"></image>
+                <image wx:if="{{userInfo.sex == 2}}" style="width: 25rpx;height: 25rpx;" src="/static/mine3.png"
+                  mode="widthFix" lazy-load="false"></image>
+              </view>
+              <view class="flex_row_c" style="padding-bottom: 30rpx;box-sizing: border-box;">
+                <view class="address" style="margin-left:0">{{userInfo.phone}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="phone flex_row_c_c" data-key="{{orderphone.contactNumber}}" bindtap="makeCall">
+          <image style="width: 33rpx;" src="/static/tel.png" mode="widthFix"></image>
+        </view>
+      </view>
+    </view>
+
+    <wxs src="./filter_o.wxs" module="tools" />
+    <wxs src="../../activityPages/filter_actvd.wxs" module="tools_acvd" />
+
+    <view class="ordercard" wx:if="{{itemsType == 5}}">
+
+      <view style="padding:30rpx 30rpx 0;box-sizing: border-box;">
+        <view class="flex_row_btw" style="border-bottom: 1rpx solid #E8E8E8;padding-bottom: 30rpx;">
+          <image style="width: 112rpx;height: 82rpx;border-radius: 10rpx;flex-shrink: 0;"
+            src="{{apiimg + order.itemsImage }}" mode="widthFix"></image>
+          <view class="grow" style="margin-left: 20rpx;">
+            <view class="grow">
+              <view class="flex_row_btw" style="margin-bottom: 10rpx;">
+                <view class="addressName grow van-ellipsis" style="padding: 0;width: 400rpx;">{{activities.title}}
+                </view>
+                <van-icon color="#818181" size="16" name="arrow" />
+              </view>
+              <view class="address grow van-ellipsis" style="margin-left: 0;width: 400rpx;">{{activities.location}}
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+
+      <view class="title28 flex_row_c" style="border-bottom: none;margin-top: 20rpx;">
+        <view style="padding-left:30rpx;">
+          <view>报名信息</view>
+        </view>
+        <view style="color: #FF2222;margin-left: 20rpx;">
+          ({{tools_acvd.formatTime(activities.startTime,activities.endTime,1)}})</view>
+      </view>
+      <view class="ordertable" style="padding: 30rpx;">
+        <view class="flex_row_c">
+          <view class="weeks font269" style="width: 90rpx;">
+            {{tools_acvd.formatTime(children.children[0].startTime,children.children[0].endTime,0)}}</view>
+          <view class="grow flex_row_c_c">
+            <view class="flex_row_c tbtd" wx:for="{{children.children}}" wx:key="index">
+              <image style="margin-right: 10rpx;" class="sex_icon" src="{{apiimg + item.iconurl }}" mode="widthFix">
+              </image>
+              <view class="fong229" style="margin-right: 20rpx;">x{{item.itemsNum}}</view>
+            </view>
+          </view>
+          <view style="width: 160rpx;" class="font269">{{activities.filedNo}}</view>
+          <view style="width: 140rpx;" class="font269">{{children.total}}</view>
+        </view>
+      </view>
+    </view>
+
+
+
+
+    <view class="ordercard" wx:if="{{itemsType == 10}}">
+      <view style="padding: 0 30rpx;">
+        <view class="title28 flex_row_c">
+          <view>预约信息</view>
+          <view style="color: #FF2222;margin-left: 20rpx;">({{tools.formatDay(itemList[0].endTime)}})</view>
+        </view>
+      </view>
+      <view class="ordertable">
+        <view class="flex_row_c_c tbth">
+          <view class="weeks">星期</view>
+          <!-- <view class="weeks">日期</view> -->
+          <view class="time">时间段</view>
+          <view class="vlno">场地号</view>
+          <view class="prices">价格</view>
+          <view class="prices">状态</view>
+        </view>
+
+        <view class="flex_col">
+          <view class="flex_row_c_c tbtd" wx:for="{{itemList}}" wx:key="index">
+            <view class="weeks">{{tools.formatWeek(item.itemsSpecif)}}</view>
+            <!-- <view class="weeks">{{tools.formatDay(item.endTime)}}</view> -->
+            <view class="time">{{tools.formatTime(item.startTime,item.endTime)}}</view>
+            <view class="vlno van-ellipsis">{{tools.blockName(item.itemsTitle)}}</view>
+            <view class="prices van-ellipsis">￥{{item.itemsPrice/100}}</view>
+            <view class="prices van-ellipsis">{{tools.formatStatus(item.status,item.refStatus,item.itemsType)}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="flex_row_btw tosett" wx:if="{{(!isNotify) && !(order.status > 20)}}">
+      <view class="flex_row_c total">
+        <view>合计:</view>
+        <view class="money">￥{{payPrice/100}}</view>
+      </view> 
+      <view class="sett" bindtap="ordersubmit" data-payprice="{{payPrice/100}}" data-oid="{{order.oid}}">立即支付</view>
+    </view>
+
+    <view class="flex_row_btw tosett" wx:if="{{ableRefund}}">
+      <view class="flex_row_c total">
+        <view style="font-size: 26rpx;color: #666;">距离可退款剩余:</view>
+        <view>{{ableRefundTime}}</view>
+      </view>
+      <view class="sett" bindtap="orderRefund" data-oid="{{order.oid}}" data-payPrice="{{order.payPrice}}">退款</view>
+    </view>
+  </view>
+
+</view>
+
+<van-dialog use-slot show="{{ showToActivity }}" show-cancel-button closeOnClickOverlay="{{false}}"
+  bind:confirm="toActivity" bind:cancel="notoActivity">
+  <view class="flex_col_c_c" style="padding-top: 90rpx;">
+    <image style="width: 250rpx;" mode="widthFix" src="/static/logo.png" />
+    <view style="padding: 30rpx 0 50rpx 0;font-size: 28rpx;color: #333;">
+      <view>支付成功！</view>
+      <view style="margin-top: 30rpx;">立即去平台发布活动</view>
+    </view>
+  </view>
+</van-dialog>
+
+
+<van-dialog use-slot show="{{ successShow }}" show-cancel-button closeOnClickOverlay="{{false}}"
+  bind:confirm="showSuccess" bind:cancel="showSuccess">
+  <view class="flex_col_c_c" style="padding-top: 90rpx;">
+    <image style="width: 250rpx;" mode="widthFix" src="/static/logo.png" />
+    <view style="padding: 30rpx 0 50rpx 0;font-size: 28rpx;color: #333;">退款成功！</view>
+  </view>
+</van-dialog>
+
+<van-dialog use-slot show="{{ noteShow }}" show-cancel-button closeOnClickOverlay="{{true}}" bind:confirm="noteConfirm">
+  <view class="flex_col_c_c" style="padding-top: 90rpx;">
+    <image style="width: 250rpx;" mode="widthFix" src="/static/logo.png" />
+    <view style="padding: 30rpx 0 50rpx 0;font-size: 28rpx;color: #333;">确定要退款？</view>
+  </view>
+</van-dialog>
