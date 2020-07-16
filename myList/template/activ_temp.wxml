@@ -6,7 +6,7 @@
      
       <view class="mainImg">
         <van-image width="100%" height="100%" radius="6" use-loading-slot use-error-slot fit="cover" lazy-load
-          src="{{apiimg + item.image }}">
+          src="{{apiimg + item.path }}">
           <van-loading slot="loading" type="spinner" size="20" vertical />
           <text slot="error">加载失败</text>
         </van-image>

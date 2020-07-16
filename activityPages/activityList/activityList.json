@@ -4,6 +4,7 @@
   "backgroundTextStyle": "dark",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "authorize": "/pages/component/authorize/authorize"
+    "authorize": "/pages/component/authorize/authorize",
+    "alert":"/pages/component/alert/alert"
   }
 }

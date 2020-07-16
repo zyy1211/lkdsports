@@ -19,15 +19,22 @@ var formatDistant = function (str) {
   return ((str / 1000).toFixed(1)) + 'km'
   // }
 }
-var status = function (status) {
+var status = function (status,startTime) {
   if (status == 0) {
-    return '未审核'
+    return '审核中'
   }
   if (status == 10) {
     return '审核失败'
   }
   if (status == 20) {
-    return '报名中'
+    startTime = startTime.replace(getRegExp('-', 'g'), '/')
+    var start = getDate(startTime)
+    var time = getDate();
+    var timer = start - time;
+    if (timer > 0) {
+      return '报名中'
+    }
+    return '进行中'
   }
   if (status == 30) {
     return '活动已结束'

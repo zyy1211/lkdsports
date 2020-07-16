@@ -9,7 +9,7 @@
     <block wx:for="{{dataList}}" wx:key="id">
       <view class="ven_card">
         <view class="card_title flex_row_btw" bindtap="orderDetail" data-bussid="{{item.bussId}}"
-        data-oid="{{item.parentOid}}" data-itemstype="{{item.itemsType}}">
+          data-oid="{{item.parentOid}}" data-itemstype="{{item.itemsType}}">
           <view class="flex_row_c_c">
             <image class="marlf" style="width: 30rpx;height: 30rpx;" src="" mode="widthFix" src="/static/a1.png">
             </image>
@@ -54,7 +54,7 @@
               </view>
             </view>
 
-            <view class="rights flex_col" >
+            <view class="rights flex_col">
               <view class="text_r">￥{{itm.itemsPrice/100}}</view>
               <view class="text_r" style="margin-top: 16rpx;">x {{itm.itemsNum}}</view>
             </view>
@@ -69,8 +69,10 @@
           <view class="flex_row_c_c">
             <view wx:if="{{item.iscancel}}" class="btn_list out_btn" data-oid="{{item.parentOid}}"
               data-payprice="{{item.payPrice}}" data-bussid="{{item.bussId}}" bindtap="orderRefund">退款</view>
-            <view wx:if="{{item.isPay}}" class="btn_list" data-payprice="{{item.payPrice}}" data-oid="{{item.parentOid}}"
-              data-bussid="{{item.bussId}}" bindtap="ordersubmit">支付</view>
+            <view wx:if="{{item.isPay}}" class="btn_list out_btn" data-payprice="{{item.payPrice}}"
+              data-oid="{{item.parentOid}}" data-bussid="{{item.bussId}}" bindtap="cancelSubmit">取消</view>
+            <view wx:if="{{item.isPay}}" class="btn_list" data-payprice="{{item.payPrice}}"
+              data-oid="{{item.parentOid}}" data-bussid="{{item.bussId}}" bindtap="ordersubmit">支付</view>
           </view>
         </view>
 
@@ -83,10 +85,33 @@
 </view>
 <alert isAlert="{{isAlert}}"></alert>
 
-<van-dialog use-slot show="{{ noteShow }}" show-cancel-button closeOnClickOverlay="{{true}}"
-  bind:confirm="noteConfirm">
+<van-dialog use-slot show="{{ noteShow }}" show-cancel-button closeOnClickOverlay="{{true}}" bind:confirm="noteConfirm">
   <view class="flex_col_c_c" style="padding-top: 90rpx;">
     <image style="width: 250rpx;" mode="widthFix" src="/static/logo.png" />
-    <view style="padding: 30rpx 0 50rpx 0;font-size: 28rpx;color: #333;">确定要退款？</view>
+    <view style="padding: 30rpx 0 50rpx 0;font-size: 28rpx;color: #333;">{{noteText}}</view> 
   </view>
 </van-dialog>
+
+<view class="selectBox">
+  <view class="flex_row_c_c selectbtn">
+    <view class="itemselt" style="width: 196rpx;" bindtap="changeSort">
+      <image hidden="{{sort != 'desc'}}" class="icon_selt" src="/static/se3.png"></image>
+      <image hidden="{{sort !='asc'}}" class="icon_selt" src="/static/se2.png"></image>
+      <view>下单时间</view>
+    </view>
+    <view class="line"></view>
+    <view style="position: relative;z-index: 9;height: 100%;" bindtap="showSelect">
+      <view class="itemselt" style="width: 154rpx;">
+        <image hidden="{{!selectShow}}" class="icon_selt" src="/static/se1.png"></image>
+        <image hidden="{{selectShow}}" class="icon_selt" src="/static/se5.png"></image>
+        <view>筛选</view>
+      </view>
+      <view class="selectarr" hidden="{{selectShow}}">
+        <block wx:for="{{selectArr}}" wx:key="id">
+          <view bindtap="choiseSelect" data-key="{{item.id}}"
+            class="itemBtn {{itemsType ==item.id ? 'activitytext' : ''}}">{{item.name}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>

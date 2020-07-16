@@ -75,23 +75,23 @@
 				},
 				{
 					"id": 2,
-					"name": "详情",
+					"name": "活动详情",
 					"pathName": "activityPages/activityDetail/activityDetail",
-					"query": "id=45",
+					"query": "id=118",
 					"scene": null
 				},
 				{
 					"id": 3,
 					"name": "报名1",
 					"pathName": "activityPages/signup/signup",
-					"query": "id=38&edit=0",
+					"query": "id=70&edit=0",
 					"scene": null
 				},
 				{
 					"id": 4,
 					"name": "编辑发布",
 					"pathName": "activityPages/issue_a/issue_a",
-					"query": "id=44",
+					"query": "id=104",
 					"scene": null
 				},
 				{
@@ -105,7 +105,7 @@
 					"id": 6,
 					"name": "报名",
 					"pathName": "activityPages/signup/signup",
-					"query": "id=38",
+					"query": "id=126",
 					"scene": null
 				},
 				{
@@ -126,14 +126,14 @@
 					"id": 9,
 					"name": "活动订单",
 					"pathName": "myList/orderpay/orderpay",
-					"query": "bussId=13&oid=200271543941468160&isOnce =!1",
+					"query": "bussId=130&oid=203472164312059904&isOnce =!1",
 					"scene": null
 				},
 				{
 					"id": 10,
 					"name": "报名列表",
 					"pathName": "activityPages/signlist/signlist",
-					"query": "activityId=44",
+					"query": "activityId=93",
 					"scene": null
 				},
 				{
@@ -162,6 +162,55 @@
 					"name": "入驻",
 					"pathName": "venuePages/settledIn/settledIn",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": 15,
+					"name": "场馆详情",
+					"pathName": "venuePages/venueDetail/venueDetail",
+					"query": "id=64",
+					"scene": null
+				},
+				{
+					"id": 16,
+					"name": "入驻成功",
+					"pathName": "venuePages/setSuc/setSuc",
+					"query": "id=53",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的",
+					"pathName": "pages/mine/mine",
+					"query": "activityId=93",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "活动列表",
+					"pathName": "activityPages/activityList/activityList",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "场馆列表",
+					"pathName": "venuePages/venueList/venueList",
+					"query": "id=93",
+					"scene": null
+				},
+				{
+					"id": 20,
+					"name": "入驻审核",
+					"pathName": "venuePages/setCheck/setCheck",
+					"query": "id=108",
+					"scene": null
+				},
+				{
+					"id": 21,
+					"name": "入驻结束",
+					"pathName": "venuePages/setSuccess/setSuccess",
+					"query": "id=108",
 					"scene": null
 				}
 			]

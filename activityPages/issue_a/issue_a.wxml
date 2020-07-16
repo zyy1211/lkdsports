@@ -1,8 +1,11 @@
 <view class="issue_a">
-  <!-- <form catchsubmit="formSubmit"> -->
-  <image bindtap="chooseImage" wx:if="{{headImage != ''}}" style="width:100%;border-radius: 10rpx;"
-    src="{{apiimg + headImage}}" mode="widthFix"></image>
-  <!-- imagePath -->
+
+  <van-image wx:if="{{headImage != ''}}" width="100%" height="100%" use-loading-slot use-error-slot fit="widthFix"
+    lazy-load src="{{apiimg + headImage}}" bindtap="chooseImage">
+    <van-loading slot="loading" type="spinner" size="20" vertical />
+    <text slot="error">加载失败</text>
+  </van-image> 
+
   <view class="cardbg main_img" wx:else bindtap="chooseImage">
     <image style="width:89rpx;height:89rpx" src="/static/actv5.png" mode="widthFix"></image>
     <view style="font-size: 26rpx;color: #333;margin-top: 17rpx;font-weight: 900;">点击添加图片</view>
@@ -115,16 +118,16 @@
               <view class="flex_row_c_c" style="height: 60rpx;" wx:if="{{item.checked}}">
                 <view style="width: 80rpx;">限{{item.title}}</view>
                 <view class="border">
-                  <van-field input-class="vant_input" data-arr="skuTypeListArr"
-                    data-key="maxNum" data-index="{{index}}" value="{{ item.maxNum }}" placeholder=""
-                    border="{{ false }}" bindinput="bindDateArr" bind:blur="bindDateBlue" />
+                  <van-field input-class="vant_input" data-arr="skuTypeListArr" data-key="maxNum" data-index="{{index}}"
+                    value="{{ item.maxNum }}" placeholder="" border="{{ false }}" bindinput="bindDateArr"
+                    bind:blur="bindDateBlue" />
                 </view>
               </view>
             </block>
           </view>
           <view wx:else class="other_cel">
             <van-field input-class="vant_input" data-key="participantsNum" value="{{ participantsNum }}"
-            placeholder="请输入总人数" border="{{ false }}" bindinput="bindDate" />
+              placeholder="请输入总人数" border="{{ false }}" bindinput="bindDate" bind:blur="bindDateAll" />
           </view>
 
         </view>
@@ -147,7 +150,8 @@
       <view class="left">报名费用</view>
       <view class="flex_row_c_c">
         <van-dropdown-menu>
-          <van-dropdown-item disabled="{{disableEdit}}" bind:change="chargeChange" value="{{ chargeMode }}" options="{{ option1 }}" />
+          <van-dropdown-item disabled="{{disableEdit}}" bind:change="chargeChange" value="{{ chargeMode }}"
+            options="{{ option1 }}" />
         </van-dropdown-menu>
         <view
           style="background-color: white;width: 30rpx;height: 30rpx;z-index: 9;margin-left: -10rpx;margin-top: -6rpx;">
@@ -156,11 +160,12 @@
       </view>
     </view>
 
-    <view class="rowItem" wx:if="{{chargeMode == 10}}">
+    <view class="rowItem" hidden="{{chargeMode != 10}}">
       <view class="right_cel flex_row_c_c" style="justify-content: flex-end;">
         <block wx:for="{{skuTypeListArr}}" wx:key="id">
           <view class="flex_row_c_c" wx:if="{{item.checked}}">
-            <image style="width:33rpx;height:41rpx;margin-left: 30rpx;" src="{{ apiimg + item.iconPath}}" mode="widthFix">
+            <image style="width:33rpx;height:41rpx;margin-left: 30rpx;" src="{{ apiimg + item.iconPath}}"
+              mode="widthFix">
             </image>
             <view class="border van_price">
               <van-field disabled="{{disableEdit}}" input-class="vant_input" data-arr="skuTypeListArr" data-key="price"
@@ -190,7 +195,8 @@
           <van-field input-class="vant_input" maxlength="11" data-key="phoneNum" value="{{ phoneNum }}"
             placeholder="请输入联系电话" border="{{ false }}" bindinput="bindDate" />
         </view>
-        <button class="getbtn" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取</button>
+        <button class="getbtn" data-key="phoneNum" open-type="getPhoneNumber"
+          bindgetphonenumber="getPhoneNumber">获取</button>
       </view>
     </view>
 
@@ -224,7 +230,7 @@
         <van-icon style="margin-left: 10rpx;" size="14" color="#999999" name="arrow" />
       </view>
     </view>
-    <view class="rowItem">
+    <view class="rowItem" style="padding-bottom: 20rpx;">
       <view class="left">活动详情</view>
       <view class="right flex_row_c" bindtap="toIssue_detail">
         <view class="grow">
@@ -235,10 +241,10 @@
     </view>
 
     <view class="textar van-multi-ellipsis--l3" wx:if="{{detailsText != ''}}">
-      <text>{{detailsText}}</text>
+      <text>{{detailsText==null ? '' : detailsText}}</text>
     </view>
     <view wx:if="{{detailsImageArr.length != 0}}"
-      style="display:flex;flex-flow: row nowrap;box-sizing: border-box;padding-left: 10rpx;">
+      style="display:flex;flex-flow: row nowrap;box-sizing: border-box;padding-left: 10rpx;padding-bottom: 20rpx;">
       <view wx:for="{{detailsImageArr}}" wx:key="url"
         style="width: 110rpx;height: 110rpx;border: 2rpx solid #999;margin-top: 20rpx;margin-right: 20rpx;box-sizing: border-box;flex-shrink: 0;">
         <van-image width="100%" height="100%" src="{{item.url}}" fit="cover" />
@@ -281,8 +287,9 @@
       <view class="rowItem">
         <view class="left">允许带人</view>
         <view class="right">
-          <van-switch inactive-color="#fff" active-color="#1989fa" active-value="{{1}}" inactive-value="{{0}}" checked="{{ withPeople }}" data-key="withPeople"
-            active-color="#246cff" size="24px" bindinput="switchDate" />
+          <van-switch inactive-color="#fff" active-color="#1989fa" active-value="{{1}}" inactive-value="{{0}}"
+            checked="{{ withPeople }}" data-key="withPeople" active-color="#246cff" size="24px"
+            bindinput="switchDate" />
         </view>
       </view>
       <view class="rowItem">
@@ -301,7 +308,7 @@
       </view>
       <view class="rowItem penalbox" wx:if="{{ isPenal == 1 }}">
         <view class="penalSum">处罚最高比例为报名费的</view>
-        <van-stepper style="color: #333;" disable-input value="{{ penalSum }}" bind:change="penalChange" min="1"
+        <van-stepper disabled="{{disableEdit}}" style="color: #333;" value="{{ penalSum }}" bind:change="penalChange" min="1"
           max="30" />
         <view class="penalSum">%</view>
       </view>
@@ -309,7 +316,7 @@
   </view>
 
   <view class="flex_row_c_c" style="padding: 50rpx 0;">
-    <view class="submit grow" bindtap="submitActive">{{(activityId && isdraft!=1) ? '修改发布' : '立即发布'}}</view>
+    <view class="submit grow" bindtap="submitActive">{{(activityId && isdraft != 1) ? '修改发布' : '立即发布'}}</view>
     <!-- <view class="submitReady">预览</view> -->
   </view>
   <!-- </form> -->

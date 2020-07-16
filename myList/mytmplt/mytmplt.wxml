@@ -1,11 +1,13 @@
 <view class="signlist">
-  <!-- <view class="bgblue"></view> -->
-  <!-- <view class="signfixed">
-    <view class="signTab">
-      <view wx:for="{{tablist}}" bindtap="tabChange" wx:key="value" data-key="{{item.value}}"
-        class="itemtab {{status==item.value ? 'activity' :''}}">{{item.name}}</view>
+  <view class="dropdownv venueList flex_row_c">
+    <view class="lkdSearchs">
+      <van-search value="{{ condition }}" bind:change="changeName" data-key="condition" fieldClass="searchInputbox"
+        shape="round" background="transparent" placeholder="请输入搜索关键词" clearable />
     </view>
-  </view> -->
+  </view>
+  <view class="drop_list">
+    <view class="drop_grad"></view>
+  </view>
   <wxs src="../template/filter_t.wxs" module="tools"></wxs>
   <view class="main" style="padding-top: 30rpx;">
     <import src="/myList/template/activ_temp.wxml" />
@@ -14,15 +16,13 @@
         <view class="itembg" style="position: relative;">
           <!-- <view class="statuss">{{tools.status(item.status)}}</view> -->
           <template is="activItem" data="{{item,apiimg}}" />
-
           <view class="flex_row_btw btnboxs">
             <view class="flex_row_c_c bmrs">
               <view>已报名人数：</view>
               <view>{{item.appliedNum}}/{{item.participantsNum}}</view>
             </view>
             <view class="flex_row_c">
-              <!-- <view wx:if="{{item.isCancel}}" data-key="{{item.id}}" bindtap="toissue_a" class="btnsis">编辑活动</view> -->
-              <!-- <view wx:if="{{item.isCancel}}" data-key="{{item.id}}" bindtap="bindCancel" class="btnsis">取消活动</view> -->
+
               <view data-key="{{item.id}}" bindtap="toissue_a" class="btnsis">使用模板</view>
             </view>
           </view>

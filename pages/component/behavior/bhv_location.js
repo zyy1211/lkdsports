@@ -1,10 +1,10 @@
 const http = require('../../../utils/request.js');
+let app = getApp();
 module.exports = Behavior({
   data: {},
   methods: {
     makeCall(e) {
       let phone = e.currentTarget.dataset.key;
-      
       wx.makePhoneCall({
         phoneNumber: phone
       })
@@ -67,18 +67,26 @@ module.exports = Behavior({
       });
     },
     getPhoneNumber: function (e) {
-      console.log('fs')
+      // console.log('fs')
       let self = this;
-      console.log(e)
+      let keys = e.currentTarget.dataset.key;
+      // console.log(e)
       let params = {
         encryptedData: e.detail.encryptedData,
         iv: e.detail.iv
       }
+      // console.log(e.detail.iv);
+      if(app.isNull(e.detail.iv)){
+        return
+      }
       http.post('/user/getPhone', params).then(function (res) {
         console.log(res)
+        if(res.code != 200){
+          return
+        }
         let phone = res.response[0];
         self.setData({
-          phoneNum: phone
+          [keys]: phone
         });
       })
     },

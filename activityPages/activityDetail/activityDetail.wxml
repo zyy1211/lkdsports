@@ -14,7 +14,7 @@
             </view>
         </view>
     </view>
-    <wxs src="../filter_actvd.wxs" module="tools" />
+    <wxs src="./../filter_actvd.wxs" module="tools" ></wxs>
     <view class="main">
         <view class="flex_row_btw_j">
             <view class="font3439 van-multi-ellipsis--l2">{{activities.title}}</view>
@@ -32,7 +32,7 @@
         <view class="flex_row_c sexbox">
             <block wx:for="{{activitiesSkuList}}" wx:key="id">
                 <image class="sex_icon" src="{{apiimg + item.iconPath }}" mode="widthFix"></image>
-                <view class="font246 marl12">{{item.price}}元/人</view>
+                <view class="font246 marl12">{{item.price/100}}元/人</view>
             </block>
         </view>
 
@@ -42,6 +42,7 @@
         </view>
         <view class="flex_row_c isit">
             <image class="ad_icon" src="/static/actvd6.png" mode="widthFix"></image>
+
             <view class="font263">{{tools.formatTime(activities.startTime,activities.endTime)}}</view>
         </view>
         <view class="flex_row_c isit">
@@ -50,7 +51,7 @@
         </view>
         <view class="flex_row_c isit">
             <image class="ad_icon" src="/static/actvd4.png" mode="widthFix"></image>
-            <view class="font263">{{activities.filedNo}}号场地</view>
+            <view class="font263">{{activities.filedNo}}</view>
         </view>
 
         <view class="flex_row_btw isTitle">
@@ -64,7 +65,7 @@
             <block wx:for="{{ headImage }}" wx:key="*this">
                 <image class="imgBlock" src="{{item}}" mode="cover"></image>
             </block>
-            <image wx:if="headImage.length != 0" class="imgBlock" src="/static/actvd.png" mode="widthFix"></image>
+            <image wx:if="{{headImage.length != 0}}" class="imgBlock" src="/static/actvd.png" mode="widthFix"></image>
 
         </view>
         <view class="userCard">
@@ -74,7 +75,7 @@
                         mode="cover">
                     </image>
                     <view class="flex_row" style="align-items: flex-end;">
-                        <view class="font2839" style="margin: 0 11rpx 0 16rpx;">{{cUserDTO.nickname}}</view>
+                        <view class="font2839" style="margin: 0 11rpx 0 16rpx;">{{ activities.contactName ? activities.contactName : cUserDTO.nickname}}</view>
                         <image wx:if="{{cUserDTO.sex == 1}}" style="width: 25rpx;height: 25rpx;" src="/static/mine2.png"
                             mode="widthFix" lazy-load="false"></image>
                         <image wx:if="{{cUserDTO.sex == 2}}" style="width: 25rpx;height: 25rpx;" src="/static/mine3.png"
@@ -126,14 +127,14 @@
                 <block wx:if="{{isApplySign == '1'}}">
                     <view class="flex_row_c_c borderg" style="height: 100%;">
                         <view class="font2669">结束报名剩余：</view>
-                        <view class="font28r9">10小时20分</view>
+                        <view class="font28r9">{{diff}}</view>
                     </view>
                     <view class="fixbtn flex_row_c_c" bindtap="updateSign">修改报名</view>
                 </block>
                 <block wx:else>
                     <view class="flex_col_c_c borderg" style="height: 100%;flex:2;flex-shrink: 0;">
-                        <view class="font2269">结束报名剩余</view>
-                        <view class="font22r9">10小时20分</view>
+                        <view class="font2269">结束报名剩余:</view>
+                        <view class="font22r9">{{diff}}</view>
                     </view>
                     <view class="flex_row_c_c twobtn" style="flex:3;">
                         <view class="fidbtn flex_row_c_c" bindtap="updateSign">修改报名</view>
@@ -145,10 +146,16 @@
             <view class="fixedBtns" wx:else>
                 <view class="flex_row_c_c borderg" style="height: 100%;">
                     <view class="font2669">结束报名剩余：</view>
-                    <view class="font28r9">10小时20分</view>
+                    <view class="font28r9">{{diff}}</view>
                 </view>
                 <view class="fixbtn flex_row_c_c" bindtap="toSignup">我要报名</view>
             </view>
+        </view>
+        <view wx:if="{{ isApplySign==0 &&  (activities.status==100 || activities.status==101) }}">
+            <view class="fixedBtns">
+                <view class="flex_row_c_c" style="width: 100%;color: #999;font-size: 26rpx;text-align: center;">活动已取消</view>
+            </view>
+            
         </view>
     </view>
 </view>
@@ -159,15 +166,15 @@
     close-on-click-action="{{false}}" bind:click-overlay="closeSheet">
     <view class="sheetBox">
         <view class="sheetbtnBox">
-            <van-button class="shcancel" size="mini" type="default" bindtap="closeSheet">取消</van-button>
-            <van-button class="shsure" size="mini" type="info" bindtap="sureSheet">确定</van-button>
+            <van-button class="shcancel" size="small" type="default" bindtap="closeSheet">取消</van-button>
+            <van-button class="shsure" size="small" type="info" bindtap="sureSheet">确定</van-button>
         </view>
         <van-radio-group value="{{ radio }}" bind:change="radioChange">
             <block wx:for="{{skuLock}}" wx:key="index" wx:for-item="items">
                 <van-radio name="{{items.index}}">
-                    <view class="flex_row_c" style="width:600rpx;">
+                    <view class="flex_row_c" style="width:600rpx;padding-bottom: 20rpx;">
                         <view class="grow">
-                            <view class="font2439" style="margin-bottom: 20rpx;">报名人数{{items.total}}人</view>
+                            <view class="font2439" style="margin-bottom: 10rpx;">报名人数{{items.total}}人</view>
                             <view class="flex_row_c" style="margin-right: 20rpx;">
                                 <block wx:for="{{items.list}}" wx:key="id" wx:for-item="itm">
                                     <image class="sex_icon" src="{{apiimg + itm.iconPath }}" mode="widthFix"></image>

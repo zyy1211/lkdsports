@@ -221,7 +221,7 @@
 }
 
 .glbpadding {
-  padding-bottom: 120rpx;
+  padding-bottom: 160rpx;
 }
 
 .font263 {
@@ -470,6 +470,16 @@ image {
   text-align: justify;
 }
 
+.searchFixed {
+  width: 100vw;
+  height: 100rpx;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  background-color:#568cfb
+}
+
 .dropdownv {
   width: 100vw;
   height: 100rpx;
@@ -478,6 +488,9 @@ image {
   left: 0;
   z-index: 99;
   background: linear-gradient(to bottom, #568cfb, #749ffa);
+}
+.activityDrap{
+  top: 80rpx;
 }
 
 .dropdownv .van-dropdown-menu {
@@ -490,7 +503,7 @@ image {
 
 .drop_list {
   height: 100vh;
-  padding-top: 100rpx;
+  padding-top: 200rpx;
   box-sizing: border-box;
   background-color: #f7f7f7;
 }
@@ -502,6 +515,9 @@ image {
   width: 100%;
   height: 200rpx;
   background: linear-gradient(to bottom, #749ffa, #abc4f8, #dfe6f8, #f7f7f7);
+}
+.activityGrad{
+  top: 180rpx;
 }
 
 .relat {
@@ -532,7 +548,7 @@ image {
 }
 
 .myis .statuss {
-  padding:0 25rpx 0 10rpx;
+  padding: 0 25rpx 0 10rpx;
   height: 56rpx;
   line-height: 56rpx;
   background: white;
@@ -544,4 +560,25 @@ image {
   z-index: 9;
   font-size: 22rpx;
   color: #333;
+}
+
+
+.bgblue {
+  width: 100vw;
+  height: 120rpx;
+  background-color: #246CFF;
+  flex-shrink: 0;
+}
+
+.searchInputbox .field-index--van-field {
+  padding: 0 20rpx !important;
+}
+
+.signfixed .van-search {
+  padding-top: 10rpx;
+}
+
+.lkdSearchs {
+  width: 656rpx;
+  margin: 0 auto;
 }

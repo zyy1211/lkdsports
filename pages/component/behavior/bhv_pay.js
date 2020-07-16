@@ -26,8 +26,8 @@ module.exports = Behavior({
       // console.log('fsfsfsf去支付')
       self.show();
       http.get('/pay/wxPay/' + oid).then((res) => {
-        self.hide();
         if (res.code != 200) {
+          self.hide();
           return
         }
         let main = res.response[0];
@@ -45,27 +45,53 @@ module.exports = Behavior({
           signType: signType,
           paySign: paySign,
           success(res) {
-            console.log(res)
+            // console.log(res)
+            // console.log(self.data.iscurrent)
             if (self.data.iscurrent != 1) {
-              wx.navigateTo({
-                url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussid + '&oid=' + oid
+              self.subscribeMsg(() => {
+                if (self.data.isList) {
+                  wx.navigateTo({
+                    url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussid + '&oid=' + oid
+                  })
+                } else {
+                  wx.redirectTo({
+                    url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussid + '&oid=' + oid
+                  })
+                }
+
               })
 
             } else {
-              self.setData({
-                isOnce: !1,
-                showToActivity: true
-              });
+              self.subscribeMsg(() => {
+                self.setData({
+                  isOnce: !1,
+                  showToActivity: true
+                });
+              })
             }
 
           },
           fail(res) {
+            console.log('fs')
             wx.showToast({
               title: '订单未支付',
               icon: 'none',
               duration: 1000
             });
+            if (self.data.isList) {
+              wx.navigateTo({
+                url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussid + '&oid=' + oid
+              })
+            } else {
+              wx.redirectTo({
+                url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussid + '&oid=' + oid
+              })
+            }
+
           },
+          complete() {
+            self.hide();
+          }
         })
       })
     },
@@ -73,21 +99,33 @@ module.exports = Behavior({
       let self = this;
       self.show();
       http.get('/pay/noPay/' + oid).then((res) => {
-        console.log(res)
+        // console.log(res)
         self.hide();
         if (res.code != 200) {
           return
         }
+
         if (self.data.iscurrent != 1) {
-          wx.navigateTo({
-            url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+          self.subscribeMsg(() => {
+            if (self.data.isList) {
+              wx.navigateTo({
+                url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+              })
+            } else {
+              wx.redirectTo({
+                url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+              })
+            }
+
           })
-          return
         } else {
-          self.setData({
-            isOnce: !1,
-            showToActivity: true
-          });
+          self.subscribeMsg(() => {
+            self.setData({
+              isOnce: !1,
+              showToActivity: true
+            });
+          })
+
         }
 
       })
@@ -98,6 +136,7 @@ module.exports = Behavior({
       let currentItem = e.currentTarget.dataset;
       // console.log(currentItem);
       self.setData({
+        noteText: '确定要退款吗？',
         noteShow: true,
         currentItem
       });
@@ -111,7 +150,7 @@ module.exports = Behavior({
       let {
         oid,
         payprice,
-        bussId
+        bussid: bussId
       } = currentItem;
       if (payprice == 0) {
         self.orderRefundNoPrice(oid, bussId)
@@ -128,14 +167,28 @@ module.exports = Behavior({
         if (res.code != 200) {
           return
         }
+
         if (self.data.iscurrent != 1) {
-          wx.navigateTo({
-            url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+          self.subscribeMsg(() => {
+            if (self.data.isList) {
+              wx.navigateTo({
+                url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+              })
+            } else {
+              wx.redirectTo({
+                url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+              })
+            }
+
           })
+
         } else {
-          self.setData({
-            successShow: true
+          self.subscribeMsg(() => {
+            self.setData({
+              successShow: true
+            })
           })
+
         }
 
       })
@@ -150,16 +203,28 @@ module.exports = Behavior({
         if (res.code != 200) {
           return
         }
+
         console.log(self.data.iscurrent)
         if (self.data.iscurrent != 1) {
-          console.log('fsfsfsfsfsfs')
-          wx.navigateTo({
-            url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+          // console.log('fsfsfsfsfsfs')
+          self.subscribeMsg(() => {
+            if (self.data.isList) {
+              wx.navigateTo({
+                url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+              })
+            } else {
+              wx.redirectTo({
+                url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid
+              })
+            }
+
           })
-          return
+
         } else {
-          self.setData({
-            successShow: true
+          self.subscribeMsg(() => {
+            self.setData({
+              successShow: true
+            })
           })
         }
 
@@ -179,7 +244,16 @@ module.exports = Behavior({
     },
     notoActivity() {
       this.initData();
-    }
+    },
+    subscribeMsg(callback) {
+      wx.requestSubscribeMessage({
+        tmplIds: ['VyY1O6w7tyrP3CI0s11Xam6W95dxdFzcFwQSHzPCqwk', 'WHldGPQ6PCcXLfqHvPnV9vV-0RHk4bjRPKeRcI-K7Lg', 'PouLZYkXLDpxSY0nXqVNsKMH3uVlW3NwtJQjaEVWL_4'],
+        success(res) {},
+        complete() {
+          callback();
+        }
+      })
+    },
 
   },
 

@@ -1,0 +1,36 @@
+
+
+.setSuc {
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  padding-top: 200rpx;
+  /* padding: 0 81rpx; */
+}
+
+.sucImg {
+  width: 318rpx;
+  height: 303rpx;
+  margin-bottom: 50rpx;
+}
+
+.sucText {
+  font-size: 24rpx;
+  color: #F26746;
+  line-height: 56rpx;
+}
+
+.submits {
+  margin: 60rpx auto;
+  width: 300rpx;
+  height: 72rpx;
+  line-height: 72rpx;
+  /* background: rgba(36, 108, 255, 1); */
+  border: 1rpx solid  rgba(36, 108, 255, 1);
+  border-radius: 10rpx;
+  color:rgba(36, 108, 255, 1);
+  font-size: 34rpx;
+  text-align: center;
+}

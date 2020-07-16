@@ -25,7 +25,7 @@ Page({
     itemsType: '',
     apiimg: Api.API_IMG
   },
-  behaviors: [bhv_location, bhv_refresh, bhv_pay],
+  behaviors: [bhv_location, bhv_refresh, bhv_pay], 
 
   /**
    * 生命周期函数--监听页面加载
@@ -38,7 +38,7 @@ Page({
       oid,
       isOnce
     } = options;
-    console.log(options)
+    // console.log(options)
     // bussId = 38;
     // oid = '194038548842680320';
     // isOnce = !1;
@@ -47,7 +47,7 @@ Page({
       oid,
       isOnce
     })
-    console.log(this.data.isOnce)
+    // console.log(this.data.isOnce)
     app.isLogin(() => {
 
       if (isOnce == 1) {
@@ -186,6 +186,12 @@ Page({
       }
     }
   },
+  toActivityDetail(){
+    let id = this.data.order.itemsId;
+    wx.navigateTo({
+      url: '/activityPages/activityDetail/activityDetail?id=' + id,
+    })
+  },
   otherType(itemsType) {
     let self = this;
     if (itemsType == 5) {
@@ -270,7 +276,7 @@ Page({
     } = this.data;
     let self = this;
     http.get('/user/getInfo/' + bussId).then((res) => {
-      console.log(res)
+      // console.log(res)
       if (res.code != 200) {
         return
       }
@@ -324,7 +330,7 @@ Page({
     } = this.data.order;
     let {children} = this.data;
     http.get('/activities/getApplySku/'+itemsId).then((res) =>{
-      console.log(res)
+      // console.log(res)
       if(res.code !=200){return}
       let main = res.response[0];
       let skuMap = new Map()
@@ -335,13 +341,13 @@ Page({
       children.forEach((item) =>{
         let iconurl = skuMap.get(item.skuId);
         item['iconurl'] = iconurl;
-        console.log(item)
-        console.log('fsfssf')
+        // console.log(item)
+        // console.log('fsfssf')
         total +=item.itemsNum *item.itemsPrice
       })
  
       children = {children,total:(total/100)}
-      console.log(children)
+      // console.log(children)
       self.setData({children})
     })
   },

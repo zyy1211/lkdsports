@@ -1,0 +1,10 @@
+
+
+<view class="setSuc">
+  <image class="sucImg" src="/static/suc.png"></image>
+  <view class="sucText">您的申请已提交，在3-5个工作日内进行审核，审核结果</view>
+  <view class="sucText">和商户端登录账号密码会以短信的方式发送至联系人电话,</view>
+  <view class="sucText"> 请注意查看。</view>
+</view>
+
+<view class="submits" bindtap="success">我知道了</view>

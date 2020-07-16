@@ -60,7 +60,7 @@ function GetDateStr(AddDayCount) {
   let dd = new Date();
   dd.setDate(dd.getDate() + AddDayCount); //获取AddDayCount天后的日期  
 
-  let week = "星期" + "日一二三四五六".charAt(dd.getDay());
+  let week = "星期" + "日一二三四五六日".charAt(dd.getDay());
 
   let y = dd.getFullYear();
 

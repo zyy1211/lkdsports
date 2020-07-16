@@ -17,7 +17,7 @@ module.exports = Behavior({
       dd.setDate(dd.getDate() + AddDayCount); //获取AddDayCount天后的日期  
       // console.log(dd.getDay())
     
-      let week = "周" + "日一二三四五六".charAt(dd.getDay());
+      let week = "周" + "日一二三四五六日".charAt(dd.getDay());
       let weekNo = dd.getDay()==0 ? ('07'): ('0' + dd.getDay());
     
       let y = dd.getFullYear();
@@ -118,7 +118,7 @@ module.exports = Behavior({
 
       })
       self.setData({tb_time,tablemain})
-
+      // console.log(JSON.stringify(tablemain))
     },
     formatg(str){
       return new Date(str.replace(/-/g, '/')).getTime()

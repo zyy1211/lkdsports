@@ -68,7 +68,7 @@
         <view>合计:</view>
         <view class="money">￥{{payPrice/100}}</view>
       </view>
-      <view class="sett" bindtap="ordersubmit" data-payprice="{{payPrice/100}}" data-oid="{{order.oid}}">立即支付</view>
+      <view class="sett" bindtap="ordersubmit" data-payprice="{{payPrice/100}}" data-oid="{{order.oid}}" data-bussid="{{order.bussId}}">立即支付</view>
     </view>
 
     <view class="flex_row_btw tosett" wx:if="{{ableRefund}}">

@@ -1,0 +1,21 @@
+@import "../setSuc/setSuc.wxss";
+
+.graycolor3 {
+  color: #333;
+}
+
+.graycolor9 {
+  color: #999;
+}
+
+.setSuctext {
+  /* padding: 0 50rpx; */
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.van-step__title {
+  font-size: 22rpx;
+  color: #333;
+}

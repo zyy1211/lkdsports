@@ -1,11 +1,12 @@
 const Rx = require('../../utils/rxjs');
-const {
-    Observable,
-    pipe,
-    debounceTime,
-    asObservable,
-    throttle
-} = Rx.operators;
+// const {
+//     Observable,
+//     pipe,
+//     debounceTime,
+//     asObservable,
+//     throttle,
+//     throttleTime
+// } = Rx.operators;
 //获取应用实例
 // let util = require('../../utils/util');
 // let QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
@@ -17,10 +18,11 @@ let bhv_refresh = require('../component/behavior/bhv_refresh')
 // var observable = Rx.Observable
 // .create(function(observer) {
 //     observer.next('Jerry'); 
-//     observer.next('Anna');
-// }).pipe(debounceTime(3000))
+// }).pipe(throttleTime(3000))
 
-// var observable = Rx.Observable
+// var myObservable = new Rx.Subject();
+// myObservable.pipe(throttleTime(1000)).subscribe(value => console.log(value));
+
 // .create(function(observer) {
 //     observer.next('Jerry'); 
 //     observer.next('Anna');
@@ -28,12 +30,13 @@ let bhv_refresh = require('../component/behavior/bhv_refresh')
 
 Page({
     data: {
-        apiimg:Api.API_IMG,
+        sportType: '',
+        apiimg: Api.API_IMG,
         activityIndex: 0,
         mainList: [{
             name: '活动报名',
             icon: Api.cvs_img + '/cduan/huodong.png',
-            url: '../activityList/index',
+            url: '/activityPages/activityList/activityList',
         }, {
             name: '赛事报名',
             icon: Api.cvs_img + '/cduan/saishi.png',
@@ -41,14 +44,20 @@ Page({
         }, {
             name: '场馆预约',
             icon: Api.cvs_img + '/cduan/changguan.png',
-            url: '../venuesList/venuesList',
+            url: '/venuePages/venueList/venueList',
         }, {
             name: '我要入驻',
             icon: Api.cvs_img + '/cduan/shangjia.png',
-            url: '',
+            url: '/venuePages/settledIn/settledIn',
         }],
     },
     behaviors: [bhv_refresh],
+    test() {
+        // observable.subscribe(value => console.log(value));
+        // this.test111();
+        myObservable.next('foo');
+    },
+
     onLoad: function () {
         let self = this;
         App.isLogin(function () {
@@ -73,7 +82,7 @@ Page({
     getBanner() {
         let self = this;
         http.get('/index/getPrepareApplet').then((res) => {
-            console.log(res)
+            // console.log(res)
             let main = res.response[0]
             self.setData({
                 banner: main.baners,
@@ -86,11 +95,14 @@ Page({
         self.show();
         let {
             latitude,
-            longitude
+            longitude,
+            sportType
         } = this.data;
+        // console.log(sportType)
         http.get('/venue/venueList', {
             latitude,
             longitude,
+            sportType,
             pageSize: 3,
             pageNum: 1
         }).then((res) => {
@@ -149,11 +161,15 @@ Page({
     },
     // 切换
     tabVenuesList: function (e) {
+        console.log(e)
         let activityIndex = e.currentTarget.dataset.index;
         let sportType = e.currentTarget.dataset.sporttype;
         this.setData({
-            activityIndex
+            activityIndex,
+            sportType
         })
+        console.log(this.data.sportType)
+        this.getVenue();
     },
     // 更多
     toActiveList(e) {
@@ -161,6 +177,22 @@ Page({
         wx.navigateTo({
             url: url
         })
+    },
+
+    toModalList(e) {
+        let key = e.currentTarget.dataset.key;
+        wx.navigateTo({
+            url: key,
+        })
+    },
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function () {
+        return {
+            title: '栎刻动体育',
+            path: '/pages/home/home',
+        }
     }
 
 })

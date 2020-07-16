@@ -1,17 +1,22 @@
 <view class="relat">
-    <view class="dropdownv">
+    <view class="searchFixed">
+        <view class="lkdSearchs">
+            <van-search background="transparent" value="{{ condition }}" bind:change="changeName" data-key="condition"
+                fieldClass="searchInputbox" shape="round" placeholder="请输入搜索关键词" clearable />
+        </view>
+    </view>
+    <view class="dropdownv activityDrap">
         <van-dropdown-menu>
             <van-dropdown-item catchtouchmove="_touchmove" bind:change="tabsChange" data-key="date" value="{{ date }}"
                 options="{{ optionsDate }}" />
             <van-dropdown-item popup-style="menuPop" catchtouchmove="_touchmove" bind:change="tabsChange"
                 data-key="distance" value="{{ distance }}" options="{{ addressList }}" />
-            <van-dropdown-item bind:change="changeName" data-key="sportType" value="{{ sportTypeId }}"
+            <van-dropdown-item bind:change="tabsChange" data-key="sportType" value="{{ sportTypeId }}"
                 options="{{ selectType }}" />
         </van-dropdown-menu>
-
     </view>
     <view class="drop_list">
-        <view class="drop_grad"></view>
+        <view class="drop_grad activityGrad"></view>
     </view>
     <view class="actList cardList">
         <view wx:if="{{false}}" class="emptyimg">

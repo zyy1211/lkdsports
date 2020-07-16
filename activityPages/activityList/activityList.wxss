@@ -2,7 +2,7 @@
 
 .actList{
     position: absolute;
-    top: 0;
+    top: 80rpx;
     left: 0;
     padding: 100rpx 30rpx 0;
     width: 100%;

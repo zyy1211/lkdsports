@@ -20,6 +20,10 @@
   padding: 74rpx 30rpx 50rpx;
   width: 100%;
   box-sizing: border-box;
+  position: absolute;
+  top: 70rpx;
+  left: 0;
+  z-index: 9;
 }
 
 .signfixed {

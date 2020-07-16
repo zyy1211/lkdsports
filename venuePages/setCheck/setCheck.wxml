@@ -1,0 +1,11 @@
+
+
+<view class="setSuc">
+  <image class="sucImg" src="/static/check.png"></image>
+  <view class="sucText" style="font-weight: 900;font-size: 26rpx;">您的申请正在审核中</view>
+  <view class="sucText">审核过程大约需要3-5个工作日，</view>
+  <view class="sucText"> 审核结果端登录账号密码会以短信的方式发送至</view>
+  <view class="sucText">联系人电话，请注意查看。</view> 
+</view>
+
+<view class="submits" bindtap="success">我知道了</view>

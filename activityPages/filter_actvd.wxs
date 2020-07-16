@@ -1,17 +1,20 @@
-var isNull = function (str) {
+var isNull = function (str) { 
   if (str == undefined || str == null || str == '' || str == "undefined") {
     return true;
   }
   return false;
 }
-var formatTime = function (star, end,noweek) {
-
+var formatTime = function (star,end,noweek) {
+  // console.log('fsfsfsf')
+  // console.log(star)
+  // console.log(end)
+  // console.log(noweek)
   if (!isNull(star) && !isNull(end)) {
-    console.log('fsfsf')
+    // console.log('fsfsf')
     star = star.replace(getRegExp('-','g'),'/');
     end = end.replace(getRegExp('-','g'),'/');
-    console.log(star)
-    console.log(end)
+    // console.log(star)
+    // console.log(end)
     var str = ''
     var time_st = getDate(star)
     var time_end = getDate(end)
@@ -22,14 +25,16 @@ var formatTime = function (star, end,noweek) {
     var star_arr = star.split(' ')
     var end_arr = end.split(' ')
     var weekNo = time_st.getDay();
-    var week = "周" + "日一二三四五六".charAt(weekNo);
+    var week = "周" + "日一二三四五六日".charAt(weekNo);
 
     if (day1 == day2) {
       str =  week + '  ' + month1 + '/' + day1 + ' ' + star_arr[1] + '--' + end_arr[1]
     } else {
       str =  week + '  ' + month1 + '/' + day1 + ' ' + star_arr[1] +'--'+ month2 + '/' + day2 +' ' + end_arr[1]
     }
+    // console.log(noweek)
     if(noweek==1){
+      // console.log(str)
       str = str.substring(3)
     }
     if(noweek == 0){
@@ -45,7 +50,8 @@ var formatWeek = function (star) {
   if (!isNull(star)) {
     var time_st = getDate(star)
     var weekNo = time_st.getDay();
-    var week = "周" + "日一二三四五六".charAt(weekNo);
+
+    var week = "周" + "日一二三四五六日".charAt(weekNo);
     return week + ' ' + start
   }
 }

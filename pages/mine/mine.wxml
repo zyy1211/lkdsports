@@ -48,7 +48,7 @@
             <van-icon size="16" name="arrow" />
         </view>
 
-        <view class="mineitem flex_row_btw border" bindtap="toBlockList">
+        <view class="mineitem flex_row_btw border" bindtap="toBlockList" data-url="/myList/myJoin/myJoin">
             <view class="flex_row_c_c">
                 <image class="imgicon" src="/static/mine7.png" mode="widthFix" lazy-load="false"></image>
                 <view class="marleft">我的报名</view>
@@ -56,7 +56,7 @@
             <van-icon size="16" name="arrow" />
         </view>
 
-        <view class="mineitem flex_row_btw border" bindtap="toBlockList">
+        <view class="mineitem flex_row_btw border" bindtap="toBlockList" data-url="/myList/myIssue/myIssue">
             <view class="flex_row_c_c">
                 <image class="imgicon" src="/static/mine8.png" mode="widthFix" lazy-load="false"></image>
                 <view class="marleft">我的发布</view>
@@ -72,7 +72,7 @@
             <van-icon size="16" name="arrow" />
         </view>
         <view class="flex_row_c_c">
-            <image style="width: 650rpx;height: 110rpx;margin-top: 50rpx;" src="/static/mine1.png" mode="widthFix"
+            <image bindtap="tosettledIn"  style="width: 650rpx;height: 110rpx;margin-top: 50rpx;" src="/static/mine1.png" mode="widthFix"
                 lazy-load="false"></image>
         </view>
 

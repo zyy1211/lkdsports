@@ -12,7 +12,8 @@ Page({
     disabel: false,
     is_user_self: 1,
     maxPs: 1,
-    trueName: ''
+    trueName: '',
+    disabled:false,
   },
   behaviors: [bhv_location, bhv_pay],
 
@@ -90,25 +91,24 @@ Page({
         item['num'] = 0;
         if (!app.isNull(edit)) {
           item['skuId'] = skuId;
-          // item['applyId'] = applyId;
           [item.id, item.skuId] = [item.skuId, item.id]
         }
         if (activities.withPeople == 0) {
           // 不能带人
           item.max = 1, maxPs = 1
-        } else {
-          maxPs = item.max
+        } 
+        else {
+          // maxPs = item.max;
+          maxPs = 6;
+
         }
         // 修改
         if (!app.isNull(edit)) {
           let count = objMap.get(item.skuId);
-
           item.max = (item.max < count ? item.max : count);
-          // console.log(item.max)
           item.num = count;
 
         }
-        console.log(item)
       })
       self.setData({
         activities,
@@ -150,20 +150,8 @@ Page({
       choiseNum: e.detail.count
     })
   },
-  subscribeMsg(){
-    wx.requestSubscribeMessage({
-      tmplIds: ['VyY1O6w7tyrP3CI0s11Xam6W95dxdFzcFwQSHzPCqwk','WHldGPQ6PCcXLfqHvPnV9vV-0RHk4bjRPKeRcI-K7Lg'],
-      success (res) {
-        console.log('succ')
-        console.log(res)
-       },
-    })
-  },
   submit() {
     let self = this;
-
-    self.subscribeMsg();
-
     let {
       choiseNum,
       maxPs,
@@ -194,6 +182,9 @@ Page({
       phone,
       trueName
     }
+    if (app.isNull(phone)) {
+      return this.lkdToast('电话号码不能为空')
+    }
     let url = '/activities/apply';
     if (edit) {
       url = '/activities/refund';
@@ -214,17 +205,26 @@ Page({
         trueName,
         applyId: applyId
       }
+    } else {
+      let isnum = applySku.every((item) => {
+        return item.num == 0
+      })
+      if (isnum) {
+        return this.lkdToast('报名人数不能为0')
+      }
     }
-
+    let {disabled} = self.data;
+    if(disabled){return}
+    self.setData({disabled:true})
+    self.show();
     http.post(url, params, 1).then((res) => {
       // console.log(res)
       if (res.code != 200) {
+        self.setData({disabled:false})
+        self.hide();
         return
       }
       let main = res.response[0]
-      wx.navigateBack({
-        delta: 1
-      })
       // console.log(edit)
       if (app.isNull(edit)) {
         totalNum = is_user_self == 1 ? 0 : totalNum;
@@ -233,13 +233,20 @@ Page({
           oid
         } = main;
         self.ordersubmit({
-          bussId,
+          bussid: bussId,
           oid,
           payprice: totalNum
-        },'signup');
+        }, 'signup');
+      } else {
+        self.subscribeMsg(() => {
+          wx.navigateBack({
+            detail: 1
+          })
+        });
       }
     })
   },
+
   lkdToast(title) {
     return wx.showToast({
       title: title,

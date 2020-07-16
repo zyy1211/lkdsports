@@ -146,7 +146,7 @@ App({
       let stap = this.getDateStr(j);
       let pipTime = new Date(stap);
       let weekNo = pipTime.getDay();
-      let week = "周" + "日一二三四五六".charAt(weekNo);
+      let week = "周" + "日一二三四五六日".charAt(weekNo);
       let year = pipTime.getFullYear();
       let month = (pipTime.getMonth() + 1) < 10 ? "0" + (pipTime.getMonth() + 1) : (pipTime.getMonth() + 1);
       let day = pipTime.getDate() < 10 ? "0" + pipTime.getDate() : pipTime.getDate();

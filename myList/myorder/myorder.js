@@ -11,10 +11,51 @@ Page({
    * 页面的初始数据
    */
   data: {
-    isAlert:false,
-    noteShow:false,
+    isList: true,
+    noteText: '确定要退款？',
+    itemsType: null,
+    selectShow: true,
+    sortArr: ['desc', 'asc'],
+    sortCount: 0,
+    sort: 'desc',
+    selectArr: [
+      // {
+      //   name: '默认',
+      //   id: 0
+      // },
+      {
+        name: '活动报名',
+        id: 5
+      },
+      {
+        name: '场馆预约',
+        id: 10
+      },
+      // {
+      //   name: '会员卡',
+      //   id: 12
+      // },
+      // {
+      //   name: '会员卡充值',
+      //   id: 15
+      // },
+      // {
+      //   name: '赛事报名',
+      //   id: 20
+      // },
+      // {
+      //   name: '商品',
+      //   id: 30
+      // },
+      // {
+      //   name: '次数卡核销',
+      //   id: 40
+      // },
+    ],
+    isAlert: false,
+    noteShow: false,
     activityNav: null,
-    apiimg:Api.API_IMG,
+    apiimg: Api.API_IMG,
     navData: [{
         name: '全部',
         id: null
@@ -40,11 +81,15 @@ Page({
     pageSize: 10,
     pageNum: 1
   },
-  behaviors: [bhv_refresh, bhv_bottom,bhv_pay],
+  behaviors: [bhv_refresh, bhv_bottom, bhv_pay],
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+ 
+  },
+  onShow: function () {
     let self = this;
     app.isLogin(() => {
       self.initData();
@@ -52,6 +97,9 @@ Page({
   },
 
   initData() {
+    this.setData({
+      pageNum: 1
+    })
     this.getData(0);
   },
   getData(concat) {
@@ -61,16 +109,25 @@ Page({
       pageSize,
       pageNum: pageNo,
       activityNav,
-      dataList
+      dataList,
+      itemsType,
+      sort
     } = this.data;
     let params = activityNav == 999 ? {
       refStatus: [20, 30]
     } : {
       status: activityNav
     }
+    // console.log({      pageSize,
+    //   pageNo,
+    //   itemsType,
+    //   sort,
+    //   ...params})
     http.post('/order/list', {
       pageSize,
       pageNo,
+      itemsType,
+      sort,
       ...params
     }, 1).then((res) => {
       self.hide();
@@ -87,8 +144,13 @@ Page({
         if (i != 0) {
           let lastitem = orders[i - 1]
           if (item.parentOid == lastitem.parentOid) {
-            if(item.parentOid == item.oid){
+            if (item.parentOid == item.oid) {
               neworder[neworder.length - 1].payPrice = item.payPrice;
+              neworder[neworder.length - 1].status = item.status;
+              neworder[neworder.length - 1].refStatus = item.refStatus;
+              neworder[neworder.length - 1].orderPrice = item.orderPrice;
+              neworder[neworder.length - 1]['isPay'] = self.payStatus(item);
+              neworder[neworder.length - 1]['iscancel'] = self.cancelStatus(item);
             }
             neworder[neworder.length - 1].children.push(item)
           } else {
@@ -128,8 +190,8 @@ Page({
     let bussId = e.currentTarget.dataset.bussid;
     let oid = e.currentTarget.dataset.oid;
     // let itemsType = e.currentTarget.dataset.itemstype;
-    console.log(bussId)
-    console.log(oid)
+    // console.log(bussId)
+    // console.log(oid)
     // console.log(itemsType)
     // return;
     // if(itemsType==5){
@@ -137,29 +199,33 @@ Page({
     //     url: '/myList/signpay/signpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid,
     //   })
     // }else{
-      wx.navigateTo({
-        url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid,
-      })
+    wx.navigateTo({
+      url: '/myList/orderpay/orderpay?isOnce=!1&bussId=' + bussId + '&oid=' + oid,
+    })
     // }
 
   },
 
-  payStatus(item){
+  payStatus(item) {
     let self = this;
-        let time_diff = parseInt((new Date().getTime() - self.formatg(item.createTime)) / 1000);
-        if (!(item.status > 20) && time_diff < 300) {
-          // item.isPay = true
-          return true;
-        }
-        return false;
+    // console.log(item.status)
+    if (item.status == 100 || item.status == 101) {
+      return false
+    }
+    let time_diff = parseInt((new Date().getTime() - self.formatg(item.createTime)) / 1000);
+    if (!(item.status > 20) && time_diff < 300) {
+      // item.isPay = true
+      return true;
+    }
+    return false;
 
   },
-  cancelStatus(item){
+  cancelStatus(item) {
     let self = this;
     // item.iscancel = false;
     let time_cancel = parseInt((self.formatg(item.endCancelTime) - new Date().getTime()) / 1000);
     if (item.status > 20 && item.status < 50 && time_cancel > 0 && (item.refStatus == 0 || item.refStatus == 40)) {
-     return true;
+      return true;
     }
     return false;
   },
@@ -176,10 +242,59 @@ Page({
     })
     this.getData(0);
   },
-  formatg(str){
-    if(str !='' && str != null && str != undefined){
+
+  cancelSubmit(e) {
+
+    let currentItem = {
+      ...e.currentTarget.dataset,
+      payprice: 0
+    };
+    // console.log(currentItem);
+    this.setData({
+      noteText: '确定要取消吗？',
+      noteShow: true,
+      currentItem
+    });
+
+  },
+  showSelect() {
+    let {
+      selectShow
+    } = this.data;
+    this.setData({
+      selectShow: !selectShow
+    })
+  },
+  changeSort() {
+    let {
+      sortCount,
+      sortArr
+    } = this.data;
+    sortCount++;
+    // console.log(sortCount)
+    if (sortCount == 2) {
+      sortCount = 0
+    }
+    this.setData({
+      pageNum: 1,
+      sort: sortArr[sortCount],
+      sortCount
+    })
+    this.getData(0);
+  },
+  choiseSelect(e) {
+    let key = e.currentTarget.dataset.key;
+    this.setData({
+      pageNum: 1,
+      itemsType: key
+    })
+    this.getData(0);
+  },
+
+  formatg(str) {
+    if (str != '' && str != null && str != undefined) {
       return new Date(str.replace(/-/g, '/')).getTime()
     }
-   return ''
+    return ''
   }
 })

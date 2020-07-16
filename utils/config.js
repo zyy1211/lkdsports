@@ -1,10 +1,11 @@
 
 
 
-// let API_HOST = "http://192.168.0.188:8011";
+let API_HOST = "http://192.168.0.188:8011";
 // let API_HOST = "http://192.168.0.200:8091";
+// let API_HOST = "http://192.168.0.124:8011";
 let API_IMG = "https://image.likedong.top";
-let API_HOST = "https://test.like-sports.cn:8011";
+// let API_HOST = "https://test.like-sports.cn:8011";
 // let API_HOST = "https://192.168.0.200:8011";
 
 module.exports = {

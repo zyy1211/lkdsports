@@ -16,6 +16,15 @@
 .font283 {
   font-size: 28rpx;
   color: #333;
+  width: 60rpx;
+  flex-shrink: 0;
+  text-align: right;
+}
+.signup .skulist{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .rowItem {

@@ -12,7 +12,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    disableEdit:false,
+    chargeMode: 10,
+    disableEdit: false,
     penalSum: 30,
     apiimg: API.API_IMG,
     skuTypeListArr: [],
@@ -80,28 +81,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    // console.log(options)
     let self = this;
     app.isLogin(function () {
-      self.getType();
-      self.getSku();
-      let userinfo = app.getInfo();
-      self.setData({
-        contactName: userinfo.nickname,
-        phoneNum: userinfo.phone
-      })
       if (options.id) {
         //草稿 options.isdraft == 1
         self.setData({
           activityId: options.id,
           isdraft: options.isdraft,
-
         })
-        setTimeout(() => {
-          self.getDetail();
-        }, 300);
-
       }
+      self.getType();
+      self.getSku(options.id);
+      let userinfo = app.getInfo();
+      self.setData({
+        contactName: userinfo.nickname,
+        phoneNum: userinfo.phone
+      })
     })
   },
 
@@ -111,12 +107,13 @@ Page({
       activityId,
       defalutTab,
       skuTypeListArr,
-      disableEdit
+      disableEdit,
+      isdraft
     } = self.data;
     self.show();
     http.get('/activities/selectActivity/' + activityId).then((res) => {
       self.hide()
-      console.log(res)
+      // console.log(res)
       if (res.code != 200) {
         return;
       }
@@ -129,8 +126,11 @@ Page({
         activityDetailImage: detailsImageArr,
         type
       } = main;
-      activities.detailsText = activities.detailsText.split('&hc').join('\n');
-      let tagArr = self.string_to_arr(activities.tag);
+      if (!app.isNull(activities.detailsText)) {
+        activities.detailsText = activities.detailsText.split('&hc').join('\n');
+      }
+
+      let tagArr = self.string_to_arr(activities.tag) || [];
       defalutTab.forEach((item) => {
         item.checked = false
       })
@@ -158,16 +158,18 @@ Page({
       let skuidArr = activitiesSkuList.map((item) => {
         return item.title
       })
-
-      console.log(activitiesSkuList)
+      // console.log(skuidArr)
+      // console.log(activitiesSkuList)
       skuTypeListArr = skuTypeListArr.map((item) => {
+        // console.log(skuidArr)
+        // console.log(item.title)
         let indexof = skuidArr.indexOf(item.title);
         if (indexof != -1) {
           return {
             ...activitiesSkuList[indexof],
             checked: true,
             price: activitiesSkuList[indexof].price / 100,
-            minNum:activitiesSkuList[indexof].maxNum
+            minNum: activitiesSkuList[indexof].maxNum
           }
         }
         return item
@@ -206,7 +208,7 @@ Page({
       if (limitType != 0) {
         limitType = true;
       }
-      if(appliedNum != 0){
+      if (appliedNum != 0) {
         disableEdit = true
       }
       // console.log(limitType)
@@ -218,7 +220,10 @@ Page({
         item['isImage'] = true;
         item['path'] = item.path;
       })
-      
+
+      if (isdraft == 1) {
+        disableEdit = false
+      }
       self.setData({
         disableEdit,
         defalutTab,
@@ -232,6 +237,7 @@ Page({
         addressLatitude,
         filedNo,
         participantsNum,
+        participantsNum1:participantsNum,
         limitType,
         skuTypeListArr,
         chargeMode,
@@ -279,10 +285,10 @@ Page({
     })
   },
   switchDate(e) {
-    console.log(e)
+    // console.log(e)
     let key = e.currentTarget.dataset.key;
     let value = e.detail;
-    console.log()
+    // console.log()
     this.setData({
       [key]: value
     })
@@ -318,17 +324,26 @@ Page({
       [keys]: value
     })
   },
-  bindDateBlue(e){
-    let{disableEdit,skuTypeListArr} = this.data;
-    let {arr,index,key} = e.currentTarget.dataset;
+  bindDateBlue(e) {
+    // console.log('fsfssf')
+    let {
+      disableEdit,
+      skuTypeListArr
+    } = this.data;
+    let {
+      arr,
+      index,
+      key
+    } = e.currentTarget.dataset;
     let keys = [arr] + '[' + index + '].' + key;
 
     let value = e.detail.value;
     let minNum = skuTypeListArr[index].minNum;
-    console.log(value)
-    console.log(minNum)
-    if(disableEdit){
-      if(value < minNum){
+    // console.log(value)
+    // console.log(minNum)
+    console.log(disableEdit)
+    if (disableEdit) {
+      if (value < minNum) {
         wx.showToast({
           title: '修改金额不能少于原始金额',
           icon: 'none',
@@ -341,6 +356,26 @@ Page({
       [keys]: value
     })
   },
+  bindDateAll(e) {
+    let disableEdit = this.data.disableEdit;
+    let participantsNum = this.data.participantsNum1;
+    console.log(participantsNum)
+    let value = e.detail.value;
+    if (disableEdit) {
+      if (value < participantsNum) {
+        wx.showToast({
+          title: '修改金额不能少于原始金额',
+          icon: 'none',
+          duration: 3000
+        });
+      }
+      value = value < participantsNum ? participantsNum : value;
+    }
+    this.setData({
+      participantsNum: value
+    })
+  },
+
   toIssue_detail() {
     let {
       detailsImageArr,
@@ -360,7 +395,7 @@ Page({
   uploadImg(url, key) {
     let self = this;
     let token = wx.getStorageSync('token');
-    console.log(url)
+    // console.log(url)
     wx.uploadFile({
       url: API.API_HOST + '/activities/upload',
       header: {
@@ -369,7 +404,7 @@ Page({
       filePath: url,
       name: 'file',
       success(res) {
-        console.log(res);
+        // console.log(res);
         let data = JSON.parse(res.data)
         if (data.code != 200) {
           if (data.code == 401) {
@@ -410,7 +445,7 @@ Page({
       })
     })
   },
-  getSku() {
+  getSku(optid) {
     let self = this;
     http.get('/activities/getSku').then((res) => {
       // console.log(res)
@@ -437,13 +472,20 @@ Page({
       self.setData({
         skuTypeListArr
       })
+      if (optid) {
+        self.getDetail();
+      }
     })
   },
   // 选择
   togg_tag(e) {
     let type = e.currentTarget.dataset.type;
-    let {disableEdit} = this.data;
-    if(disableEdit && type !=1){return}
+    let {
+      disableEdit
+    } = this.data;
+    if (disableEdit && type != 1) {
+      return
+    }
     let key = e.currentTarget.dataset.key;
     let index = e.currentTarget.dataset.index;
     let sku = e.currentTarget.dataset.sku;
@@ -470,8 +512,12 @@ Page({
   },
   // 运动类型
   choiseTab(e) {
-    let {disableEdit} = this.data;
-    if(disableEdit){ return }
+    let {
+      disableEdit
+    } = this.data;
+    if (disableEdit) {
+      return
+    }
     let type = e.currentTarget.dataset.key;
     this.setData({
       type,
@@ -527,11 +573,20 @@ Page({
   changeNum() {
     let {
       limitType,
-      disableEdit
+      disableEdit,
+      skuTypeListArr
     } = this.data;
-    if(disableEdit){return}
+    // console.log(disableEdit)
+    if (disableEdit) {
+      return
+    }
+    skuTypeListArr.forEach((item) => {
+      console.log(item)
+      item.maxNum = item.maxNum == -1 ? '' : item.maxNum
+    })
     this.setData({
-      limitType: !limitType
+      limitType: !limitType,
+      skuTypeListArr
     })
   },
   penalChange(e) {
@@ -541,8 +596,10 @@ Page({
     })
   },
   showPicker(e) {
-    let { disableEdit } = this.data;
-    if(disableEdit){
+    let {
+      disableEdit
+    } = this.data;
+    if (disableEdit) {
       return;
     }
     let key = e.currentTarget.dataset.key;
@@ -564,7 +621,7 @@ Page({
     // console.log(time)
   },
   choisePicker(item) {
-    console.log(item)
+    // console.log(item)
     let {
       currentPicker
     } = this.data;
@@ -591,18 +648,17 @@ Page({
       icon: 'none'
     })
   },
-  subscribeMsg(){
+  subscribeMsg(callback) {
     wx.requestSubscribeMessage({
       tmplIds: ['IiqS5vaBk-c6b2ViA-5Zym8BrmErdVEi3jqfOHeExsA'],
-      success (res) {
-        console.log('succ')
-        console.log(res)
-       },
+      success(res) {},
+      complete() {
+        callback();
+      }
     })
   },
   submitActive() {
     let self = this;
-    self.subscribeMsg();
     let {
       addressLatitude,
       addressLongitude,
@@ -652,9 +708,9 @@ Page({
     if (app.isNull(location)) {
       return self.showToasts('场馆地址')
     }
-    if (app.isNull(filedNo)) {
-      return self.showToasts('场地号')
-    }
+    // if (app.isNull(filedNo)) {
+    //   return self.showToasts('场地号')
+    // }
     if (!limitType && app.isNull(participantsNum)) {
       return self.showToasts('总人数')
     }
@@ -669,10 +725,10 @@ Page({
     }
     if (chargeMode == 10) {
       let isn = skuTypeListArr.some((item) => {
-        return (app.isNull(item.price) == true && item.checked == true)
+        return ( (app.isNull(item.price) == true || item.price == 0) && item.checked == true )
       })
       if (isn) {
-        return self.showToasts('报名费用金额')
+        return self.showToasts('报名费用金额不能为0，')
       }
     }
 
@@ -688,9 +744,9 @@ Page({
     if (app.isNull(endTime)) {
       return self.showToasts('活动结束时间')
     }
-    if (app.isNull(detailsText) && detailsImageArr.length == 0) {
-      return self.showToasts('活动详情')
-    }
+    // if (app.isNull(detailsText) && detailsImageArr.length == 0) {
+    //   return self.showToasts('活动详情')
+    // }
 
     let tag = '';
     defalutTab.forEach((item) => {
@@ -717,11 +773,13 @@ Page({
       return item.checked == true
     })
 
-    skuTypeListArr.forEach((item) =>{
-      item.price = (item.price*100).toFixed(0)
+    skuTypeListArr.forEach((item) => {
+      item.price = (item.price * 100).toFixed(0)
     })
+    if (!app.isNull(detailsText)) {
+      detailsText = detailsText.split('\n').join('&hc');
+    }
 
-    detailsText = detailsText.split('\n').join('&hc');
     let params = {
       addressLatitude,
       addressLongitude,
@@ -749,30 +807,37 @@ Page({
       venueId,
       vxNum,
       limitType,
-      tag 
+      tag
     }
     let url = '/activities/release';
     // activityId,
     // isdraft
-    if(activityId && isdraft !=1){
-      params = {...params,activityId}
+    if (activityId && isdraft != 1) {
+      params = {
+        ...params,
+        activityId
+      }
       url = '/activities/update';
     }
     // console.log(params)
     http.post(url, params, 1).then((res) => {
-      console.log(res)
+      // console.log(res)
       if (res.code == 200) {
-        wx.navigateBack({
-          delta: 1
+        self.subscribeMsg(() => {
+          wx.navigateBack({
+            delta: 1
+          })
         })
+
       }
     })
   },
   formatWeek(star) {
     if (!app.isNull(star)) {
-      var time_st = new Date(star)
+      // console.log(star)
+      var time_st = new Date( star.replace(/-/g, '/') )
       var weekNo = time_st.getDay();
-      var week = "周" + "日一二三四五六".charAt(weekNo);
+      var week = "周" + "日一二三四五六日".charAt(weekNo);
       return week + ' ' + star
     }
   },

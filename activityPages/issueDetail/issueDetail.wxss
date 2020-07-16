@@ -1,9 +1,12 @@
 /* activityPages/issueDetail/issueDetail.wxss */
-
+.issueDetail{
+  padding-bottom: 100rpx;
+}
 .textarea_box {
   padding: 40rpx;
   box-sizing: border-box;
-  max-height: 600rpx;
+  position: relative;
+  /* max-height: 600rpx; */
 }
 
 .pldClass {
@@ -14,11 +17,22 @@
 .textareaself {
   width: 100%;
   min-height: 300rpx;
+  font-size: 24rpx;
+  color: #666;
+  line-height: 46rpx;
+
 }
 
 .uploadbox {
   padding: 30rpx;
   box-sizing: border-box;
+}
+.notetext{
+  font-size: 20rpx;
+  color: #999;
+  position: absolute;
+  bottom: 0;
+  right: 60rpx;
 }
 
 .uploadbox .van-uploader__preview {
@@ -45,6 +59,7 @@
   align-items: center;
   padding: 0 37rpx;
   box-sizing: border-box;
+  z-index: 9;
 }
 
 .btn {
@@ -56,6 +71,7 @@
   text-align: center;
   color: white;
   border-radius: 20rpx;
+  z-index: 9;
 
 
 }

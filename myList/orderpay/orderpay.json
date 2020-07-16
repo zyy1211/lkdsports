@@ -2,5 +2,8 @@
   "navigationBarTitleText": "订单详情",
   "navigationBarBackgroundColor": "#246CFF",
   "navigationBarTextStyle": "white",
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true ,
+  "usingComponents": {
+    "alert":"/pages/component/alert/alert"
+  }
 }

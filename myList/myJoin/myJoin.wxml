@@ -1,6 +1,10 @@
 <view class="signlist">
   <view class="bgblue"></view>
   <view class="signfixed">
+    <view class="lkdSearchs">
+      <van-search value="{{ condition }}" bind:change="changeName" data-key="condition" fieldClass="searchInputbox" shape="round"
+        background="transparent" placeholder="请输入搜索关键词" clearable />
+    </view>
     <view class="signTab">
       <view wx:for="{{tablist}}" bindtap="tabChange" wx:key="value" data-key="{{item.value}}"
         class="itemtab {{status==item.value ? 'activity' :''}}">{{item.name}}</view>

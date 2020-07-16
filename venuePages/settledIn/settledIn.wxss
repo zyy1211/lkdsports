@@ -83,6 +83,10 @@
 
 .authimg {
     width: 300rpx;
+    border:1rpx solid rgba(9,201,162,0.5);
+    border-radius:10rpx;
+    box-sizing:border-box;
+    overflow:hidden;
 }
 
 .authtext {
@@ -103,4 +107,11 @@
     font-size:34rpx;
     text-align: center;
     margin-top: 80rpx;
+}
+.note{
+    position: absolute;
+    bottom: -35rpx;
+    right: 0;
+    color: #FF0000;
+    font-size: 22rpx;
 }

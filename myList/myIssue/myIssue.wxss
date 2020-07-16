@@ -8,12 +8,7 @@
   position: relative;
 }
 
-.bgblue {
-  width: 100vw;
-  height: 35rpx;
-  background-color: #246CFF;
-  flex-shrink: 0;
-}
+
 
 .main {
   flex-grow: 1;

@@ -3,15 +3,16 @@
         <view class="rowItem">
             <view class="left">姓名</view>
             <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" data-key="name" value="{{ name }}" placeholder="请输入姓名"
-                    border="{{ false }}" bindinput="bindDate" />
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" data-key="name"
+                    value="{{ name }}" placeholder="请输入姓名" border="{{ false }}" bindinput="bindDate" />
             </view>
         </view>
         <view class="rowItem">
             <view class="left">性别</view>
             <view class="flex_row_c_c">
                 <van-dropdown-menu>
-                    <van-dropdown-item  disabled="{{dataStatus==1 || dataStatus==3 }}"  bind:change="chargeChange" value="{{ gender }}" options="{{ option1 }}" />
+                    <van-dropdown-item disabled="{{dataStatus==1 || dataStatus==3 }}" bind:change="chargeChange"
+                        value="{{ gender }}" options="{{ option1 }}" />
                 </van-dropdown-menu>
                 <view
                     style="background-color: white;width: 30rpx;height: 30rpx;z-index: 9;margin-left: -10rpx;margin-top: -6rpx;">
@@ -23,16 +24,17 @@
         <view class="rowItem">
             <view class="left">联系电话</view>
             <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}"  input-class="vant_input" maxlength="11" data-key="phone" value="{{ phone }}"
-                    placeholder="即商户端登录的账号" border="{{ false }}" bindinput="bindDate" />
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" maxlength="11"
+                    data-key="phone" value="{{ phone }}" placeholder="即商户端登录的账号" border="{{ false }}"
+                    bindinput="bindDate" />
             </view>
         </view>
 
         <view class="rowItem">
             <view class="left">联系微信</view>
             <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}"  input-class="vant_input" data-key="wechat" value="{{ wechat }}" placeholder="请输入联系微信"
-                    border="{{ false }}" bindinput="bindDate" />
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" data-key="wechat"
+                    value="{{ wechat }}" placeholder="请输入联系微信" border="{{ false }}" bindinput="bindDate" />
             </view>
         </view>
 
@@ -43,7 +45,8 @@
                     <van-field input-class="vant_input" maxlength="6" data-key="code" value="{{ code }}"
                         placeholder="请输入验证码" border="{{ false }}" bindinput="bindDate" />
                 </view>
-                <button class="getbtn" bindtap="getcode">发送验证码</button>
+                <button wx:if="{{stv==60}}" class="getbtn" bindtap="getcode">发送验证码</button>
+                <button wx:else class="getbtn">{{stv}}</button>
             </view>
         </view>
 
@@ -53,31 +56,33 @@
         <view class="rowItem">
             <view class="left">企业名称</view>
             <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}"  input-class="vant_input" data-key="enterpriseName" value="{{ enterpriseName }}"
-                    placeholder="请输入企业名称" border="{{ false }}" bindinput="bindDate" />
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input"
+                    data-key="enterpriseName" value="{{ enterpriseName }}" placeholder="请输入企业名称" border="{{ false }}"
+                    bindinput="bindDate" />
             </view>
         </view>
         <view class="rowItem">
             <view class="left">场馆名称</view>
             <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}"  input-class="vant_input" data-key="venueName" value="{{ venueName }}" placeholder="请输入场馆名称"
-                    border="{{ false }}" bindinput="bindDate" />
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" data-key="venueName"
+                    value="{{ venueName }}" placeholder="请输入场馆名称" border="{{ false }}" bindinput="bindDate" />
             </view>
         </view>
 
         <view class="rowItem">
             <view class="left">企业地址</view>
             <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}"  input-class="vant_input" data-key="address" value="{{ address }}" placeholder="请输入企业地址"
-                    border="{{ false }}" bindinput="bindDate" />
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" data-key="address"
+                    value="{{ address }}" placeholder="请输入企业地址" border="{{ false }}" bindinput="bindDate" />
             </view>
         </view>
 
         <view class="rowItem">
             <view class="left">场馆地址</view>
             <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}"  input-class="vant_input" data-key="venueAddress" value="{{ venueAddress }}"
-                    placeholder="请输入场馆地址" border="{{ false }}" bindinput="bindDate" />
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input"
+                    data-key="venueAddress" value="{{ venueAddress }}" placeholder="请输入场馆地址" border="{{ false }}"
+                    bindinput="bindDate" />
             </view>
         </view>
     </view>
@@ -86,66 +91,93 @@
         <view class="rowItem">
             <view class="left">法人姓名</view>
             <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}"  input-class="vant_input" data-key="legalPersonName" value="{{ legalPersonName }}"
-                    placeholder="请输入法人姓名" border="{{ false }}" bindinput="bindDate" />
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input"
+                    data-key="legalPersonName" value="{{ legalPersonName }}" placeholder="请输入法人姓名" border="{{ false }}"
+                    bindinput="bindDate" />
             </view>
         </view>
         <view class="rowItem">
             <view class="left">法人联系电话</view>
             <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}"  input-class="vant_input" maxlength="11" data-key="legalPersonPhone"
-                    value="{{ legalPersonPhone }}" placeholder="请输入法人联系电话" border="{{ false }}" bindinput="bindDate" />
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" maxlength="11"
+                    data-key="legalPersonPhone" value="{{ legalPersonPhone }}" placeholder="请输入法人联系电话"
+                    border="{{ false }}" bindinput="bindDate" />
             </view>
         </view>
 
         <view class="rowItem">
             <view class="left">法人身份证号</view>
             <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}"  input-class="vant_input" maxlength="18" data-key="legalPersonCardid"
-                    value="{{ legalPersonCardid }}" placeholder="请输入法人身份证号" border="{{ false }}" bindinput="bindDate" />
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" maxlength="18"
+                    data-key="legalPersonCardid" value="{{ legalPersonCardid }}" placeholder="请输入法人身份证号"
+                    border="{{ false }}" bindinput="bindDate" />
             </view>
         </view>
 
         <view class="rowItem">
             <view class="left">统一社会信用代码</view>
             <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}"  input-class="vant_input" data-key="businessLicenseNumber" value="{{ businessLicenseNumber }}"
-                    placeholder="请输入统一社会信用代码" border="{{ false }}" bindinput="bindDate" />
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input"
+                    data-key="businessLicenseNumber" value="{{ businessLicenseNumber }}" placeholder="请输入统一社会信用代码"
+                    border="{{ false }}" bindinput="bindDate" />
             </view>
         </view>
 
         <view class="rowItem">
             <view class="left">营业执照有效期</view>
-            <view class="right flex_row_c smright" style="justify-content: flex-end;">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}"  input-class="vant_input vtsdf" maxlength="10" data-key="startTime"
-                    value="{{ startTime }}" placeholder="开始时间" border="{{ false }}" bindinput="bindDate" />
+            <view class="right flex_row_c smright" style="justify-content: flex-end;position: relative;">
+                <van-field readonly disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input vtsdf"
+                    data-key="startTime" value="{{ startTime }}" placeholder="开始时间" border="{{ false }}"
+                    bindtap="choiseStart" />
                 <view>--</view>
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}"  input-class="vant_input" maxlength="10" data-key="endTime" value="{{ endTime }}"
-                    placeholder="到期时间" border="{{ false }}" bindinput="bindDate" />
+                <van-field readonly disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input"
+                    data-key="endTime" value="{{ endTime }}" placeholder="到期时间" border="{{ false }}"
+                    bindtap="choiseEnd" />
+                <view class="note">*不填为长期</view>
             </view>
         </view>
     </view>
-
 
     <view class="cardbg" style="padding-bottom: 30rpx;">
         <view>
             <view class="authtext">上传个人企业法人身份证正反面：</view>
             <view class="flex_row_btw">
-                <image class="authimg" bindtap="choiseImg" wx:if="{{fullFacePhoto}}" src="{{apiimg + fullFacePhoto}}" data-key="fullFacePhoto" mode="widthFix"></image>
-                <image class="authimg" bindtap="choiseImg" wx:else src="/static/auth2.png" data-key="fullFacePhoto" mode="widthFix"></image>
-                <image class="authimg" bindtap="choiseImg" wx:if="{{reversePhoto}}" src="{{apiimg + reversePhoto}}" data-key="reversePhoto" mode="widthFix"></image>
-                <image class="authimg" bindtap="choiseImg" wx:else src="/static/auth3.png" data-key="reversePhoto" mode="widthFix"></image>
-
+                <view wx:if="{{fullFacePhoto}}" class="authimg">
+                    <van-image width="300rpx" height="190rpx" fit="contain" bindtap="choiseImg"
+                        src="{{apiimg + fullFacePhoto}}" data-key="fullFacePhoto" />
+                </view>
+                <image class="authimg" bindtap="choiseImg" wx:else src="/static/auth2.png" data-key="fullFacePhoto"
+                    mode="widthFix"></image>
+                <view wx:if="{{reversePhoto}}" class="authimg">
+                    <van-image width="300rpx" height="190rpx" fit="contain" bindtap="choiseImg"
+                        src="{{apiimg + reversePhoto}}" data-key="reversePhoto" />
+                </view>
+                <image class="authimg" bindtap="choiseImg" wx:else src="/static/auth3.png" data-key="reversePhoto"
+                    mode="widthFix"></image>
             </view>
         </view>
-
         <view>
             <view class="authtext">上传个体营业执照照片：</view>
-            <image class="authimg" bindtap="choiseImg" wx:if="{{businessLicense}}" src="{{apiimg + businessLicense}}" data-key="businessLicense" mode="widthFix"></image>
-            <image class="authimg" bindtap="choiseImg" wx:else src="/static/auth1.png" data-key="businessLicense" mode="widthFix"></image>
-
+            <view wx:if="{{businessLicense}}" class="authimg">
+                <van-image width="300rpx" height="190rpx" fit="contain" bindtap="choiseImg"
+                    src="{{apiimg + businessLicense}}" data-key="businessLicense" />
+            </view>
+            <image class="authimg" bindtap="choiseImg" wx:else src="/static/auth1.png" data-key="businessLicense"
+                mode="widthFix"></image>
         </view>
     </view>
-
-    <view class="authbtn" bindtap="submit">申请入驻</view>
+    <view class="authbtn" bindtap="submit" wx:if="{{ dataStatus != 1 &&  dataStatus != 3}}">申请入驻</view>
 </view>
+
+
+<van-action-sheet show="{{ showstart }}" round="{{false}}" bind:click-overlay="onClose" catchtouchmove="_touchmove">
+    <van-datetime-picker type="date" title="开始时间" value="{{ currentDate }}" bind:confirm="confirmStart"
+        bind:cancel="onClose" />
+</van-action-sheet>
+<van-action-sheet show="{{ showend }}" round="{{false}}" bind:click-overlay="onClose" catchtouchmove="_touchmove">
+    <van-datetime-picker type="date" title="到期时间" value="{{ currentDate }}" bind:confirm="confirmEnd"
+        bind:cancel="onClose" />
+</van-action-sheet>
+
+
+<alert isAlert="{{isAlert}}"></alert>

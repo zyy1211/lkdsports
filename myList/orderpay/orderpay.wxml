@@ -51,30 +51,30 @@
               mode="widthFix"></image>
             <view class="flex_col_c" style="margin-left: 30rpx;">
               <view class="flex_row_c">
-                <view class="addressName" style="margin-right: 10rpx;">{{userInfo.nickname}}</view>
+                <view class="addressName" style="margin-right: 10rpx;">{{  activities.contactName ? activities.contactName : userInfo.nickname}}</view>
                 <image wx:if="{{userInfo.sex == 1}}" style="width: 25rpx;height: 25rpx;" src="/static/mine2.png"
                   mode="widthFix" lazy-load="false"></image>
                 <image wx:if="{{userInfo.sex == 2}}" style="width: 25rpx;height: 25rpx;" src="/static/mine3.png"
                   mode="widthFix" lazy-load="false"></image>
               </view>
               <view class="flex_row_c" style="padding-bottom: 30rpx;box-sizing: border-box;">
-                <view class="address" style="margin-left:0">{{userInfo.phone}}</view>
+                <view class="address" style="margin-left:0">{{activities.phoneNum}}</view>
               </view>
             </view>
           </view>
         </view>
-        <view class="phone flex_row_c_c" data-key="{{orderphone.contactNumber}}" bindtap="makeCall">
+        <view class="phone flex_row_c_c" data-key="{{activities.phoneNum}}" bindtap="makeCall">
           <image style="width: 33rpx;" src="/static/tel.png" mode="widthFix"></image>
         </view>
       </view>
     </view>
 
     <wxs src="./filter_o.wxs" module="tools" />
-    <wxs src="../../activityPages/filter_actvd.wxs" module="tools_acvd" />
+    <wxs src="./filter_a.wxs" module="tools_acvd" />
 
     <view class="ordercard" wx:if="{{itemsType == 5}}">
 
-      <view style="padding:30rpx 30rpx 0;box-sizing: border-box;">
+      <view style="padding:30rpx 30rpx 0;box-sizing: border-box;" bindtap="toActivityDetail">
         <view class="flex_row_btw" style="border-bottom: 1rpx solid #E8E8E8;padding-bottom: 30rpx;">
           <image style="width: 112rpx;height: 82rpx;border-radius: 10rpx;flex-shrink: 0;"
             src="{{apiimg + order.itemsImage }}" mode="widthFix"></image>
@@ -98,26 +98,27 @@
           <view>报名信息</view>
         </view>
         <view style="color: #FF2222;margin-left: 20rpx;">
-          ({{tools_acvd.formatTime(activities.startTime,activities.endTime,1)}})</view>
+          ({{tools_acvd.formatTimeed(activities.startTime,activities.endTime,1)}})</view>
       </view>
-      <view class="ordertable" style="padding: 30rpx;">
-        <view class="flex_row_c">
-          <view class="weeks font269" style="width: 90rpx;">
-            {{tools_acvd.formatTime(children.children[0].startTime,children.children[0].endTime,0)}}</view>
-          <view class="grow flex_row_c_c">
-            <view class="flex_row_c tbtd" wx:for="{{children.children}}" wx:key="index">
-              <image style="margin-right: 10rpx;" class="sex_icon" src="{{apiimg + item.iconurl }}" mode="widthFix">
-              </image>
-              <view class="fong229" style="margin-right: 20rpx;">x{{item.itemsNum}}</view>
+      <view class="ordertable" style="padding: 30rpx;"> 
+        <block wx:for="{{children.children}}" wx:key="index">
+          <view class="flex_row_c">
+            <view class="weeks font269" style="width: 90rpx;">
+              {{tools_acvd.formatTimeed(item.startTime,item.endTime,0)}}</view>
+            <view class="grow flex_row_c_c">
+              <view class="flex_row_c tbtd">
+                <image style="margin-right: 10rpx;" class="sex_icon" src="{{apiimg + item.iconurl }}" mode="widthFix">
+                </image>
+                <view class="fong229" style="margin-right: 20rpx;">x{{item.itemsNum}}</view>
+              </view>
             </view>
+            <view style="width: 160rpx;" class="font269">{{activities.filedNo}}</view>
+            <view style="width: 140rpx;text-align: right;" class="font269">￥{{item.itemsPrice/100 * item.itemsNum}}</view>
           </view>
-          <view style="width: 160rpx;" class="font269">{{activities.filedNo}}</view>
-          <view style="width: 140rpx;" class="font269">{{children.total}}</view>
-        </view>
+        </block>
+
       </view>
-    </view>
-
-
+    </view> 
 
 
     <view class="ordercard" wx:if="{{itemsType == 10}}">
@@ -155,7 +156,7 @@
         <view>合计:</view>
         <view class="money">￥{{payPrice/100}}</view>
       </view> 
-      <view class="sett" bindtap="ordersubmit" data-payprice="{{payPrice/100}}" data-oid="{{order.oid}}">立即支付</view>
+      <view class="sett" bindtap="ordersubmit" data-payprice="{{payPrice/100}}" data-oid="{{order.oid}}" data-bussid="{{order.bussId}}">立即支付</view>
     </view>
 
     <view class="flex_row_btw tosett" wx:if="{{ableRefund}}">
@@ -195,3 +196,5 @@
     <view style="padding: 30rpx 0 50rpx 0;font-size: 28rpx;color: #333;">确定要退款？</view>
   </view>
 </van-dialog>
+
+<alert isAlert="{{isAlert}}"></alert>

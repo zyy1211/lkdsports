@@ -10,7 +10,15 @@ Page({
    * 页面的初始数据
    */
   data: {
+    currentDate: '',
+    showstart: false,
+    showend: false,
+    startTime: '',
+    endTime: '',
+    phone: '',
     apiimg: API.API_IMG,
+    stv: 60,
+    timer: '',
     option1: [{
       text: '男',
       value: 0
@@ -27,27 +35,70 @@ Page({
       gender: value
     })
   },
-
-  afterRead(event) {
-
+  onClose() {
+    this.setData({
+      showstart: false,
+      showend: false
+    })
+  },
+  choiseStart() {
+    let {
+      dataStatus
+    } = this.data;
+    if (dataStatus == 1 || dataStatus == 3) {
+      return
+    }
+    this.setData({
+      showstart: true
+    })
+  },
+  choiseEnd() {
+    let {
+      dataStatus
+    } = this.data;
+    if (dataStatus == 1 || dataStatus == 3) {
+      return
+    }
+    this.setData({
+      showend: true
+    })
   },
 
+  confirmStart(event) {
+    console.log(event)
+    this.setData({
+      showstart: false,
+      startTime: this.formatDate(event.detail),
+    });
+  },
+  confirmEnd(event) {
+    this.setData({
+      showend: false,
+      endTime: this.formatDate(event.detail),
+    });
+  },
+  formatDate(date) {
+    date = new Date(date);
+    return `${date.getFullYear()}-${(date.getMonth() + 1) > 9 ? (date.getMonth() + 1) : '0' + (date.getMonth() + 1)}-${(date.getDate()) > 9 ? date.getDate() : '0'+ date.getDate()}`;
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     let self = this;
+    self.setData({
+      currentDate: new Date().getTime()
+    })
+    self.show();
     app.isLogin(function () {
       self.getDetail();
     })
   },
   getDetail() {
     let self = this;
-    let {
-      apiimg
-    } = self.data;
     http.get('/authentication/getAuthentication').then((res) => {
-      console.log(res)
+      // console.log(res)
+      self.hide()
       if (res.code != 200) {
         return
       }
@@ -60,6 +111,28 @@ Page({
         fullFacePhoto,
         reversePhoto
       } = main;
+
+      if (dataStatus == 1) {
+        // statusText = '审核中'
+        wx.redirectTo({
+          url: '/venuePages/setCheck/setCheck',
+        })
+        return;
+      } else if (dataStatus == 2) {
+        // statusText = '审核不通过'
+      } else if (dataStatus == 3) {
+        // statusText = '审核通过'
+        wx.redirectTo({
+          url: '/venuePages/setSuccess/setSuccess',
+        })
+        return;
+      } else if (dataStatus == 0) {
+        // statusText = '待入驻'
+        return;
+      }
+
+
+
       let {
         address,
         businessLicenseId,
@@ -84,18 +157,16 @@ Page({
         reversePhotoId,
         id: extdId
       } = authenticationExtd;
-      console.log(businessLicense)
+      // console.log(businessLicense)
 
-      let statusText = '';
-      if (dataStatus == 1) {
-        statusText = '审核中'
-      } else if (dataStatus == 2) {
-        statusText = '审核不通过'
-      } else if (dataStatus == 3) {
-        statusText = '审核通过'
-      } else if (dataStatus == 0) {
-        statusText = '待入驻'
-      }
+      // if (dataStatus != 0) {
+      //   wx.showToast({
+      //     title: statusText,
+      //     icon: 'none',
+      //     duration: 3000
+      //   });
+      // }
+
       this.setData({
         id,
         extdId,
@@ -131,7 +202,7 @@ Page({
       value = app.validateNumber(value)
     }
     this.setData({
-      [key]: e.detail
+      [key]: value
     })
   },
   valEmpty(key, value) {
@@ -154,9 +225,9 @@ Page({
       wechat: '微信号' + text,
     }
     if (app.isNull(value)) {
-      console.log(key)
+      // console.log(key)
       let title = msgdata[key];
-      console.log(title)
+      // console.log(title)
       wx.showToast({
         title: title,
         icon: 'none',
@@ -168,6 +239,7 @@ Page({
 
   },
   submit() {
+
     let self = this;
     let {
       dataStatus
@@ -197,22 +269,53 @@ Page({
       venueName,
       wechat,
     } = this.data;
+    // console.log(this.data)
 
-     if(!self.valEmpty('address', address)){return}
-     if(!self.valEmpty('businessLicense', businessLicense)){return}
-     if(!self.valEmpty('businessLicenseNumber', businessLicenseNumber)){return}
-     if(!self.valEmpty('code', code)){return}
-     if(!self.valEmpty('enterpriseName', enterpriseName)){return}
-     if(!self.valEmpty('fullFacePhoto', fullFacePhoto)){return}
-     if(!self.valEmpty('legalPersonCardid', legalPersonCardid)){return}
-     if(!self.valEmpty('legalPersonName', legalPersonName)){return}
-     if(!self.valEmpty('legalPersonPhone', legalPersonPhone)){return}
-     if(!self.valEmpty('name', name)){return}
-     if(!self.valEmpty('phone', phone)){return}
-     if(!self.valEmpty('reversePhoto', reversePhoto)){return}
-     if(!self.valEmpty('venueAddress', venueAddress)){return}
-     if(!self.valEmpty('venueName', venueName)){return}
-     if(!self.valEmpty('wechat', wechat)){return}
+    if (!self.valEmpty('address', address)) {
+      return
+    }
+    if (!self.valEmpty('businessLicense', businessLicense)) {
+      return
+    }
+    if (!self.valEmpty('businessLicenseNumber', businessLicenseNumber)) {
+      return
+    }
+    if (!self.valEmpty('code', code)) {
+      return
+    }
+    if (!self.valEmpty('enterpriseName', enterpriseName)) {
+      return
+    }
+    if (!self.valEmpty('fullFacePhoto', fullFacePhoto)) {
+      return
+    }
+    if (!self.valEmpty('legalPersonCardid', legalPersonCardid)) {
+      return
+    }
+    if (!self.valEmpty('legalPersonName', legalPersonName)) {
+      return
+    }
+    if (!self.valEmpty('legalPersonPhone', legalPersonPhone)) {
+      return
+    }
+    if (!self.valEmpty('name', name)) {
+      return
+    }
+    if (!self.valEmpty('phone', phone)) {
+      return
+    }
+    if (!self.valEmpty('reversePhoto', reversePhoto)) {
+      return
+    }
+    if (!self.valEmpty('venueAddress', venueAddress)) {
+      return
+    }
+    if (!self.valEmpty('venueName', venueName)) {
+      return
+    }
+    if (!self.valEmpty('wechat', wechat)) {
+      return
+    }
 
     let params = {
       address,
@@ -236,23 +339,61 @@ Page({
       venueName,
       wechat
     }
-    console.log(params)
+    // console.log(params)
     http.post('/authentication/settlement', params, 1).then((res) => {
-      console.log(res)
+      // console.log(res)
       if (res.code != 200) {
         return
       }
-      wx.navigateBack({
-        detail: 1
+      wx.navigateTo({
+        url: '/venuePages/setSuc/setSuc',
       })
     })
   },
   getcode() {
+    let self = this;
     let {
       phone
     } = this.data;
+    if (app.isNull(phone)) {
+      wx.showToast({
+        title: '联系电话不能为空',
+        icon: 'none',
+        duration: 3000
+      })
+      return
+    }
+    let checkPhone = self.checkPhone(phone);
+    if (!checkPhone) {
+      wx.showToast({
+        title: '联系电话有误，请输入正确号码',
+        icon: 'none',
+        duration: 3000
+      })
+      return
+    }
+
     http.get('/authentication/sendCode/' + phone).then((res) => {
-      console.log(res)
+      // console.log(res)
+      if (res.code != 200) {
+        return
+      }
+      let stv = self.data.stv;
+      self.data.timer = setInterval(() => {
+        stv--;
+        if (stv < 1) {
+          stv = 60;
+          clearInterval(self.data.timer);
+        }
+        self.setData({
+          stv
+        })
+      }, 1000);
+      wx.showToast({
+        title: '验证码发送成功',
+        icon: 'none',
+        duration: 3000
+      })
     })
   },
   choiseImg(e) {
@@ -287,7 +428,7 @@ Page({
               filePath: tpm.tempFilePath,
               name: 'file',
               success(res) {
-                console.log(res);
+                // console.log(res);
                 let datas = JSON.parse(res.data)
                 if (datas.code != 200) {
                   if (datas.code == 401) {
@@ -322,6 +463,25 @@ Page({
       }
     })
 
+  },
+  show() {
+    this.setData({
+      isAlert: true
+    })
+  },
+  hide() {
+    setTimeout(() => {
+      this.setData({
+        isAlert: false
+      })
+    }, 300);
+
+  },
+  checkPhone(phone) {
+    if (!(/^1[3456789]\d{9}$/.test(phone))) {
+      return false;
+    }
+    return true
   }
 
 })

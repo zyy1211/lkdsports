@@ -7,7 +7,14 @@ let http = require('../../utils/request')
 let bhv_week = require('../../pages/component/behavior/bhv_week')
 let app = getApp();
 
-Page({
+const Rx = require('../../utils/rxjs'); 
+const {
+    throttleTime
+} = Rx.operators;
+
+var myObservable = new Rx.Subject();
+
+Page({ 
 
   /**
    * 页面的初始数据
@@ -36,8 +43,11 @@ Page({
     })
   },
   onLoad: function (options) {
+    // this.animate(selector, keyframes, duration, ScrollTimeline)
     let self = this;
-
+    myObservable.pipe(throttleTime(500)).subscribe(value => {
+      self.choiseBlock(value)
+    });
     this.setData({detailId:options.id})
     app.isLogin(function () {
       self.initData();
@@ -115,6 +125,9 @@ Page({
       }
       self.formatData(tablemain)
     })
+  },
+  bindchoiseBlock(e){
+    myObservable.next(e);
   },
   choiseBlock(e) {
     let {

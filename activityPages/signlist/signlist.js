@@ -8,16 +8,19 @@ Page({
    * 页面的初始数据
    */
   data: {
+    self_is_user:true,
+    url : '/activities/getApplyInfo',
     status: 20,
     apiimg: Api.API_IMG,
     tablist: [{
         name: '已报名',
         value: 20
       },
+      // {
+      //   name: '排队中',
+      //   value: 30
+      // }, 
       {
-        name: '排队中',
-        value: 30
-      }, {
         name: '已退款',
         value: 40
       }
@@ -27,28 +30,36 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function (options) { 
     let self = this;
-    this.setData({
-      activityId: options.activityId
-    })
+
     app.isLogin(function () {
+      let userinfo = app.getInfo();
+      let userId = userinfo.id;
+      self.setData({
+        activityId: options.activityId,
+        userId
+      })
       self.initData();
     })
   },
-  tabChange(e){
+  tabChange(e){ 
     let status = e.currentTarget.dataset.key;
     this.setData({status});
+    // console.log(status)
+    let url = '/activities/getApplyInfo'
+    if(status == 40){
+      url = '/activities/getRefundInfo'
+    }
+    this.setData({url})
     this.initData()
   },
   initData() {
     let self = this;
     let {
-      status,
-      activityId
+      activityId,url,userId,self_is_user,status
     } = this.data;
-    http.get('/activities/getApplyInfo', {
-      status,
+    http.get(url, {
       activityId
     }).then((res) => {
       // console.log(res)
@@ -58,16 +69,32 @@ Page({
       let main = res.response[0];
       let {
         activitiesApplySkuVOS,
-        activitiesSkus
+        activitiesSkus,
+        publisherId
       } = main;
+      if(publisherId == userId){
+        self_is_user = true
+      }else{
+        self_is_user = false;
+      }
       let total = 0;
       activitiesSkus.forEach((item) => {
-        total += item.occupyNum
+        if(status == 40){
+          total += item.refundNum
+        }else{
+          total += item.occupyNum
+        }
+        
       })
       activitiesApplySkuVOS = activitiesApplySkuVOS.map((item) => {
         let total = 0;
         item.applySkuLocks.forEach((itm) => {
-          total += itm.num
+          if(status == 40){
+            total += itm.refundNum
+          }else{
+            total += itm.num
+          }
+
         })
         item['total'] = total;
         return item;
@@ -75,7 +102,7 @@ Page({
       self.setData({
         activitiesApplySkuVOS,
         activitiesSkus,
-        total
+        total,self_is_user
       })
     })
   },

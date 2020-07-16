@@ -15,7 +15,7 @@ var tablebol = function (itm, item, idx) {
   }
   return false
 }
-var mergeblock = function (itm, item, idx) { 
+var mergeblock = function (itm, item, idx) {
   // console.log(itm)
   // console.log(item)
   // console.log(idx)
@@ -34,41 +34,41 @@ var mergeheight = function (item) {
   return ((item.split('-')[2]) * 31)
 }
 // itm.status !=0 (-1 未开放 10已占场，999过时间)(type :0非散客 1散客)
-var typecolor = function(status,type){
-  if(type ==1){
-    if(status != 0 && status != 999){
+var typecolor = function (status, type) {
+  if (type == 1) {
+    if (status != 0 && status != 999) {
       return 'disablecolor'
-    }else{
+    } else {
       return 'guestcolor'
     }
-  }else{
-    if(status != 0){
+  } else {
+    if (status != 0) {
       return 'disablecolor'
-    }else{
+    } else {
       return ''
     }
   }
 
 }
 
-var formatDistant = function(str){
+var formatDistant = function (str) {
   // if(str<999){
   //   return ((str/1).toFixed(2)) + 'm'
   // }
   // if(str > 999){
-    return ((str/1000).toFixed(2)) + 'km'
+  return ((str / 1000).toFixed(1)) + 'km'
   // }
 }
-var formatTime = function(str){
- return str.substring(5).replace(getRegExp('-','g'),'/')
+var formatTime = function (str) {
+  return str.substring(5).replace(getRegExp('-', 'g'), '/')
 }
 
 module.exports = {
   tablebol: tablebol,
   mergeblock: mergeblock,
   mergeheight: mergeheight,
-  typecolor:typecolor,
-  formatDistant:formatDistant,
-  formatTime:formatTime
+  typecolor: typecolor,
+  formatDistant: formatDistant,
+  formatTime: formatTime
 
 }

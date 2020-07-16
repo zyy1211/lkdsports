@@ -52,7 +52,7 @@ Component({
     {
       pagePath: "/myList/mytmplt/mytmplt",
       text: "我的模板",
-      iconPath: "/static/m_huod.png",
+      iconPath: "/static/mub.png",
       type: "activity"
     }
   ]

@@ -5,8 +5,8 @@
                 options="{{ optionsDate }}" />
         </van-dropdown-menu>
         <view class="grow mar_l_15">
-            <van-search value="{{ name }}" bind:change="changeName" data-key="name" fieldClass="searchInput" shape="round" background="transparent"
-                placeholder="请输入搜索关键词" clearable />
+            <van-search value="{{ name }}" bind:change="changeName" data-key="name" fieldClass="searchInput"
+                shape="round" background="transparent" placeholder="请输入搜索关键词" clearable />
         </view>
     </view>
     <view class="drop_list">

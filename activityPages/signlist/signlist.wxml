@@ -2,8 +2,11 @@
   <view class="bgblue"></view>
   <view class="signfixed">
     <view class="signTab">
-      <view wx:for="{{tablist}}" bindtap="tabChange" wx:key="value" data-key="{{item.value}}"
-        class="itemtab {{status==item.value ? 'activity' :''}}">{{item.name}}</view>
+      <block wx:for="{{tablist}}" wx:key="value">
+        <view hidden="{{!self_is_user && item.value==40}}" bindtap="tabChange" data-key="{{item.value}}"
+          class="itemtab {{status==item.value ? 'activity' :''}}">
+          {{item.name}}</view>
+      </block>
     </view>
   </view>
   <view class="main">
@@ -19,32 +22,49 @@
         <view wx:for="{{activitiesSkus}}" wx:key="index" wx:for-item="itm">
           <image class="sex_icon" style="width: 34rpx;" src="{{apiimg + itm.iconPath}}" mode="widthFix"></image>
           <view class="sku">{{itm.title}}性</view>
-          <view class="count flex_row_c_c">
+          <!-- {{status}} -->
+          <view wx:if="{{status == 40}}" class="count flex_row_c_c">
+            <view class="cheng">x</view>{{itm.refundNum}}
+          </view>
+          <view wx:else class="count flex_row_c_c">
             <view class="cheng">x</view>{{itm.occupyNum}}
           </view>
         </view>
 
       </view>
     </view>
-    <wxs src="../filter_actvd.wxs" module="tools"></wxs>
+    <wxs src="./../filter_actvd.wxs" module="tools"></wxs>
     <view class="itemCard" wx:for="{{activitiesApplySkuVOS}}" wx:key="index">
       <view class="flex_row_c">
         <image class="userimg" src="{{item.userInfo.headImage}}" mode="widthFix"></image>
         <view class="userinfo">
-          <view class="title">{{item.userInfo.nickname}}</view>
+          <view class="title">
+            {{item.activitiesApply.trueName ? item.activitiesApply.trueName : item.activitiesApply.nickName}}</view>
           <view class="time">{{tools.splitTime(item.applySkuLocks[0].createTime)}}</view>
-          <view class="time">{{item.userInfo.phone}}</view>
+          <view class="time" wx:if="{{self_is_user}}">{{item.activitiesApply.phone}}</view>
         </view>
         <view>
           <view class="flex_row_c mart10" wx:for="{{item.applySkuLocks}}" wx:key="index" wx:for-item="itm">
             <image class="sex_icon" src="{{apiimg + itm.iconPath}}" mode="widthFix"></image>
-            <view class="countsmall flex_row_c_c">
-              <view class="cheng">x</view>{{itm.num}}
+            <view wx:if="{{status == 40}}" class="countsmall flex_row_c_c">
+              <view class="cheng">x</view>
+              {{itm.refundNum}}
             </view>
+
+            <view wx:else class="countsmall flex_row_c_c">
+              <view class="cheng">x</view>
+              {{itm.num}}
+            </view>
+
           </view>
         </view>
       </view>
       <view class="title flex_row_c_c">总人数<view style="margin: 0 4rpx;">{{item.total}}</view>人</view>
     </view>
+
+    <view wx:if="{{activitiesApplySkuVOS.length == 0}}" class="emptyimg">
+      <image class="emptyimg" src="/static/empty.png" mode="widthFix"></image>
+    </view>
+
   </view>
 </view>

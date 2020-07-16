@@ -1,10 +1,11 @@
+<!-- <scroll-view> -->
 <view class="activityDetail">
     <view class="diagram" id="lkdnav">
         <swiper class="swpView" circular="true" autoplay interval="3000">
             <swiper-item wx:for="{{ main.imagesPath }}" wx:key="*this">
                 <image class="bannerimg" src="{{item}}" mode="widthFix"></image>
             </swiper-item>
-        </swiper> 
+        </swiper>
 
         <view class="topbar topbarbg" style="height:{{height}}rpx;background:rgba(255,255,255,{{opacity}})"></view>
         <view class="topbar" style="height:{{height}}rpx;padding-top:{{barHeight}}rpx;">
@@ -91,9 +92,9 @@
                             <view class="col_item">
                                 <view class="cgname van-multi-ellipsis--l2">
                                     {{item.name}}
-                                </view> 
+                                </view>
                                 <block wx:for="{{item.new_table}}" wx:key="id" wx:for-item='itm' wx:for-index="idx">
-                                    <view class="opaBlock" bindtap="choiseBlock" data-id="{{itm.id}}"
+                                    <view class="opaBlock" bindtap="bindchoiseBlock" data-id="{{itm.id}}"
                                         data-type="{{item.type}}" data-fieldid="{{item.fieldid}}" data-index="{{index}}"
                                         data-idx="{{idx}}" data-item="{{itm}}" data-name="{{item.name}}"
                                         wx:if="{{tools.mergeblock(itm.merge,item,idx)=='true'}}"
@@ -106,7 +107,7 @@
                                         </view>
                                     </view>
 
-                                    <view class="opaBlock" bindtap="choiseBlock" data-id="{{itm.id}}"
+                                    <view class="opaBlock" bindtap="bindchoiseBlock" data-id="{{itm.id}}"
                                         data-type="{{item.type}}" data-fieldid="{{item.fieldid}}" data-index="{{index}}"
                                         data-idx="{{idx}}" data-item="{{itm}}" data-name="{{item.name}}"
                                         wx:if="{{ tools.mergeblock(itm.merge,item,idx)=='false' }}">
@@ -184,6 +185,7 @@
     </view>
 
 </view>
+<!-- </scroll-view> -->
 
 <authorize id="authorize"></authorize>
 <computed choiseList="{{choiseList}}" bind:wishSuccess="onwishSuccess"></computed>

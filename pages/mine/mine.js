@@ -26,13 +26,20 @@ Page({
     app.isLogin(function () {
       let info = app.getInfo()
       // console.log(info)
-      self.setData({info})
+      self.setData({
+        info
+      })
     })
   },
   toBlockList(e) {
     let url = e.currentTarget.dataset.url
     wx.navigateTo({
       url: url,
+    })
+  },
+  tosettledIn() {
+    wx.navigateTo({
+      url: '/venuePages/settledIn/settledIn',
     })
   }
 

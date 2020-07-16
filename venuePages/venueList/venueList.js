@@ -1,6 +1,7 @@
 // venuePages/venueList/venueList.js
 let bhv_refresh = require('../../pages/component/behavior/bhv_refresh')
 let bhv_bottom = require('../../pages/component/behavior/bhv_bottom')
+let bhv_search = require('../../pages/component/behavior/bhv_search')
 let http = require('../../utils/request')
 let app =  getApp();
 let Api = require('../../utils/config')
@@ -18,7 +19,7 @@ Page({
     pageSize:10,
     pageNum:1,
   },
-  behaviors: [bhv_refresh,bhv_bottom],
+  behaviors: [bhv_refresh,bhv_bottom,bhv_search],
 
   /**
    * 生命周期函数--监听页面加载
@@ -73,11 +74,5 @@ Page({
       self.setData({optionsDate:[{text:'运动类型',value:''},...optionsDate]})
     })
   },
-  changeName(e){
-    let key = e.currentTarget.dataset.key;
-    this.setData({[key]:e.detail})
-    this.setData({pageNum:1})
-    this.getData(0)
 
-  },
 })

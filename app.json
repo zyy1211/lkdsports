@@ -1,27 +1,45 @@
 {
   "pages": [
     "pages/home/home",
-    "activityPages/activityDetail/activityDetail",
-    "activityPages/activityList/activityList",
-    "venuePages/venueList/venueList",
-    "activityPages/issue_a/issue_a",
-    "activityPages/issueDetail/issueDetail",
-    "activityPages/img-cropper/img-cropper",
-    "myList/myorder/myorder",
-    "venuePages/venueDetail/venueDetail",
-    "myList/orderpay/orderpay",
     "pages/mine/mine",
-    "pages/test/test",
     "pages/userInfo/userInfo",
-    "pages/webview/webview",
-    "activityPages/signup/signup",
-    "myList/signpay/signpay",
-    "activityPages/signlist/signlist",
-    "myList/myIssue/myIssue",
-    "myList/myJoin/myJoin",
-    "myList/mytmplt/mytmplt",
-    "venuePages/settledIn/settledIn"
-
+    "pages/webview/webview"
+  ],
+  "subpackages": [
+    {
+      "root": "activityPages",
+      "pages": [
+        "activityDetail/activityDetail",
+        "activityList/activityList",
+        "issue_a/issue_a",
+        "issueDetail/issueDetail",
+        "img-cropper/img-cropper",
+        "signup/signup",
+        "signlist/signlist"
+      ]
+    },
+    {
+      "root": "myList",
+      "pages": [
+        "myorder/myorder",
+        "orderpay/orderpay",
+        "signpay/signpay",
+        "myIssue/myIssue",
+        "myJoin/myJoin",
+        "mytmplt/mytmplt"
+      ]
+    },
+    {
+      "root": "venuePages",
+      "pages": [
+        "venueList/venueList",
+        "venueDetail/venueDetail",
+        "settledIn/settledIn",
+        "setSuc/setSuc",
+        "setCheck/setCheck",
+        "setSuccess/setSuccess"
+      ]
+    }
   ],
   "tabBar": {
     "selectedColor": "#246CFF",
@@ -69,7 +87,8 @@
     "van-picker": "vant/dist/picker/index",
     "van-uploader": "vant/dist/uploader/index",
     "van-radio": "vant/dist/radio/index",
-    "van-radio-group": "vant/dist/radio-group/index"
+    "van-radio-group": "vant/dist/radio-group/index",
+    "van-steps": "vant/dist/steps/index"
   },
   "permission": {
     "scope.userLocation": {
