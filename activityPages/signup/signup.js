@@ -66,13 +66,15 @@ Page({
       if (!app.isNull(edit)) {
         let currentList = skuLock[edit]
         let applyId;
-        // console.log(currentList)
-        currentList.forEach((item) => {
+        console.log(currentList)
+        currentList.applySkuLocks.forEach((item) => {
           objMap.set(item.skuId, item.num)
           applyId = item.applyId;
           // objMap.set(item.skuId + 't', item.applyId)
           objMap.set(item.skuId + 'o', item.id)
         })
+        currentUserTrueName = currentList.activitiesApply.trueName;
+        currentUserPhone = currentList.activitiesApply.phone;
         self.setData({
           trueName: currentUserTrueName,
           phone: currentUserPhone,

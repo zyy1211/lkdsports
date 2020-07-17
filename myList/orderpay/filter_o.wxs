@@ -44,7 +44,7 @@ var formatStatus = function(status,refStatus,itemsType){
   }
 }
 var blockName = function(str){
-  return str.split('-')[1]
+  return (str.split('-')[1]) ? str.split('-')[1] : ''
 }
 // var formatdfs = function(status,payWay,endCancelTime){
 //   // status>20已支付  payWay==cash现金支付  endCancelTime最晚取消时间

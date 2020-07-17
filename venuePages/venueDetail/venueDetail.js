@@ -82,6 +82,7 @@ Page({
       longitude
     }).then((res) => {
       if (res.code != 200) {
+        self.hide();
         return;
       }
       let main = res.response[0];

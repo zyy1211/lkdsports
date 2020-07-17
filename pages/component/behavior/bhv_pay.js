@@ -18,7 +18,7 @@ module.exports = Behavior({
       } = params;
 
       payprice = payprice * 100;
-      console.log(params)
+      // console.log(params)
       if (payprice == 0) {
         self.orderSubmitNoPrice(oid, bussid);
         return

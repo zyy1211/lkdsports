@@ -80,7 +80,7 @@ Page({
         flag,
         skuLock,
       } = main;
-      headImage = headImage.slice(0, 6)
+      headImage = headImage.slice(0,6)
       if (!app.isNull(activities.detailsText)) {
         activities.detailsText = activities.detailsText.split('&hc').join('\n');
       }
@@ -172,9 +172,7 @@ Page({
         diff += minutes + '分';
       }
     }
-    this.setData({
-      diff
-    })
+    this.setData({diff})
   },
   toSignup() {
     let {
@@ -210,12 +208,8 @@ Page({
       radio
     } = this.data;
     console.log(this.data.radio)
-    if (app.isNull(radio) && radio !== 0) {
-      wx.showToast({
-        title: '请选择要修改的报名列表',
-        icon: 'none',
-        duration: 3000
-      });
+    if(app.isNull(radio) && radio !== 0){
+      wx.showToast({title: '请选择要修改的报名列表',icon:'none',duration:3000});
       return;
     }
     wx.navigateTo({

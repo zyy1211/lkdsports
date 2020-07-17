@@ -39,6 +39,12 @@
         "setCheck/setCheck",
         "setSuccess/setSuccess"
       ]
+    },
+    {
+      "root": "gamePages",
+      "pages": [
+        "gameList/gameList"
+      ]
     }
   ],
   "tabBar": {

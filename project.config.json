@@ -168,7 +168,7 @@
 					"id": 15,
 					"name": "场馆详情",
 					"pathName": "venuePages/venueDetail/venueDetail",
-					"query": "id=64",
+					"query": "id=70",
 					"scene": null
 				},
 				{
@@ -211,6 +211,13 @@
 					"name": "入驻结束",
 					"pathName": "venuePages/setSuccess/setSuccess",
 					"query": "id=108",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "场馆",
+					"pathName": "venuePages/venueDetail/venueDetail",
+					"query": "id=70&edit=0",
 					"scene": null
 				}
 			]

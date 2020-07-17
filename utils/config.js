@@ -1,7 +1,7 @@
 
 
 
-let API_HOST = "http://192.168.0.188:8011";
+let API_HOST = "http://192.168.0.188:8071";
 // let API_HOST = "http://192.168.0.200:8091";
 // let API_HOST = "http://192.168.0.124:8011";
 let API_IMG = "https://image.likedong.top";

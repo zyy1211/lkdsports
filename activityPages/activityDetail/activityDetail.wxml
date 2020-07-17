@@ -51,7 +51,7 @@
         </view>
         <view class="flex_row_c isit">
             <image class="ad_icon" src="/static/actvd4.png" mode="widthFix"></image>
-            <view class="font263">{{activities.filedNo}}</view>
+            <view class="font263">{{activities.filedNo ? activities.filedNo : ''}}</view>
         </view>
 
         <view class="flex_row_btw isTitle">

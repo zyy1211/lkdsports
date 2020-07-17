@@ -37,11 +37,13 @@ Page({
             name: '活动报名',
             icon: Api.cvs_img + '/cduan/huodong.png',
             url: '/activityPages/activityList/activityList',
-        }, {
+        },
+         {
             name: '赛事报名',
             icon: Api.cvs_img + '/cduan/saishi.png',
-            url: '/gamePages/pages/gameList/gameList',
-        }, {
+            url: '/gamePages/gameList/gameList',
+        },
+         {
             name: '场馆预约',
             icon: Api.cvs_img + '/cduan/changguan.png',
             url: '/venuePages/venueList/venueList',

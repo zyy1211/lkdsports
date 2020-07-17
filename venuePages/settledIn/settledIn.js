@@ -26,7 +26,7 @@ Page({
       text: '女',
       value: 1
     }],
-    gender: 1
+    gender: 0
   },
 
   chargeChange(e) {
@@ -113,21 +113,21 @@ Page({
       } = main;
 
       if (dataStatus == 1) {
-        // statusText = '审核中'
+        // '审核中'
         wx.redirectTo({
           url: '/venuePages/setCheck/setCheck',
         })
         return;
       } else if (dataStatus == 2) {
-        // statusText = '审核不通过'
+        //'审核不通过'
       } else if (dataStatus == 3) {
-        // statusText = '审核通过'
+        //'审核通过'
         wx.redirectTo({
           url: '/venuePages/setSuccess/setSuccess',
         })
         return;
       } else if (dataStatus == 0) {
-        // statusText = '待入驻'
+        //'待入驻'
         return;
       }
 

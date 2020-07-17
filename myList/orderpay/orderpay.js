@@ -192,6 +192,14 @@ Page({
       url: '/activityPages/activityDetail/activityDetail?id=' + id,
     })
   },
+  toVenueDetail(){
+    let {
+      detailId
+    } = this.data;
+    wx.navigateTo({
+      url: '/venuePages/venueDetail/venueDetail?id=' + detailId,
+    })
+  },
   otherType(itemsType) {
     let self = this;
     if (itemsType == 5) {

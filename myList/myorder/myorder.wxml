@@ -11,7 +11,8 @@
         <view class="card_title flex_row_btw" bindtap="orderDetail" data-bussid="{{item.bussId}}"
           data-oid="{{item.parentOid}}" data-itemstype="{{item.itemsType}}">
           <view class="flex_row_c_c">
-            <image class="marlf" style="width: 30rpx;height: 30rpx;" src="" mode="widthFix" src="/static/a1.png">
+            <image hidden="{{ item.itemsType !=10 }}" class="marlf" style="width: 30rpx;height: 30rpx;" src="" mode="widthFix" src="/static/a1.png"></image>
+            <image hidden="{{ item.itemsType !=5 }}" class="marlf" style="width: 30rpx;height: 30rpx;" src="" mode="widthFix" src="/static/a3.png">
             </image>
             <!-- {{item.createTime}} -->
             <view class="marlf">{{item.bussName}}</view>

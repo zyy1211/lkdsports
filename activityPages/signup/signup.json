@@ -2,7 +2,7 @@
   "navigationBarTitleText": "活动报名",
   "navigationBarBackgroundColor": "#558bfa",
   "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true,
+  "enablePullDownRefresh": false,
   "usingComponents": {
     "alert":"/pages/component/alert/alert",
     "computed":"../computed/computed"

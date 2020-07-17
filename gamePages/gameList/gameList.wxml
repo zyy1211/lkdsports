@@ -1,0 +1,3 @@
+<view class="emptyimg">
+  <image class="emptyimg" src="/static/empty.png" mode="widthFix"></image>
+</view>
