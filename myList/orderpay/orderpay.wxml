@@ -6,7 +6,7 @@
       <view wx:if="{{isNotify}}" style="margin-left: 22rpx;">
         订单{{tools.formatStatus(order.status,order.refStatus,item.itemsType)}}</view>
 
-      <view wx:if="{{!isNotify}}" style="margin-left: 22rpx;">订单有效期{{lastTimer}}分钟，请在有效期内及时付款</view>
+      <view wx:if="{{!isNotify}}" style="margin-left: 22rpx;">订单有效期{{lastTimer}}，请在有效期内及时付款</view>
     </view>
   </view>
   <view class="ordercontent">

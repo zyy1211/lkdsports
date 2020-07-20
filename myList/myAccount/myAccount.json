@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "我的账户",
+  "navigationBarBackgroundColor":"#558bfa",
+  "navigationBarTextStyle": "white" ,
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "alert":"/pages/component/alert/alert"
+  }
+
+}

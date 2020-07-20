@@ -1,0 +1,11 @@
+
+{
+  "navigationBarTitleText": "立即提现",
+  "navigationBarBackgroundColor":"#558bfa",
+  "navigationBarTextStyle": "white" ,
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "alert":"/pages/component/alert/alert"
+  }
+
+}

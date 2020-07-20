@@ -126,10 +126,7 @@ Page({
         activityDetailImage: detailsImageArr,
         type
       } = main;
-      if (!app.isNull(activities.detailsText)) {
-        activities.detailsText = activities.detailsText.split('&hc').join('\n');
-      }
-
+      activities.detailsText = activities?.detailsText?.split('&hc').join('\n');
       let tagArr = self.string_to_arr(activities.tag) || [];
       defalutTab.forEach((item) => {
         item.checked = false

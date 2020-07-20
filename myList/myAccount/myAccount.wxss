@@ -1,0 +1,226 @@
+/* pages/myAccount.wxss */
+
+.myAccount {
+  width: 100%;
+  padding: 0 34rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  letter-spacing: 3rpx;
+  background-color: white;
+  z-index: 99;
+}
+.scrollBlack{
+  /* border: 1rpx solid red; */
+  /* height: 600rpx; */
+  height: calc(100vh - 400rpx);
+}
+.cardImg {
+  width: 100%;
+}
+
+.cardview {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  padding: 55rpx 0 36rpx 50rpx;
+  box-sizing: border-box;
+  color: white;
+  width: 100%;
+  height: 100%;
+}
+.van-cell{
+  position: sticky!important;
+  top: 0!important;
+}
+
+.cardCont {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.text_b {
+  font-size: 22rpx;
+}
+
+.number_b {
+  font-size: 48rpx;
+  font-weight: 900;
+  margin-top: 20rpx;
+}
+
+.ljtx {
+  position: relative;
+  width: 120rpx;
+}
+
+.iconImg {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.avail {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+
+}
+
+.cash {
+  font-size: 24rpx;
+  font-weight: bold;
+  width: 156rpx;
+  height: 45rpx;
+  line-height: 45rpx;
+  background-color: #FBA72B;
+  border-top-left-radius: 23rpx;
+  border-bottom-left-radius: 23rpx;
+  text-align: center;
+  align-self: flex-end;
+  margin-bottom: 10rpx;
+}
+
+.allAvail {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+.actText {
+  font-size: 20rpx;
+}
+
+.gray {
+  color: #F2F1F1;
+}
+
+.actMoney {
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-left: 20rpx;
+}
+
+.titleH {
+  height: 100rpx;
+  line-height: 100rpx;
+}
+
+
+
+.circleTitle {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+  margin-left: -20rpx;
+}
+
+.kld_bottom {
+  border-bottom: 2rpx solid rgba(240, 240, 240, 1);
+}
+
+.kld_top {
+  border-bottom: 2rpx solid rgba(240, 240, 240, 1);
+  margin: 0 30rpx;
+}
+.line{
+  border-bottom: 2rpx solid rgba(240, 240, 240, 1);
+  margin: 0 34rpx;
+}
+.col_view {
+  /* height: 100rpx; */
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  /* border: 1rpx solid red; */
+}
+
+.itemTitle {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+  width: calc(100vw - 260rpx );
+  /* margin-bottom: 20rpx; */
+}
+
+.time {
+  font-size: 22rpx;
+  color: #666;
+}
+
+.note {
+  font-size: 22rpx;
+  color: #999;
+}
+.partNum{
+  font-size: 26rpx;
+  color: #666;
+  margin-left: 30rpx;
+}
+.appliedNum{
+  color: #F63636;
+}
+.money {
+  color: #F63636;
+  font-size: 32rpx;
+  font-weight: bold;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  /* vertical-align: middle; */
+}
+
+.myCol {
+  padding-bottom: 100rpx;
+  /* border: 1rpx solid yellow; */
+  /* padding: 0 16rpx; */
+  /* margin-top: 30rpx; */
+}
+
+.myCol .van-cell:after {
+  border-bottom: none;
+}
+
+.myCol .van-collapse-item__content {
+  padding: 0;
+}
+
+.name {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: bold;
+}
+.numText{
+  font-size: 28rpx;
+  font-weight: 900;
+  color:#333;
+  margin-right: 20rpx;
+}
+
+.userImg {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.colItem {
+  padding: 0 10rpx;
+  /* border: 1rpx solid blue; */
+}
+
+.contain {
+  padding: 20rpx 70rpx 0  40rpx;
+}
+
+.img_right_icon {
+  width: 27rpx;
+  height: 27rpx;
+  transition: 0.3s ease-in-out;
+}
+
+.icon_activity {
+  transform: rotate(-90deg);
+}

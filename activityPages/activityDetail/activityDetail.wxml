@@ -18,7 +18,7 @@
     <view class="main">
         <view class="flex_row_btw_j">
             <view class="font3439 van-multi-ellipsis--l2">{{activities.title}}</view>
-            <image class="share" src="/static/share.png" mode="widthFix"></image>
+            <!-- <image class="share" src="/static/share.png" mode="widthFix"></image> -->
         </view>
 
         <view style="margin-top: 26rpx;">

@@ -21,7 +21,7 @@
       <view class="skulist">
         <view wx:for="{{activitiesSkus}}" wx:key="index" wx:for-item="itm">
           <image class="sex_icon" style="width: 34rpx;" src="{{apiimg + itm.iconPath}}" mode="widthFix"></image>
-          <view class="sku">{{itm.title}}性</view>
+          <view class="sku">{{itm.title}}</view>
           <!-- {{status}} -->
           <view wx:if="{{status == 40}}" class="count flex_row_c_c">
             <view class="cheng">x</view>{{itm.refundNum}}
@@ -38,8 +38,16 @@
       <view class="flex_row_c">
         <image class="userimg" src="{{item.userInfo.headImage}}" mode="widthFix"></image>
         <view class="userinfo">
-          <view class="title">
-            {{item.activitiesApply.trueName ? item.activitiesApply.trueName : item.activitiesApply.nickName}}</view>
+          <view class="flex_row_c">
+            <view class="title" style="margin-right: 12rpx;max-width: 140rpx;height: 34rpx;overflow: hidden;">
+              {{item.activitiesApply.trueName ? item.activitiesApply.trueName : item.activitiesApply.nickName}}</view>
+
+            <image wx:if="{{item.activitiesApply.gender == 1}}" style="width: 25rpx;height: 25rpx;" src="/static/mine2.png"
+              mode="widthFix" lazy-load="false"></image>
+            <image wx:if="{{item.activitiesApply.gender == 2}}" style="width: 25rpx;height: 25rpx;" src="/static/mine3.png"
+              mode="widthFix" lazy-load="false"></image>
+
+          </view>
           <view class="time">{{tools.splitTime(item.applySkuLocks[0].createTime)}}</view>
           <view class="time" wx:if="{{self_is_user}}">{{item.activitiesApply.phone}}</view>
         </view>

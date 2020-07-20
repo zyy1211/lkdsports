@@ -1,6 +1,6 @@
 const Rx = require('../../../utils/rxjs');
 const {
-  throttleTime,
+  distinctUntilChanged,
   debounceTime
 } = Rx.operators;
 var myObservable = new Rx.Subject();
@@ -12,7 +12,7 @@ module.exports = Behavior({
   attached() {
     // console.log('fffffffffff')
     let self = this;
-    myObservable.pipe(debounceTime(200)).subscribe(value => {
+    myObservable.pipe(debounceTime(200)).pipe(distinctUntilChanged()).subscribe(value => {
       self.changeInit(value)
     });
   },
@@ -21,10 +21,11 @@ module.exports = Behavior({
     changeName(e) {
       // console.log(e)
       let key = e.currentTarget.dataset.key;
+      let value = e.detail.trim()
       this.setData({
-        [key]: e.detail
+        [key]: value
       })
-      myObservable.next(key);
+      myObservable.next(value);
     },
     changeInit(key) {
       // console.log('fsssssssssssssss

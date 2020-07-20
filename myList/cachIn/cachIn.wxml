@@ -1,0 +1,39 @@
+<view class="cachIn">
+    <view class="card">
+        <view class="pad_t_20">
+            <view class="total">{{beTotal}}</view>
+            <view class="text">可提现金额 (元)</view>
+        </view>
+        <view>
+            <view class="flex_row item">
+                <view>请输入提现金额：</view>
+                <input type="text" placeholder-class="place-holder" placeholder="单日单笔最高可提现5000元" value="{{money}}"
+                    data-key="money" bind:input="bindDate" class="line inputbox" />
+                <!-- <view>元</view> -->
+            </view>
+
+            <view class="flex_row item">
+                <view>请输入真实姓名：</view>
+                <input type="text" value="{{name}}" placeholder-class="place-holder" placeholder="与微信实名认证相同的姓名"
+                    data-key="name" bind:input="bindDate" class="line inputbox" type="text" />
+            </view>
+        </view>
+    </view>
+
+    <view class="note">
+        <image class="noteImg" src="../../static/in.png" mode="widthFix"></image>
+        根据微信提现钱包要求，未实名账户不可进行提现，请输入 正确的认证信息，确保您认证的信息与您的微信钱包账户实名认 证信息一致
+    </view>
+    <view class="cachBtn" bindtap="toCachIn">立即提现</view>
+</view>
+
+
+<van-dialog use-slot show="{{ show }}" width="600rpx" confirm-button-text="知道了" close-on-click-overlay="{{ true }}"
+    bind:close="onConfirm">
+    <view class="sucDialog" style="padding-top: 30rpx;">
+        <image class="success_icon" src="{{ suucess }}" mode="widthFix" lazy-load="false"></image>
+        <view style="height: 60rpx;">提现成功</view>
+    </view>
+</van-dialog>
+
+<alert isAlert="{{isAlert}}"></alert>

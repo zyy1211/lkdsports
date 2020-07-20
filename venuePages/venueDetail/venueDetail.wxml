@@ -21,7 +21,7 @@
     <view class="main">
         <view class="flex_row_btw_j">
             <view class="font3439 van-multi-ellipsis--l2">{{main.name}}</view>
-            <image class="share" src="/static/share.png" mode="widthFix"></image>
+            <!-- <image class="share" src="/static/share.png" mode="widthFix"></image> -->
         </view>
         <view class="flex_row_c martb30">
             <van-rate size="12" readonly value="5" />

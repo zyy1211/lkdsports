@@ -1,0 +1,118 @@
+/* pages/cachIn/cachIn.wxss */
+
+
+.cachIn {
+    padding-top: 40rpx;
+    display: flex;
+    flex-flow: column nowrap;
+    /* justify-content: space-around; */
+    align-items: center;
+    position: relative;
+    height: 100vh;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.card {
+    width: 681rpx;
+    height: 300rpx;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0rpx 9rpx 24rpx 0rpx rgba(127, 127, 127, 0.3);
+    border-radius: 30rpx;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.inputbox {
+    font-size: 26rpx;
+    font-weight: 900;
+    color: #333;
+    text-align: center;
+}
+
+.total {
+    font-size: 34rpx;
+    font-weight: bold;
+    color: rgba(51, 51, 51, 1);
+    margin-bottom: 10rpx;
+    text-align: center;
+}
+
+.text {
+    font-size: 22rpx;
+    font-weight: bold;
+    color: #999;
+}
+
+.line {
+    width: 300rpx;
+    border-bottom: 1rpx solid #E4E3DE;
+}
+
+.item {
+    font-size: 22rpx;
+    color: #666;
+    height: 60rpx;
+    line-height: 60rpx;
+
+}
+
+.note {
+    width: 653rpx;
+    /* height: 132rpx; */
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0rpx 7rpx 18rpx 0rpx rgba(127, 127, 127, 0.3);
+    border-radius: 5rpx;
+    font-size: 22rpx;
+    color: #999;
+    margin-top: 50rpx;
+    align-items: flex-start;
+    padding: 20rpx;
+    line-height: 40rpx;
+    letter-spacing: 3rpx;
+    position: relative;
+    text-indent: 2em;
+}
+
+
+
+.place-holder {
+    font-size: 22rpx;
+    color: #999;
+    font-weight: 300;
+}
+
+
+
+.noteImg {
+    width: 33rpx;
+    height: 33rpx;
+    flex-shrink: 0;
+    position: absolute;
+    top: 23rpx;
+    left: 16rpx;
+}
+
+.cachBtn {
+    width: 671rpx;
+    height: 72rpx;
+    line-height: 72rpx;
+    text-align: center;
+    background: rgba(36, 108, 255, 1);
+    border-radius: 36rpx;
+    color: white;
+    position: absolute;
+    bottom: 100rpx;
+}
+
+.sucDialog{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+.success_icon{
+    width: 300rpx;
+}

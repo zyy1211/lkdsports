@@ -1,0 +1,128 @@
+<view style="width: 100%;height: 100%;overflow: hidden;">
+    <view class="myAccount">
+        <view style="position: relative; padding-top: 36rpx;">
+            <image class="cardImg" src="{{cardUrl}}" mode="widthFix" lazy-load="false" binderror="" bindload=""></image>
+            <view class="cardview cardCont">
+                <view>
+                    <view class="text_b">可提现金额(元)</view>
+                    <view class="avail">
+                        <view class="number_b">{{totalMoney.withdrawableBalance/100 || 0}}</view>
+                        <view class="cash" bindtap="conceCach">立即提现</view>
+                    </view>
+                </view>
+                <view class="allAvail">
+                    <view class="flex_row_c">
+                        <view class="actText gray">预收款总额 (元)</view>
+                        <view class="actMoney gray">{{totalMoney.frozenBalance/100 || 0}}</view>
+                    </view>
+                    <!-- <view class="ljtx mar_r_20">
+                      <view class="actText" style="line-height: 30rpx!important;">提现记录</view>
+                      <van-icon class="iconImg" size="15" name="arrow" />
+                  </view> -->
+                </view>
+            </view>
+        </view>
+
+        <view class="kld_bottom" style="padding:46rpx 0 30rpx;">
+            <view class="weight lktitle">报名收款记录</view>
+        </view>
+
+    </view>
+
+
+    <scroll-view class="scrollBlack" scroll-y="true">
+        <view class="myCol" id="container" container="{{ container }}" style="position: relative;">
+            <block wx:for="{{dataList}}" wx:key="id">
+                <view class="colItem">
+                    <van-collapse border="{{false}}" value="{{ activeNames }}" data-ids="{{index}}"
+                        bind:change="onChange">
+                        <van-collapse-item name="{{ item.id }}" is-link="{{false}}" clickable="{{true}}">
+                            <view slot="title">
+                                <view class="col_view">
+                                    <view>
+                                        <view class="itemTitle">
+                                            <view class="flex_row_c" style="width: 100%;align-items:flex-start;">
+                                                <view style="flex-grow: 1;">{{item.title}}</view>
+                                                <!-- <view style="float: right;">(30/50)</view> -->
+                                                <view class="partNum" style="float: right;">
+                                                    <view class="flex_row">
+                                                        ( <view class="appliedNum">{{item.appliedNum}}</view>
+                                                        /{{item.participantsNum}})
+                                                    </view>
+                                                </view>
+                                            </view>
+
+                                        </view>
+                                        <view class="flex_row_c">
+                                            <view class="time">{{item.Time}}</view>
+                                            <!-- <view class="note">（活动结束后结算）</view> -->
+                                        </view>
+                                    </view>
+                                    <view class="money">
+                                        <view>+ {{item.total}}</view>
+                                    </view>
+                                </view>
+                            </view>
+                            <view slot="right-icon" class="flex_row_c" style="margin-left: 17rpx;">
+                                <image class="img_right_icon {{ item.activity ? 'icon_activity' : '' }}"
+                                    src="../../static/down.png" mode="widthFix"></image>
+                            </view>
+
+                            <view class="flex_col flex_center">
+                                <view class="contain">
+                                    <block wx:for="{{item.balanceLogs}}" wx:for-item="pit" wx:for-index="ids"
+                                        wx:key="name">
+                                        <view class="flex_row_c" style="justify-content: space-between;border-bottom: 1rpx solid lightgray;margin-bottom: 10rpx;padding-bottom: 10rpx;">
+                                            <view class="flex_row_c">
+                                                <view class="numText">{{ids +1}}</view>
+                                                <image src="{{ pit.user.headImage }}" class="userImg" mode="widthFix">
+                                                </image>
+                                                <view class="mar_l_30">
+                                                    {{ pit.user.nickname }}
+                                                </view>
+                                            </view>
+                                            <view style="font-size: 28rpx;text-align: right;">
+                                            <view style="color:{{itm.money>0 ? 'red' :'gray'}}" wx:for="{{ pit.balanceLogs }}" wx:for-item="itm" wx:key="id">{{itm.money/100}}</view>
+                                            </view>
+                                        </view>
+                                    </block>
+                                </view>
+                                <!-- <view class="line"></view> -->
+                                <!-- <view class="contain">
+                                    <block wx:for="{{item.refundReceiptsList}}" wx:for-item="pit" wx:for-index="ids"
+                                        wx:key="name">
+                                        <view class="flex_row_c flex_btw mar_b_30">
+                                            <view class="flex_row_c">
+                                                <view class="numText">{{ids + 1}}</view>
+                                                <image src="{{ pit.avatarUrl }}" class="userImg" mode="widthFix">
+                                                </image>
+                                                <view class="mar_l_30">
+                                                    <view class="name mar_b_10">{{pit.name}}</view>
+                                                    <view class="note">已退款</view>
+                                                </view>
+                                            </view>
+                                            <view class="money" style="color: #999999;">- {{pit.refundNum}}</view>
+                                        </view>
+                                    </block>
+                                </view> -->
+
+                            </view>
+                        </van-collapse-item>
+                    </van-collapse>
+
+                    <view class="kld_top"></view>
+                </view>
+            </block>
+
+        </view>
+    </scroll-view>
+
+
+
+    <!-- <block wx:for='{{activitiesList}}' wx:key='index'>
+      <view class="title">{{item.title}}</view>
+      <view class="content" wx:for='{{item.receiptsList}}' wx:key='index2' wx:for-item='item2' wx:for-index='index2'>{{item2.name}}</view>
+    </block> -->
+</view>
+
+<alert isAlert="{{isAlert}}"></alert>

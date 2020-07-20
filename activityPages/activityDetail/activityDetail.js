@@ -28,6 +28,7 @@ Page({
   onLoad: function (options) {
     let self = this;
     app.isLogin(function () {
+
       self.setData({
         activityId: options.id
       })
@@ -81,17 +82,14 @@ Page({
         skuLock,
       } = main;
       headImage = headImage.slice(0,6)
-      if (!app.isNull(activities.detailsText)) {
-        activities.detailsText = activities.detailsText.split('&hc').join('\n');
-      }
+
+      activities.detailsText = activities?.detailsText?.split('&hc').join('\n');
 
       activities['tagArr'] = self.string_to_arr(activities.tag);
       let isApplySign = self.bolapplySign(activities.uptoTime, activities.participantsNum, activities.appliedNum, activities.status);
-      if (app.isNull(skuLock)) {
-        skuLock = [];
-      }
+
       // console.log(skuLock)
-      let skuLock11 = skuLock.map((list, index) => {
+      let skuLock11 = skuLock?.map((list, index) => {
         let total = 0;
         let money = 0;
         list.applySkuLocks.forEach((item) => {

@@ -133,7 +133,7 @@
 					"id": 10,
 					"name": "报名列表",
 					"pathName": "activityPages/signlist/signlist",
-					"query": "activityId=93",
+					"query": "activityId=118",
 					"scene": null
 				},
 				{
@@ -218,6 +218,20 @@
 					"name": "场馆",
 					"pathName": "venuePages/venueDetail/venueDetail",
 					"query": "id=70&edit=0",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的账户",
+					"pathName": "myList/myAccount/myAccount",
+					"query": "id=118",
+					"scene": null
+				},
+				{
+					"id": 24,
+					"name": "体现",
+					"pathName": "myList/cachIn/cachIn",
+					"query": "beTotal=3",
 					"scene": null
 				}
 			]
