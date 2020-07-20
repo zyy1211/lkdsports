@@ -77,7 +77,7 @@
 					"id": 2,
 					"name": "活动详情",
 					"pathName": "activityPages/activityDetail/activityDetail",
-					"query": "id=118",
+					"query": "id=151",
 					"scene": null
 				},
 				{

@@ -40,7 +40,7 @@
             <view class="grow" wx:if="{{item.itemsType == 10}}">
               <view class="title van-multi-ellipsis--l2">{{itm.itemsTitle}}</view>
               <view class="flex_row_c ven_item">
-                <view>{{tools.formatWeek(itm.itemsSpecif)}}</view>
+                <view>{{tools.formGetWeek(itm.startTime)}}</view>
                 <view class="marleft">{{tools.formatDay(itm.startTime)}}</view>
                 <view class="marleft">{{tools.formatTime(itm.startTime,itm.endTime)}}</view>
               </view>

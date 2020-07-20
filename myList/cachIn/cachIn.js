@@ -89,6 +89,14 @@ Page({
       })
     })
   },
+  allCach(){
+    let {beTotal} = this.data;
+    let money = beTotal > 5000 ? 5000 : beTotal;
+    this.setData({
+      money
+    })
+
+  },
 
   onConfirm: function () {
     console.log('fsfs')

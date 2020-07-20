@@ -47,7 +47,9 @@ var formatTimeed = function (star,end,noweek) {
   return ''
 }
 var formatWeek = function (star) {
+  // console.log(star)
   if (!isNull(star)) {
+    star = star.replace(getRegExp('-','g'),'/');
     var time_st = getDate(star)
     var weekNo = time_st.getDay();
 

@@ -81,14 +81,13 @@ Page({
         flag,
         skuLock,
       } = main;
-      headImage = headImage.slice(0,6)
+      headImage = headImage?.slice(0,6)
 
       activities.detailsText = activities?.detailsText?.split('&hc').join('\n');
 
       activities['tagArr'] = self.string_to_arr(activities.tag);
       let isApplySign = self.bolapplySign(activities.uptoTime, activities.participantsNum, activities.appliedNum, activities.status);
 
-      // console.log(skuLock)
       let skuLock11 = skuLock?.map((list, index) => {
         let total = 0;
         let money = 0;
@@ -102,12 +101,10 @@ Page({
         obj['list'] = list.applySkuLocks;
         obj['info'] = list.activitiesApply;
         obj['index'] = index;
-        // console.log('ffffffffffffffff')
-        // console.log(obj)
+
         return obj;
       })
-      // console.log(skuLock11)
-      // console.log(isApplySign)
+
       this.setData({
         activities,
         activitiesSkuList,
@@ -119,12 +116,7 @@ Page({
         skuLock: skuLock11,
         isApplySign
       })
-      // console.log(activities)
-      // console.log(activitiesSkuList)
-      // console.log(headImage)
-      // console.log(activityHeadImage)
-      // console.log(activityDetailImage)
-      // console.log(cUserDTO)
+
     })
   },
   bolapplySign(uptoTime, participantsNum, appliedNum, status) {

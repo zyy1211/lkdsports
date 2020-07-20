@@ -62,7 +62,7 @@ Page({
   queryTotal: function () {
     let self = this;
     http.get('/user/queryAccount', '').then(function (res) {
-      console.log(res)
+      // console.log(res)
       self.hide();
       if (res.code == 200) {
         self.setData({
@@ -82,13 +82,13 @@ Page({
       pageSize
     }).then(function (res) {
       self.hide();
-      console.log(res)
+      // console.log(res)
       if (res.code == 200) {
         let dataList = res.response[0].records || [];
         let total = res.response[0].total;
         dataList.forEach(item => {
           item['activity'] = false;
-          item['Time'] = (util.timeSlot(item.startTime, item.endTime))
+          // item['Time'] = (util.timeSlot(item.startTime, item.endTime))
           let total = 0;
           item?.balanceLogs?.forEach((num,index) =>{
             let number = 0;
@@ -98,8 +98,8 @@ Page({
             // console.log(number)
             total += number;
           })
-          console.log(total)
-          item['total'] = total;
+          // console.log(total)
+          item['total'] = total.toFixed(2);
         })
         if (concat == 0) {
           self.setData({

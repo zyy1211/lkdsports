@@ -44,17 +44,13 @@ App({
     let self = this;
     wx.checkSession({
       success() {
-        // console.log(self.getToken())
         if (self.isNull(self.getToken())) {
-          // console.log('11过期')
           self.reqToken(callback)
           return;
         }
-        // console.log('未过期')
         callback();
       },
       fail() {
-        // console.log('过期')
         self.reqToken(callback)
       }
     })
@@ -64,16 +60,11 @@ App({
     let self = this;
     wx.login({
       success(res) {
-        // console.log(res)
         if (res.code) {
           http.getT('/login/auth/' + res.code, '').then(function (data) {
-            // console.log('我是token')
-            // console.log(data)
             let token = data.header.token;
             self.setToken(token);
             let info = data.data.response[0];
-            // console.log('拿token')
-            // console.log(info)
             if (self.isNull(info) || self.isNull(info.nickname)) {
               info = '';
             }
@@ -87,12 +78,10 @@ App({
   reqInfo(callback) {
     let self = this;
     if (self.isNull(self.getInfo())) {
-      // console.log('无info')
       wx.navigateTo({
         url: '/pages/userInfo/userInfo'
       })
     } else {
-      // console.log('有info')
       callback();
     }
   },
@@ -106,9 +95,7 @@ App({
 
   saveInfo(userInfo) {
     let self = this;
-    // console.log(userInfo)
     http.post('/user/saveInfo', userInfo, 1).then(function (res) {
-      // console.log(res);
       self.setInfo(userInfo);
       wx.navigateBack({
         delta: 1
@@ -202,7 +189,6 @@ App({
         className: 'column3'
       }
     ]
-    // console.log(this.globalData.pickList)
 
   },
   getDateStr: function (dayCount) {
@@ -210,9 +196,7 @@ App({
     let dd = new Date()
     dd.setDate(dd.getDate() + dayCount)
     let time = dd.getTime()
-    // if(dayCount == 0){
-    //   console.log(time)
-    // }
+
     return time;
   },
 

@@ -53,8 +53,9 @@
                                             </view>
 
                                         </view>
+                                        <wxs src="../orderpay/filter_a.wxs" module="tools_acvd" />
                                         <view class="flex_row_c">
-                                            <view class="time">{{item.Time}}</view>
+                                            <view class="time">{{tools_acvd.formatTimeed(item.startTime,item.endTime)}}</view> 
                                             <!-- <view class="note">（活动结束后结算）</view> -->
                                         </view>
                                     </view>

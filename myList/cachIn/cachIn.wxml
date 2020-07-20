@@ -2,7 +2,10 @@
     <view class="card">
         <view class="pad_t_20">
             <view class="total">{{beTotal}}</view>
-            <view class="text">可提现金额 (元)</view>
+            <view class="flex_row_c_c">
+                <view class="text">可提现金额 (元)</view>
+                <view bindtap="allCach" class="text" style="color: #558bfa;padding:10rpx 20rpx;">全部提现</view>
+            </view>
         </view>
         <view>
             <view class="flex_row item">
@@ -22,7 +25,7 @@
 
     <view class="note">
         <image class="noteImg" src="../../static/in.png" mode="widthFix"></image>
-        根据微信提现钱包要求，未实名账户不可进行提现，请输入 正确的认证信息，确保您认证的信息与您的微信钱包账户实名认 证信息一致
+        根据微信提现钱包要求，未实名账户不可进行提现，请输入正确的认证信息，确保您认证的信息与您的微信钱包账户实名认证信息一致
     </view>
     <view class="cachBtn" bindtap="toCachIn">立即提现</view>
 </view>

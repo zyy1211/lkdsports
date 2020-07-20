@@ -46,6 +46,13 @@ var formatStatus = function(status,refStatus,itemsType){
 var blockName = function(str){
   return (str.split('-')[1]) ? str.split('-')[1] : ''
 }
+var formGetWeek = function (star) {
+  star = star.replace(getRegExp('-','g'),'/');
+  var time_st = getDate(star) 
+  var weekNo = time_st.getDay();
+  var week = "周" + "日一二三四五六日".charAt(weekNo);
+  return week;
+}
 // var formatdfs = function(status,payWay,endCancelTime){
 //   // status>20已支付  payWay==cash现金支付  endCancelTime最晚取消时间
 //   let time_diff = new Date(endCancelTime) - (new Date().getTime());
@@ -108,6 +115,7 @@ module.exports = {
   formatDay:formatDay,
   formatWeek:formatWeek,
   blockName:blockName,
-  formatStatus:formatStatus
+  formatStatus:formatStatus,
+  formGetWeek:formGetWeek
 
 }

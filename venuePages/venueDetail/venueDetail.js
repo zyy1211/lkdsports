@@ -86,6 +86,10 @@ Page({
         return;
       }
       let main = res.response[0];
+      let loctn = self.bMapTransqqMap(main.locationLongitude,main.locationLatitude);
+      main.locationLongitude = loctn.longitude;
+      main.locationLatitude = loctn.latitude;
+      // console.log(loctn)
       let matchId = main.matchVoList[0].id;
       let businessHours = main.matchVoList[0].businessHours;
       // console.log(businessHours)
@@ -94,7 +98,7 @@ Page({
         matchId,
         businessHours
       })
-      self.getTabel();
+      self.getTabel(); 
 
     })
   },
