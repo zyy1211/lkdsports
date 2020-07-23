@@ -18,7 +18,7 @@ Page({
       return;
     }
 
-    app.saveInfo(e.detail.userInfo);
+    app.saveInfo(e.detail.userInfo); 
 
   },
   /**

@@ -15,7 +15,7 @@
                 options="{{ selectType }}" />
         </van-dropdown-menu>
     </view>
-    <view class="drop_list">
+    <view class="drop_list" style="position: fixed;top: 0;left: 0;right: 0;bottom: 0;">
         <view class="drop_grad activityGrad"></view>
     </view>
     <view class="actList cardList">

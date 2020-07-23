@@ -113,6 +113,7 @@ let $http = {
           }
         },
         fail: function (res) {
+          
           reject(res)
         },
       })

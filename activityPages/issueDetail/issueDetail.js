@@ -51,54 +51,63 @@ Page({
     const {
       file
     } = event.detail;
-    console.log(file.path)
+    // console.log(file.path)
     wx.showLoading({
       title: '图片上传中...'
     })
-    wx.uploadFile({
-      url: API.API_HOST + '/activities/upload',
-      header: {
-        'token': token,
-      },
-      filePath: file.path,
-      name: 'file',
-      success(res) {
-        console.log(res);
-        let datas = JSON.parse(res.data)
-        if (datas.code != 200) {
-          if (datas.code == 401) {
-            wx.clearStorageSync();
-            app.isSession(function () {
-              self.afterRead(event)
-            });
+    app.isCheckImg(file.path).then((img) =>{
+      // console.log(img)
+      // if((img.response[0]?.errcode  + '').includes('8701')){
+      //   wx.showToast({title: '请重新上传或更换图片',icon:'none',duration:3000});
+      //   wx.hideLoading();
+      //   return;
+      // }
+      wx.uploadFile({
+        url: API.API_HOST + '/activities/upload',
+        header: {
+          'token': token,
+        },
+        filePath: file.path,
+        name: 'file',
+        success(res) {
+          // console.log(res);
+          let datas = JSON.parse(res.data)
+          if (datas.code != 200) {
+            if (datas.code == 401) {
+              wx.clearStorageSync();
+              app.isSession(function () {
+                self.afterRead(event)
+              });
+              return
+            } else {
+              return wx.showToast({
+                title: datas.message,
+                icon: 'none',
+                duration: 3000
+              });
+            }
             return
-          } else {
-            return wx.showToast({
-              title: datas.message,
-              icon: 'none',
-              duration: 3000
-            });
           }
-          return
+          let urlfile = datas.response[0].url;
+          let {
+            apiimg
+          } = self.data;
+          detailsImageArr.push({
+            url: apiimg + urlfile,
+            deletable: true,
+            path: urlfile
+          });
+          // console.log(detailsImageArr)
+          self.setData({
+            detailsImageArr
+          });
+          // console.log(self.data)
+        },
+        complete: function () {
+          wx.hideLoading();
         }
-        let urlfile = datas.response[0].url;
-        let {
-          apiimg
-        } = self.data;
-        detailsImageArr.push({
-          url: apiimg + urlfile,
-          deletable: true,
-          path: urlfile
-        });
-        // console.log(detailsImageArr)
-        self.setData({
-          detailsImageArr
-        });
-        // console.log(self.data)
-      },
-      complete: function () {
-        wx.hideLoading();
-      }
+      })
+
     })
   },
   delectimg(event) {

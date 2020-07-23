@@ -61,25 +61,35 @@ Page({
     },
 
     onLoad: function () {
+        // let self = this;
+        // App.isLogin(function () {
+        //     self.initData()
+        // })
+    },
+    onShow: function () {
         let self = this;
         App.isLogin(function () {
             self.initData()
         })
-    },
+      },
+      
 
     initData() {
         let self = this;
-        self.getBanner();
-        this.selectComponent("#authorize").getAuthorizeLocation((loca) => {
-            let longitude = loca.longitude;
-            let latitude = loca.latitude;
-            self.setData({
-                latitude,
-                longitude,
-            })
-            self.getVenue();
-            self.getActivity();
-        });
+        App.isLogin(function () {
+            self.getBanner();
+            self.selectComponent("#authorize").getAuthorizeLocation((loca) => {
+                let longitude = loca.longitude; 
+                let latitude = loca.latitude;
+                self.setData({
+                    latitude,
+                    longitude,
+                })
+                self.getVenue();
+                self.getActivity();
+            });
+        })
+
     },
     getBanner() {
         let self = this;

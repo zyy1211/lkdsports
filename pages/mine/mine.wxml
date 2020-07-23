@@ -2,12 +2,16 @@
     <view class="mineInfo">
         <image class="background_img" src="/static/1.png" mode="widthFix" lazy-load="false"></image>
         <view class="Infomain">
+            <!-- {{info.headImage}} -->
             <view class="user_img">
-                <van-image width="100%" height="100%" use-loading-slot use-error-slot fit="cover" lazy-load
+               
+                <image style="width: 100rpx;height: 100rpx;" src="{{headImage}}"
+                    mode="cover" lazy-load="false"></image>
+                <!-- <van-image width="100%" height="100%" use-loading-slot use-error-slot fit="cover"
                     src="{{info.headImage}}">
                     <van-loading slot="loading" type="spinner" size="20" vertical />
                     <text slot="error">加载失败</text>
-                </van-image>
+                </van-image> -->
             </view>
             <view>
                 <view>{{info.nickname}}</view>
@@ -71,10 +75,10 @@
             </view>
             <van-icon size="16" name="arrow" />
         </view> -->
-        <view class="flex_row_c_c">
+        <!-- <view class="flex_row_c_c">
             <image bindtap="tosettledIn" style="width: 650rpx;height: 110rpx;margin-top: 50rpx;" src="/static/mine1.png"
                 mode="widthFix" lazy-load="false"></image>
-        </view>
+        </view> -->
 
     </view>
 

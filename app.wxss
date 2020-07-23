@@ -562,7 +562,17 @@ image {
   color: #333;
 }
 
-
+.lkdtagbtn {
+  padding: 4rpx 14rpx;
+  box-sizing: border-box;
+  color: #4F6BDA;
+  border: 1rpx solid #4F6BDA;
+  background: rgba(79, 107, 218, 0.12);
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  flex-shrink: 0;
+  margin-right: 20rpx;
+}
 .bgblue {
   width: 100vw;
   height: 120rpx;

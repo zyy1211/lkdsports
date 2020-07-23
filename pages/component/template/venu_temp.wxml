@@ -24,8 +24,7 @@
           <wxs src="./filter_t.wxs" module="tools" />
           <view class="flex_row_btw" style="width: 100%;">
             <view class="flex_row grow">
-              <van-button round  color="#246CFF" class="mar_r_20" type="info" size="mini"
-                wx:for="{{tools.formatarr(item.supportFacilitie)}}" wx:for-item='itm' wx:key="*this">{{itm}}</van-button>
+              <view class="mar_r_20 lkdtagbtn" wx:for="{{tools.formatarr(item.supportFacilitie)}}" wx:for-item='itm' wx:key="*this">{{itm}}</view>
             </view>
             <view class="flex_row_btw">
               <image style="width: 15rpx;height:19rpx;" src="/static/v.png" mode="widthFix"></image>

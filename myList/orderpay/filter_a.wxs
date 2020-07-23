@@ -60,10 +60,14 @@ var formatWeek = function (star) {
 var splitTime = function(str){
   return str.substring(5,16)
 }
+var fixeds = function(itemsPrice,num){
+  return (itemsPrice/100 * num).toFixed(2)
+}
 
 
 module.exports = {
   formatTimeed: formatTimeed,
   formatWeek: formatWeek,
-  splitTime:splitTime
+  splitTime:splitTime,
+  fixeds:fixeds
 }

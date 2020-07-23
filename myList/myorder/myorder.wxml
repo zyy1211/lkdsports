@@ -1,4 +1,4 @@
-<view class="list_ven">
+<view class="list_ven" style="padding-bottom: 60rpx;">
   <view class="list_ven_nav">
     <van-tabs bind:change="changeNav" line-height="1" color="#246CFF" z-index="99" swipe-threshold='5'>
       <van-tab wx:for="{{navData}}" wx:key="name" title="{{item.name}}"></van-tab>
@@ -56,7 +56,7 @@
             </view>
 
             <view class="rights flex_col">
-              <view class="text_r">￥{{itm.itemsPrice/100}}</view>
+              <view class="text_r van-ellipsis">￥{{itm.itemsPrice/100}}</view>
               <view class="text_r" style="margin-top: 16rpx;">x {{itm.itemsNum}}</view>
             </view>
           </view>
@@ -69,7 +69,7 @@
           <view class="font206">订单号：{{item.parentOid}}</view>
           <view class="flex_row_c_c">
             <view wx:if="{{item.iscancel}}" class="btn_list out_btn" data-oid="{{item.parentOid}}"
-              data-payprice="{{item.payPrice}}" data-bussid="{{item.bussId}}" bindtap="orderRefund">退款</view>
+              data-payprice="{{item.payPrice}}" data-bussid="{{item.bussId}}" bindtap="orderRefund">{{item.payPrice == 0  ? '取消':'退款'}}</view>
             <view wx:if="{{item.isPay}}" class="btn_list out_btn" data-payprice="{{item.payPrice}}"
               data-oid="{{item.parentOid}}" data-bussid="{{item.bussId}}" bindtap="cancelSubmit">取消</view>
             <view wx:if="{{item.isPay}}" class="btn_list" data-payprice="{{item.payPrice}}"

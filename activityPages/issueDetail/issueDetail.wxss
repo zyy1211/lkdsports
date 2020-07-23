@@ -3,7 +3,7 @@
   padding-bottom: 100rpx;
 }
 .textarea_box {
-  padding: 40rpx;
+  padding:0 40rpx;
   box-sizing: border-box;
   position: relative;
   /* max-height: 600rpx; */
@@ -16,11 +16,15 @@
 
 .textareaself {
   width: 100%;
-  min-height: 300rpx;
+  /* min-height: 300rpx; */
   font-size: 24rpx;
   color: #666;
   line-height: 46rpx;
+  padding: 60rpx 0;
 
+}
+.issueDetail .van-field__input{
+  padding: 40rpx 0 40rpx 0;
 }
 
 .uploadbox {

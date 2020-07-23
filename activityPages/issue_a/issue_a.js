@@ -17,8 +17,8 @@ Page({
     penalSum: 30,
     apiimg: API.API_IMG,
     skuTypeListArr: [],
-    withPeople: 0,
-    isOpen: 0,
+    withPeople: 1,
+    isOpen: 1,
     isPenal: 0,
     detailsImageArr: [],
     pickkey: '',
@@ -35,23 +35,23 @@ Page({
     headImage: '',
     defalutTab: [{
         name: '免费提供热茶水',
-        checked: true
+        checked: false
       },
       {
         name: '免费停车',
-        checked: true
+        checked: false
       },
       {
         name: '免费提供球',
-        checked: true
+        checked: false
       },
       {
         name: '免费提供饮用水',
-        checked: true
+        checked: false
       },
       {
         name: '免费零食',
-        checked: true
+        checked: false
       }
     ],
     chargeMode: 10,
@@ -271,9 +271,17 @@ Page({
       sizeType: ['compressed'],
       sourceType: ['album', 'camera'],
       success: function (res) {
-        wx.navigateTo({
-          url: '/activityPages/img-cropper/img-cropper?imgSrc=' + res.tempFilePaths[0]
+        app.isCheckImg(res.tempFilePaths[0]).then(() =>{
+          // console.log(img)
+          // if((img.response[0]?.errcode  + '').includes('8701')){
+          //   wx.showToast({title: '请重新上传或更换图片',icon:'none',duration:3000});
+          //   return;
+          // }
+          wx.navigateTo({
+            url: '/activityPages/img-cropper/img-cropper?imgSrc=' + res.tempFilePaths[0] 
+          })
         })
+
       },
       fail: function (res) {},
       complete: function () {
@@ -392,7 +400,6 @@ Page({
   uploadImg(url, key) {
     let self = this;
     let token = wx.getStorageSync('token');
-    // console.log(url)
     wx.uploadFile({
       url: API.API_HOST + '/activities/upload',
       header: {
@@ -688,8 +695,9 @@ Page({
       isdraft
 
     } = this.data;
-    // console.log(limitType)
-    // console.log(skuTypeListArr)
+    console.log(this.data)
+    
+    
     if (app.isNull(headImage)) {
       return self.showToasts('活动主图')
     }
@@ -727,6 +735,8 @@ Page({
       if (isn) {
         return self.showToasts('报名费用金额不能为0，')
       }
+    }else{
+      skuTypeListArr.forEach((item) =>{item.price = 0})
     }
 
     if (app.isNull(contactName)) {
@@ -766,11 +776,13 @@ Page({
     detailsImageArr.forEach((item) => {
       detailsImage.push(item.path)
     })
-    let skuTypeList = skuTypeListArr.filter((item) => {
+    let skuTypeList11 = JSON.stringify(skuTypeListArr);
+
+    let skuTypeList = JSON.parse(skuTypeList11).filter((item) => {
       return item.checked == true
     })
 
-    skuTypeListArr.forEach((item) => {
+    skuTypeList.forEach((item) => {
       item.price = (item.price * 100).toFixed(0)
     })
     if (!app.isNull(detailsText)) {
@@ -818,11 +830,10 @@ Page({
     }
     // console.log(params)
     http.post(url, params, 1).then((res) => {
-      // console.log(res)
       if (res.code == 200) {
         self.subscribeMsg(() => {
-          wx.navigateBack({
-            delta: 1
+          wx.navigateTo({
+            url: '/myList/myIssue/myIssue',
           })
         })
 

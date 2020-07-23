@@ -3,7 +3,7 @@
   <view class="signfixed">
     <view class="signTab">
       <block wx:for="{{tablist}}" wx:key="value">
-        <view hidden="{{!self_is_user && item.value==40}}" bindtap="tabChange" data-key="{{item.value}}"
+        <view wx:if="{{!self_is_user && item.value==20 || self_is_user}}" bindtap="tabChange" data-key="{{item.value}}"
           class="itemtab {{status==item.value ? 'activity' :''}}">
           {{item.name}}</view>
       </block>
@@ -42,9 +42,9 @@
             <view class="title" style="margin-right: 12rpx;max-width: 140rpx;height: 34rpx;overflow: hidden;">
               {{item.activitiesApply.trueName ? item.activitiesApply.trueName : item.activitiesApply.nickName}}</view>
 
-            <image wx:if="{{item.activitiesApply.gender == 1}}" style="width: 25rpx;height: 25rpx;" src="/static/mine2.png"
+            <image wx:if="{{item.userInfo.sex == 1}}" style="width: 25rpx;height: 25rpx;" src="/static/mine2.png"
               mode="widthFix" lazy-load="false"></image>
-            <image wx:if="{{item.activitiesApply.gender == 2}}" style="width: 25rpx;height: 25rpx;" src="/static/mine3.png"
+            <image wx:if="{{item.userInfo.sex == 2}}" style="width: 25rpx;height: 25rpx;" src="/static/mine3.png"
               mode="widthFix" lazy-load="false"></image>
 
           </view>

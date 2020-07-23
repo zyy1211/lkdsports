@@ -27,7 +27,7 @@ var formatStatus = function(status,refStatus,itemsType){
   if(status ==100 || status == 101){
     return '已取消'
   }
-  if(status == 50){
+  if(status == 50 || status == 60 || status == 70){
     return '已完成'
   }
   if(status == 40 || status == 35 || status == 30){

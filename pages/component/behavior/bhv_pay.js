@@ -135,8 +135,13 @@ module.exports = Behavior({
       let self = this;
       let currentItem = e.currentTarget.dataset;
       // console.log(currentItem);
+      let payprice = currentItem?.payprice;
+      let text = '确定要退款吗？'
+      if(payprice==0){
+        text = '确定要取消吗？'
+      }
       self.setData({
-        noteText: '确定要退款吗？',
+        noteText: text,
         noteShow: true,
         currentItem
       });

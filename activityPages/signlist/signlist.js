@@ -8,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    self_is_user:true,
+    self_is_user:false,
     url : '/activities/getApplyInfo',
     status: 20,
     apiimg: Api.API_IMG,
@@ -21,7 +21,7 @@ Page({
       //   value: 30
       // }, 
       {
-        name: '已退款',
+        name: '已取消',
         value: 40
       }
     ]

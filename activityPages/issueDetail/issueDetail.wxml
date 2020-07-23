@@ -1,12 +1,13 @@
-
-
 <view class="issueDetail">
   <view class="textarea_box">
-    <view class="notetext">{{detailsText.length}}/300</view>
-    <textarea bindinput="bindData" value="{{detailsText}}" class="textareaself" auto-height placeholder="请编辑活动详情……" placeholder-class="pldClass" auto-focus="{{true}}" disable-default-padding="{{true}}" maxlength="300"></textarea>
+    <!-- <view class="notetext">{{detailsText.length}}/9999</view> -->
+    <textarea bindinput="bindData" value="{{detailsText}}" maxlength="-1" class="textareaself" auto-height
+      placeholder="请编辑活动详情……" placeholder-class="pldClass" 
+      disable-default-padding="{{true}}"></textarea>
   </view>
   <view class="uploadbox">
-    <van-uploader file-list="{{ detailsImageArr }}"  max-count="5" bind:after-read="afterRead" deletable="{{ true }}" bind:delete="delectimg" />
+    <van-uploader file-list="{{ detailsImageArr }}" max-count="5" bind:after-read="afterRead" deletable="{{ true }}"
+      bind:delete="delectimg" />
   </view>
 </view>
 

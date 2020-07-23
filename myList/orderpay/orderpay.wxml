@@ -37,7 +37,7 @@
             <view class="address">{{orderphone.locationAddress}}</view>
           </view>
         </view>
-        <view class="phone flex_row_c_c" data-key="{{orderphone.contactNumber}}" bindtap="makeCall">
+        <view class="phone flex_row_c_c" data-key="{{orderphone.contactNumber}}" catchtap="makeCall">
           <image style="width: 33rpx;" src="/static/tel.png" mode="widthFix"></image>
         </view>
       </view>
@@ -105,19 +105,28 @@
           ({{tools_acvd.formatTimeed(activities.startTime,activities.endTime,1)}})</view>
       </view>
       <view class="ordertable" style="padding: 30rpx;">
+
+        <view class="flex_row_c_c tbth">
+          <view class="weeks" style="width: 90rpx;">星期</view>
+          <view style="width: 120rpx;">人数</view>
+          <view style="width: 160rpx;" class="grow">场地</view>
+          <view style="width: 140rpx;text-align: center;">费用</view>
+        </view>
+
         <block wx:for="{{children.children}}" wx:key="index">
           <view class="flex_row_c">
-            <view class="weeks font269" style="width: 90rpx;">
+            <view class="weeks font269" style="width: 90rpx;color: #666;">
               {{tools_acvd.formatTimeed(item.startTime,item.endTime,0)}}</view>
-            <view class="grow flex_row_c_c">
+            <view class="flex_row_c_c" style="width: 120rpx;">
               <view class="flex_row_c tbtd">
                 <image style="margin-right: 10rpx;" class="sex_icon" src="{{apiimg + item.iconurl }}" mode="widthFix">
                 </image>
                 <view class="fong229" style="margin-right: 20rpx;">x{{item.itemsNum}}</view>
               </view>
             </view>
-            <view style="width: 160rpx;" class="font269">{{activities.filedNo}}</view>
-            <view style="width: 140rpx;text-align: right;" class="font269">￥{{item.itemsPrice/100 * item.itemsNum}}
+            <view style="width: 160rpx;color: #666;" class="font269 van-ellipsis grow">{{activities.filedNo}}</view>
+            <view style="width: 140rpx;text-align: right;color: #666;" class="font269 van-ellipsis">
+              ￥{{tools_acvd.fixeds(item.itemsPrice,item.itemsNum)}}
             </view>
           </view>
         </block>
@@ -170,7 +179,8 @@
         <view style="font-size: 26rpx;color: #666;">距离可退款剩余:</view>
         <view>{{ableRefundTime}}</view>
       </view>
-      <view class="sett" bindtap="orderRefund" data-oid="{{order.oid}}" data-payPrice="{{order.payPrice}}">退款</view>
+      <view class="sett" bindtap="orderRefund" data-oid="{{order.oid}}" data-payPrice="{{order.payPrice}}">
+        {{order.payPrice == 0 ? '取消' : '退款' }}</view>
     </view>
   </view>
 

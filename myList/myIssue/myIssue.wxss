@@ -59,7 +59,7 @@
 .itembg {
   background-color: white;
   border-radius: 20rpx;
-  padding: 8rpx 10rpx;
+  padding: 16rpx 12rpx 10rpx 16rpx;
   box-sizing: border-box;
   margin-bottom: 30rpx;
 }

@@ -88,12 +88,25 @@ module.exports = Behavior({
         self.setData({
           [keys]: phone
         });
+        self.getUserInfo();
+      })
+    },
+    // 用户信息
+    getUserInfo() {
+
+      http.get('/user/getInfo').then((res) => {
+        // console.log(res)
+        if (res.code != 200) {
+          return
+        }
+        let main = res.response[0];
+        app.setInfo(main)
       })
     },
     string_to_arr(str) {
       if (str != '' && str != null) {
-        str = str.substring(0, str.length - 1);
-        return str.split(',')
+        // str = str.substring(0, str.length - 1);
+        return str.split(',').filter(item => item)
       }
     },
     bMapTransqqMap(lng, lat) {

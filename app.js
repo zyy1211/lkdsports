@@ -1,4 +1,5 @@
 const http = require('./utils/request.js');
+const API = require('./utils/config');
 
 App({
   onLaunch: function () {
@@ -38,58 +39,91 @@ App({
     this.globalData.barHeight = barHeight;
     this.globalData.height = height;
   },
+  isCheckImg(url){
+    let token = wx.getStorageSync('token');
+    return new Promise((resolve,reject) =>{
+      wx.uploadFile({
+        url: API.API_HOST + '/wxCheck/imgCheck',
+        header: {
+          'token': token,
+        },
+        filePath: url,
+        name: 'file',
+        success(res){
+          let datas = JSON.parse(res.data)
+          if((datas.response[0]?.errcode  + '').includes('8701')){
+            wx.showToast({title: '请重新上传或更换图片',icon:'none',duration:3000});
+            return;
+          }
+          resolve();
+        },
+      })
+    })
+  },
 
   // 判断session是否过期
   isSession(callback) {
-    let self = this;
-    wx.checkSession({
-      success() {
-        if (self.isNull(self.getToken())) {
-          self.reqToken(callback)
-          return;
-        }
-        callback();
-      },
-      fail() {
-        self.reqToken(callback)
-      }
+    this.isSession11().then(() => {
+      callback()
     })
   },
-
-  reqToken(callback) {
+  isSession11() {
     let self = this;
-    wx.login({
-      success(res) {
-        if (res.code) {
-          http.getT('/login/auth/' + res.code, '').then(function (data) {
-            let token = data.header.token;
-            self.setToken(token);
-            let info = data.data.response[0];
-            if (self.isNull(info) || self.isNull(info.nickname)) {
-              info = '';
-            }
-            self.setInfo(info);
-            callback()
+    return new Promise((resolve, reject) => {
+      wx.checkSession({
+        success() {
+          if (self.isNull(self.getToken())) {
+            self.reqToken().then(() => {
+              resolve();
+            })
+            return;
+          }
+          resolve();
+        },
+        fail() {
+          self.reqToken().then(() => {
+            resolve();
           })
         }
-      }
+      })
+    })
+
+  },
+
+  reqToken() {
+    let self = this;
+    return new Promise((resolve, reject) => {
+      wx.login({
+        success(res) {
+          if (res.code) {
+            http.getT('/login/auth/' + res.code, '').then(function (data) {
+              let token = data.header.token;
+              self.setToken(token);
+              let info = data.data.response[0];
+              if (self.isNull(info) || self.isNull(info.nickname)) {
+                info = '';
+              }
+              self.setInfo(info);
+              resolve();
+            })
+          }
+        }
+      })
     })
   },
-  reqInfo(callback) {
-    let self = this;
-    if (self.isNull(self.getInfo())) {
-      wx.navigateTo({
-        url: '/pages/userInfo/userInfo'
-      })
-    } else {
-      callback();
-    }
-  },
-  isLogin(callback) {
-    let self = this;
-    this.isSession(function () {
 
-      self.reqInfo(callback);
+  isLogin(callback) {
+
+    let self = this;
+    this.isSession(() => {
+      // console.log(self.getInfo())
+      if (self.isNull(self.getInfo())) {
+        wx.navigateTo({
+          url: '/pages/userInfo/userInfo'
+        })
+      } else {
+        callback();
+      }
     })
   },
 
@@ -97,11 +131,24 @@ App({
     let self = this;
     http.post('/user/saveInfo', userInfo, 1).then(function (res) {
       self.setInfo(userInfo);
+      self.getUserInfo();
       wx.navigateBack({
         delta: 1
       });
     })
   },
+      // 用户信息
+      getUserInfo() {
+        let self = this;
+        http.get('/user/getInfo').then((res) => {
+          // console.log(res)
+          if (res.code != 200) {
+            return
+          }
+          let main = res.response[0];
+          self.setInfo(main);
+        })
+      },
 
 
   setToken(token) {
@@ -125,7 +172,8 @@ App({
     return false;
   },
   getOneDay: function () {
-    let dayList = [],activityTimeList = [],
+    let dayList = [],
+      activityTimeList = [],
       strap = [],
       hourList = [],
       minuteList = [];

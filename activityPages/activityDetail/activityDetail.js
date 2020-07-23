@@ -13,7 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    radio: '',
+    radio: '', 
     flag: false,
     apiimg: Api.API_IMG,
     activeNames: ["1"],
@@ -42,7 +42,6 @@ Page({
     if (activityId) {
       this.initData();
     }
-
   },
 
   initData() {
@@ -80,8 +79,10 @@ Page({
         cUserDTO,
         flag,
         skuLock,
-      } = main;
-      headImage = headImage?.slice(0,6)
+      } = main; 
+      let { addressLatitude:locationLatitude,addressLongitude:locationLongitude } = activities;
+      let address = {locationLatitude,locationLongitude};
+      headImage = headImage?.slice(0,6);
 
       activities.detailsText = activities?.detailsText?.split('&hc').join('\n');
 
@@ -114,8 +115,10 @@ Page({
         cUserDTO,
         flag,
         skuLock: skuLock11,
-        isApplySign
+        isApplySign,
+        main:address
       })
+      console.log(self.data.main)
 
     })
   },

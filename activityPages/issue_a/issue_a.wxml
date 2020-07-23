@@ -268,7 +268,7 @@
         <view class="left">截止报名时间</view>
         <view class="right flex_row_c">
           <view class="grow">
-            <van-field input-class="vant_input" readonly data-key="uptoTime" value="{{ uptoTime }}"
+            <van-field clearable input-class="vant_input" readonly data-key="uptoTime" value="{{ uptoTime }}"
               placeholder="请选择截止报名时间" border="{{ false }}" bindtap="showPicker" />
           </view>
           <van-icon style="margin-left: 10rpx;" size="14" color="#999999" name="arrow" />
@@ -278,7 +278,7 @@
         <view class="left">取消报名截止</view>
         <view class="right flex_row_c">
           <view class="grow">
-            <van-field input-class="vant_input" readonly data-key="cancelTime" value="{{ cancelTime }}"
+            <van-field clearable input-class="vant_input" readonly data-key="cancelTime" value="{{ cancelTime }}"
               placeholder="请选择取消报名截止" border="{{ false }}" bindtap="showPicker" />
           </view>
           <van-icon style="margin-left: 10rpx;" size="14" color="#999999" name="arrow" />

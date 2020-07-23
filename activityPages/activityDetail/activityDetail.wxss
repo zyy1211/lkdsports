@@ -191,7 +191,7 @@
 
 .detailText{
     font-size: 24rpx;
-    color: #999;
+    color: #666;
     text-indent:2;
     padding-bottom: 30rpx;
 }

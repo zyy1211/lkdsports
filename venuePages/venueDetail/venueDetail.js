@@ -2,10 +2,11 @@
 
 let bhv_back = require('../../pages/component/behavior/bhv_back.js');
 let bhv_refresh = require('../../pages/component/behavior/bhv_refresh.js');
-let bhv_location = require('../../pages/component/behavior/bhv_location')
+let bhv_location = require('../../pages/component/behavior/bhv_location') 
 let http = require('../../utils/request')
 let bhv_week = require('../../pages/component/behavior/bhv_week')
 let app = getApp();
+let API = require('../../utils/config')
 
 const Rx = require('../../utils/rxjs'); 
 const {
@@ -29,7 +30,8 @@ Page({
     longitude: '',
     choiseList: [],
     show: false,
-    num: 0
+    num: 0,
+    apiimg:API.API_IMG
   },
   behaviors: [bhv_week, bhv_back, bhv_refresh, bhv_location],
 

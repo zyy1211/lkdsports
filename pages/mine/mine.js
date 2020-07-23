@@ -22,15 +22,23 @@ Page({
     }
   },
   onLoad: function () {
+
+  },
+  initData(){
     let self = this;
     app.isLogin(function () {
       let info = app.getInfo()
       // console.log(info)
+      let headImage = info.headImage || info.avatarUrl;
       self.setData({
-        info
+        info,headImage
       })
     })
   },
+  onShow: function () {
+    this.initData();
+  },
+  
   toBlockList(e) {
     let url = e.currentTarget.dataset.url
     wx.navigateTo({

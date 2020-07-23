@@ -1,10 +1,10 @@
 <!-- <scroll-view> -->
 <view class="activityDetail">
     <view class="diagram" id="lkdnav">
-        <swiper class="swpView" circular="true" autoplay interval="3000">
+        <swiper class="swpView" circular="true" style="height: 560rpx;" autoplay interval="3000">
             <swiper-item wx:for="{{ main.imagesPath }}" wx:key="*this">
-                <image class="bannerimg" src="{{item}}" mode="widthFix"></image>
-            </swiper-item>
+                <image class="bannerimg" src="{{ apiimg + item}}" mode="cover"></image>
+            </swiper-item> 
         </swiper>
 
         <view class="topbar topbarbg" style="height:{{height}}rpx;background:rgba(255,255,255,{{opacity}})"></view>

@@ -1,5 +1,6 @@
 {
   "navigationBarTitleText": "编辑活动详情",
   "navigationBarBackgroundColor": "#246cff",
-  "navigationBarTextStyle": "white"
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": false
 }

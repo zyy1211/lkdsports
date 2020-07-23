@@ -14,7 +14,7 @@
             </view>
         </view>
     </view>
-    <wxs src="./../filter_actvd.wxs" module="tools" ></wxs>
+    <wxs src="./../filter_actvd.wxs" module="tools"></wxs>
     <view class="main">
         <view class="flex_row_btw_j">
             <view class="font3439 van-multi-ellipsis--l2">{{activities.title}}</view>
@@ -32,11 +32,14 @@
         <view class="flex_row_c sexbox">
             <block wx:for="{{activitiesSkuList}}" wx:key="id">
                 <image class="sex_icon" src="{{apiimg + item.iconPath }}" mode="widthFix"></image>
-                <view class="font246 marl12">{{item.price/100}}元/人</view>
+                <view wx:if="{{activities.chargeMode == 10 }}" class="font246 marl12">{{item.price/100}}元/人</view>
+                <view wx:elif="{{ activities.chargeMode == 0 }}" class="font246 marl12">免费</view>
+                <view wx:elif="{{ activities.chargeMode == 20 }}" class="font246 marl12">线下收费</view>
+                <view wx:elif="{{ activities.chargeMode == 30 }}" class="font246 marl12">AA收款</view>
             </block>
         </view>
 
-        <view class="flex_row_c isit">
+        <view class="flex_row_c isit" bindtap="openMap">
             <image class="ad_icon" src="/static/actvd3.png" mode="widthFix"></image>
             <view class="font263">{{activities.location}}</view>
         </view>
@@ -51,7 +54,10 @@
         </view>
         <view class="flex_row_c isit">
             <image class="ad_icon" src="/static/actvd4.png" mode="widthFix"></image>
-            <view class="font263">{{activities.filedNo ? activities.filedNo : ''}}</view>
+            <view class="font263 flex_row_c">
+                <view>场地</view>
+                <view style="margin-left: 10rpx;">{{activities.filedNo ? activities.filedNo : ''}}</view>
+            </view>
         </view>
 
         <view class="flex_row_btw isTitle">
@@ -75,7 +81,8 @@
                         mode="cover">
                     </image>
                     <view class="flex_row" style="align-items: flex-end;">
-                        <view class="font2839" style="margin: 0 11rpx 0 16rpx;">{{ activities.contactName ? activities.contactName : cUserDTO.nickname}}</view>
+                        <view class="font2839" style="margin: 0 11rpx 0 16rpx;">
+                            {{ activities.contactName ? activities.contactName : cUserDTO.nickname}}</view>
                         <image wx:if="{{cUserDTO.sex == 1}}" style="width: 25rpx;height: 25rpx;" src="/static/mine2.png"
                             mode="widthFix" lazy-load="false"></image>
                         <image wx:if="{{cUserDTO.sex == 2}}" style="width: 25rpx;height: 25rpx;" src="/static/mine3.png"
@@ -153,9 +160,10 @@
         </view>
         <view wx:if="{{ isApplySign==0 &&  (activities.status==100 || activities.status==101) }}">
             <view class="fixedBtns">
-                <view class="flex_row_c_c" style="width: 100%;color: #999;font-size: 26rpx;text-align: center;">活动已取消</view>
+                <view class="flex_row_c_c" style="width: 100%;color: #999;font-size: 26rpx;text-align: center;">活动已取消
+                </view>
             </view>
-            
+
         </view>
     </view>
 </view>
