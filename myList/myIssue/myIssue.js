@@ -124,7 +124,7 @@ Page({
     let self = this;
     let {ActivityId} = this.data;
     http.post('/activities/cancel',{ActivityId}).then((res) =>{
-      console.log(res)
+      // console.log(res)
       if(res.code !=200){return};
       wx.showToast({title: '取消活动成功！',icon:'none',duration:3000});
       self.initData();

@@ -1,4 +1,7 @@
-// venuePages/setSuccess/setSuccess.js
+
+let bhv_location = require('../../pages/component/behavior/bhv_location')
+
+
 Page({
 
   /**
@@ -8,7 +11,7 @@ Page({
     active :3,
     steps: [
       {
-        text: '在浏览器输入 http://test.like-sports.cn:8001/ 进',
+        text: '在浏览器输入http://saas.like-sports.cn/index.html进',
         desc: '入栎刻动场馆系统登录页面。',
 
       },
@@ -23,6 +26,7 @@ Page({
       },
     ],
   },
+  behaviors: [bhv_location],
 
   /**
    * 生命周期函数--监听页面加载

@@ -223,6 +223,7 @@ Page({
       venueAddress: '场馆地址' + text,
       venueName: '场馆名称' + text,
       wechat: '微信号' + text,
+      startTime:'营业执照开始时间'+text,
     }
     if (app.isNull(value)) {
       // console.log(key)
@@ -316,6 +317,10 @@ Page({
     if (!self.valEmpty('wechat', wechat)) {
       return
     }
+    if (!self.valEmpty('startTime', startTime)) {
+      return
+    }
+    
 
     let params = {
       address,

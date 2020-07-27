@@ -40,6 +40,14 @@
       </block>
     </view>
   </view>
+
+  <view class="flex_row_c" style="width: 100%;margin-top: 30rpx;" hover-class="none" hover-stop-propagation="false">
+    <checkbox-group bindchange="checkBoxChange">
+      <checkbox value="1" checked="{{agree}}" />
+    </checkbox-group>
+    <view style="font-size: 24rpx;color: #666;" bindtap="modalAgree">我同意栎刻动活动报名协议</view>
+  </view>
+
  <!-- <view> '报名'{{disabled}}</view> -->
   <view wx:if="{{edit}}">
     <view class="flex_row_c_c fixedSub">
@@ -55,3 +63,26 @@
 </view>
 <alert isAlert="{{isAlert}}"></alert>
 <computed activitiesSkuList="{{activitiesSkuList}}" bind:wishSuccess="onwishSuccess"></computed>
+
+<view class="wxapp-modal" hidden="{{dialogAgree}}" catchtouchmove="_touchmove">
+  <view bindtap="closeDialogAgree" class="mask"></view>
+  <view class="content" style="top:10%">
+    <view class="header">栎刻动平台活动报名免责声明</view>
+    <view class="body">
+      <scroll-view scroll-y="true" class="modal-scroll">
+        <view>1、 报名参加本次活动者（以下统称为参加者）应为年满18周岁的完全民事行为能力人，未满18周岁的限制民事行为能力人或无民事行为能力人应当在其监护人的陪同下参加。</view>
+        <view>
+          2、 参加者应当对自身的身体条件进行全面了解，并科学评估是否适宜参加本次活动。
+        </view>
+        <view>3、 本次活动可能具有潜在的危险性和不可预知性，参加者或参加者的监护人须对参加者的人身安全和行为负责。</view>
+        <view>4、 若参加者在参加活动过程中因剧烈运动、激烈对抗等方式而导致受伤，由参加者本人或监护人承担后果，组织者和平台不承担责任。</view>
+        <view>5、 参加者在本次活动中（包括来往活动场地的途中）遭受人身损害或造成他人人身损害的，由参加者本人或监护人承担后果，组织者和平台不承担责任。</view>
+        <view>6、 参加者应当妥善管理自己的财物。组织者和平台不承担保管参加者财物的义务，若发生财物失窃、损毁等情形，所有损失由参加者自行承担。</view>
+        <view>7、 本次活动的参加者已经仔细阅读以上免责声明，并已知晓和理解上述相关条款。</view>
+      </scroll-view>
+    </view>
+    <view bindtap="closeDialogAgree" class="footer">
+      <button class="confirm" bindtap="_defaultAgree" style="width:100%;" type="defaultAgree">我同意</button>
+    </view>
+  </view>
+</view>

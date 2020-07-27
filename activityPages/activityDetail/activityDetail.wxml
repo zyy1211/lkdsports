@@ -39,9 +39,12 @@
             </block>
         </view>
 
-        <view class="flex_row_c isit" bindtap="openMap">
-            <image class="ad_icon" src="/static/actvd3.png" mode="widthFix"></image>
-            <view class="font263">{{activities.location}}</view>
+        <view class="flex_row_btw isit" bindtap="openMap">
+            <view class="flex_row_c" style="width: 100%;">
+                <image class="ad_icon" src="/static/actvd3.png" mode="widthFix"></image>
+                <view class="font263">{{activities.location}}</view>
+            </view>
+            <van-icon color="#999" size="14" name="arrow" />
         </view>
         <view class="flex_row_c isit">
             <image class="ad_icon" src="/static/actvd6.png" mode="widthFix"></image>

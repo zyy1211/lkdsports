@@ -4,9 +4,21 @@
     <view class="setSuctext" style="margin-bottom: 50rpx;">
       <view class="sucText graycolor3" style="font-weight: 900;font-size: 26rpx;">您的审核已通过</view>
       <view class="sucText graycolor9">登录账号及密码已发送至联系人手机，请查阅。</view>
-      <view class="sucText graycolor9">请根据此帐号密码在栎刻动商户后台进行登录，后台地</view>
-      <view class="sucText graycolor9">址：www.like-sports.cn如有问题请联系栎刻动平台客服，</view>
-      <view class="sucText graycolor9">联系电话：0571-86610762</view>
+      <view class="sucText graycolor9">请根据此帐号密码在栎刻动商户后台进行登录，</view>
+      <view class="sucText graycolor9">
+        <view class="flex_row">
+          <view>后台地址：</view>
+          <view bindtap="makeWx" data-key="http://saas.like-sports.cn/index.html" style="color: blue;">
+            http://saas.like-sports.cn/index.html</view>
+        </view>
+      </view>
+      <view class="sucText graycolor9">如有问题请联系栎刻动平台客服，</view>
+      <view class="sucText graycolor9">
+        <view class="flex_row">
+          <view>联系电话：</view>
+          <view bindtap="makeCall" data-key="0571-86610762" style="color: blue;">0571-86610762</view>
+        </view>
+      </view>
     </view>
 
     <van-steps active-color="#246CFF" custom-class="customFont" desc-class="descFont" direction="vertical"

@@ -117,7 +117,7 @@
         <view class="rowItem">
             <view class="left">统一社会信用代码</view>
             <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input"
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" maxlength="18"
                     data-key="businessLicenseNumber" value="{{ businessLicenseNumber }}" placeholder="请输入统一社会信用代码"
                     border="{{ false }}" bindinput="bindDate" />
             </view>

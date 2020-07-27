@@ -139,7 +139,7 @@ Page({
         http.get('/activities/activitiesList', {
             latitude,
             longitude,
-            pageSize: 3,
+            pageSize: 5,
             pageNum: 1
         }).then((res) => {
             // console.log(res)

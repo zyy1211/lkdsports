@@ -315,6 +315,13 @@
     </view>
   </view>
 
+  <view class="flex_row_c" hover-class="none" hover-stop-propagation="false">
+    <checkbox-group bindchange="checkBoxChange">
+      <checkbox value="1" checked="{{agree}}" />
+    </checkbox-group>
+    <view style="font-size: 24rpx;color: #666;" bindtap="modalAgree">我同意栎刻动活动发布协议</view>
+  </view>
+
   <view class="flex_row_c_c" style="padding: 50rpx 0;">
     <view class="submit grow" bindtap="submitActive">{{(activityId && isdraft != 1) ? '修改发布' : '立即发布'}}</view>
     <!-- <view class="submitReady">预览</view> -->
@@ -339,3 +346,28 @@
 </view>
 
 <alert isAlert="{{isAlert}}"></alert>
+
+
+<view class="wxapp-modal" hidden="{{dialogAgree}}" catchtouchmove="_touchmove">
+  <view bindtap="closeDialogAgree" class="mask"></view>
+  <view class="content" style="top:10%">
+    <view class="header">栎刻动体育平台活动发布免责声明</view>
+    <view class="body">
+      <scroll-view scroll-y="true" class="modal-scroll">
+        <view>在您使用“栎刻动体育平台”之前，请务必仔细阅读并理解本声明。您使用栎刻动体育平台时，您的使用行为将被视为对本声明全部内容的认可。</view>
+        <view>一、	只有符合下列条件的平台用户才能使用本平台进行活动发布：</view>
+        <view>1、年满十八周岁，并具有完全民事行为能力，且通过了平台的个人的实名认证的自然人；</view>
+        <view>2、根据中国法律、法规、行政规章成立并合法存在的且通过了平台的企事业单位实名认证的法人、非法人组织以及其他社会团体；</view>
+        <view>二、	发布者通过使用本平台发布相关活动（内容涉及包括但不限于发布人信息、报名人信息、活动信息等），发布者应自行确保发布内容的真实性、合法性、正确性、安全性，并独自承担因发布的相关内容而产生纠纷所造成的经济损失或法律责任。本平台不承担因发布者发布虚假、不合法、不正确或不安全信息导致的任何的法律后果，且一旦平台接到被侵权人通知、举报或投诉，平台会采取删除、屏蔽、断开链接等必要措施，由此产生的法律责任全部由发布者承担。</view>
+        <view>三、	本平台作为信息中介平台，发布者发布的内容或信息（包括但不限于公司名称、联系人及联络内容，内容的描述和说明，相关图片、视频等）均由发布者自行提供，发布者应依法对其发布的内容承担全部责任。本平台对此等内容的准确性、完整性、合法性以及真实性均不承担任何责任。同时，本平台对任何使用和提供本平台内容的商业活动及其风险不承担任何责任。</view>
+        <view>四、	凡是违反法律、法规以及互联网相关管理条例，如涉及黄、涉赌等违法、违规信息，平台会一律删除，由此产生的法律责任全部由发布者承担，本平台不承担任何责任。</view>
+        <view>五、	因网络状况、通讯线路、第三方平台等任何原因而导致发布者不能正常使用本平台，本平台不承担任何法律责任。</view>
+        <view>六、	本平台尊重并保护所有使用本平台用户（不限于且包括发布者）的个人隐私权，用户注册的用户名、电子邮件地址、联系方式等个人资料，非经用户本人许可或根据相关法律、法规的强制性规定必须提供，本平台不会主动地泄露给第三方。</view>
+        <view>七、	本声明以及其修改权、更新权及最终解释权均属本平台运营方所有。</view>
+      </scroll-view>
+    </view>
+    <view class="footer" bindtap="closeDialogAgree">
+      <button class="confirm" bindtap="_defaultAgree" style="width:100%;" type="default">我同意</button>
+    </view>
+  </view>
+</view>

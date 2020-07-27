@@ -1,6 +1,6 @@
-<view class="signlist">
+<view class="signlist" style="position: absolute;">
   <view class="bgblue"></view>
-  <view class="signfixed">
+  <view class="signfixed" style="position: absolute;">
     <view class="signTab">
       <block wx:for="{{tablist}}" wx:key="value">
         <view wx:if="{{!self_is_user && item.value==20 || self_is_user}}" bindtap="tabChange" data-key="{{item.value}}"
@@ -19,7 +19,7 @@
       </view>
       <view class="linhe"></view>
       <view class="skulist">
-        <view wx:for="{{activitiesSkus}}" wx:key="index" wx:for-item="itm">
+        <view class="flex_col_c" style="align-items: center;" wx:for="{{activitiesSkus}}" wx:key="index" wx:for-item="itm">
           <image class="sex_icon" style="width: 34rpx;" src="{{apiimg + itm.iconPath}}" mode="widthFix"></image>
           <view class="sku">{{itm.title}}</view>
           <!-- {{status}} -->

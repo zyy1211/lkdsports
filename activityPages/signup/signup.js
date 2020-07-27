@@ -1,6 +1,7 @@
 let bhv_location = require('../../pages/component/behavior/bhv_location')
 let http = require('../../utils/request')
 let bhv_pay = require('../../pages/component/behavior/bhv_pay')
+let bhv_dialog = require('../../pages/component/behavior/bhv_dialog')
 let app = getApp();
 
 Page({
@@ -9,13 +10,15 @@ Page({
    * 页面的初始数据
    */
   data: {
+    dialogAgree: true,
+    agree: false,
     disabel: false,
     is_user_self: 1,
     maxPs: 1,
     trueName: '',
     disabled:false,
   },
-  behaviors: [bhv_location, bhv_pay],
+  behaviors: [bhv_location, bhv_pay,bhv_dialog],
 
   /**
    * 生命周期函数--监听页面加载
@@ -154,6 +157,14 @@ Page({
   },
   submit() {
     let self = this;
+
+    if (!self.data.agree) {
+      return wx.showToast({
+        title: '请阅读本平台协议，勾选同意后方可发布活动',
+        icon: 'none',
+      })
+    }
+
     let {
       choiseNum,
       maxPs,

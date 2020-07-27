@@ -4,7 +4,7 @@ let http = require('../../utils/request')
 let toggle = require('./toggle')
 let API = require('../../utils/config.js');
 let bhv_location = require('../../pages/component/behavior/bhv_location')
-
+let bhv_dialog = require('../../pages/component/behavior/bhv_dialog')
 
 Page({
 
@@ -12,6 +12,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    disabled:false,
+    dialogAgree: true,
+    agree: false,
     chargeMode: 10,
     disableEdit: false,
     penalSum: 30,
@@ -75,7 +78,7 @@ Page({
     dialogShow: true,
     years: [1, 2, 3, 4, 5, 6, 7, 8]
   },
-  behaviors: [toggle, bhv_location],
+  behaviors: [toggle, bhv_location,bhv_dialog],
 
   /**
    * 生命周期函数--监听页面加载
@@ -346,7 +349,7 @@ Page({
     let minNum = skuTypeListArr[index].minNum;
     // console.log(value)
     // console.log(minNum)
-    console.log(disableEdit)
+    // console.log(disableEdit)
     if (disableEdit) {
       if (value < minNum) {
         wx.showToast({
@@ -364,7 +367,7 @@ Page({
   bindDateAll(e) {
     let disableEdit = this.data.disableEdit;
     let participantsNum = this.data.participantsNum1;
-    console.log(participantsNum)
+    // console.log(participantsNum)
     let value = e.detail.value;
     if (disableEdit) {
       if (value < participantsNum) {
@@ -400,6 +403,7 @@ Page({
   uploadImg(url, key) {
     let self = this;
     let token = wx.getStorageSync('token');
+    self.show();
     wx.uploadFile({
       url: API.API_HOST + '/activities/upload',
       header: {
@@ -408,7 +412,13 @@ Page({
       filePath: url,
       name: 'file',
       success(res) {
-        // console.log(res);
+        console.log(res);
+        if(res.statusCode != 200){
+          if(res.statusCode == 413){
+            return wx.showToast({title: '图片过大，请确认图片大小为5M以内！',icon:'none',duration:3000});
+          }
+          return wx.showToast({title: '图片上传失败！',icon:'none',duration:3000});
+        }
         let data = JSON.parse(res.data)
         if (data.code != 200) {
           if (data.code == 401) {
@@ -428,6 +438,9 @@ Page({
         self.setData({
           [key]: urlfile
         })
+      },
+      complete(){
+        self.hide();
       }
     })
   },
@@ -585,7 +598,7 @@ Page({
       return
     }
     skuTypeListArr.forEach((item) => {
-      console.log(item)
+      // console.log(item)
       item.maxNum = item.maxNum == -1 ? '' : item.maxNum
     })
     this.setData({
@@ -661,8 +674,20 @@ Page({
       }
     })
   },
-  submitActive() {
+  submitActive() { 
     let self = this;
+    if (!self.data.agree) {
+      return wx.showToast({
+        title: '请阅读本平台协议，勾选同意后方可发布活动',
+        icon: 'none',
+      })
+    }
+    for(let i in self.data){
+      if(typeof(self.data[i]) == "string"){
+        self.data[i] = self.data[i]?.trim();
+      } 
+    }
+
     let {
       addressLatitude,
       addressLongitude,
@@ -695,7 +720,8 @@ Page({
       isdraft
 
     } = this.data;
-    console.log(this.data)
+
+    
     
     
     if (app.isNull(headImage)) {
@@ -829,15 +855,19 @@ Page({
       url = '/activities/update';
     }
     // console.log(params)
+    if(self.data.disabled){ return }
+    self.setData({disabled:true})
     http.post(url, params, 1).then((res) => {
-      if (res.code == 200) {
-        self.subscribeMsg(() => {
-          wx.navigateTo({
-            url: '/myList/myIssue/myIssue',
-          })
-        })
-
+      console.log('fsfssfs')
+      if(res.code != 200){
+        self.setData({disabled:false})
+        return
       }
+      self.subscribeMsg(() => {
+        wx.navigateTo({
+          url: '/myList/myIssue/myIssue',
+        })
+      })
     })
   },
   formatWeek(star) {

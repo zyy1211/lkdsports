@@ -109,7 +109,7 @@
       </view>
       <view class="selectarr" hidden="{{selectShow}}">
         <block wx:for="{{selectArr}}" wx:key="id">
-          <view bindtap="choiseSelect" data-key="{{item.id}}"
+          <view bindtap="choiseSelect" style="font-size: 22rpx;padding: 10rpx 0;" data-key="{{item.id}}"
             class="itemBtn {{itemsType ==item.id ? 'activitytext' : ''}}">{{item.name}}</view>
         </block>
       </view>

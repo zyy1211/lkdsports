@@ -77,7 +77,7 @@
 					"id": 2,
 					"name": "活动详情",
 					"pathName": "activityPages/activityDetail/activityDetail",
-					"query": "id=1010",
+					"query": "id=1825",
 					"scene": null
 				},
 				{
@@ -133,7 +133,7 @@
 					"id": 10,
 					"name": "报名列表",
 					"pathName": "activityPages/signlist/signlist",
-					"query": "activityId=938",
+					"query": "activityId=1840",
 					"scene": null
 				},
 				{
@@ -239,6 +239,13 @@
 					"name": "活动详情编辑",
 					"pathName": "activityPages/issueDetail/issueDetail",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/userInfo/userInfo",
+					"pathName": "pages/userInfo/userInfo",
+					"query": "activityId=1840",
 					"scene": null
 				}
 			]

@@ -33,7 +33,7 @@ Page({
             })
             // console.log(url.url)
             // console.log(url)
-            prevPage.uploadImg(url.url,'headImage');
+            prevPage.uploadImg(url.url,'headImage'); 
             wx.navigateBack({
                 delta: 1,
             })

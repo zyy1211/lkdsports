@@ -42,6 +42,9 @@ App({
   isCheckImg(url){
     let token = wx.getStorageSync('token');
     return new Promise((resolve,reject) =>{
+      wx.showLoading({
+        title: '图片加载中...'
+      })
       wx.uploadFile({
         url: API.API_HOST + '/wxCheck/imgCheck',
         header: {
@@ -57,6 +60,9 @@ App({
           }
           resolve();
         },
+        complete: function () {
+          wx.hideLoading();
+        }
       })
     })
   },

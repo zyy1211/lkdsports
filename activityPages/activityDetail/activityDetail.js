@@ -224,7 +224,8 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    let api = Api.API_HOST
+    let api = Api.API_HOST;
+    let stamp = new Date();
     let {
       activities,
       activityId
@@ -232,7 +233,7 @@ Page({
     return {
       title: activities.title,
       path: '/activityPages/activityDetail/activityDetail?id=' + activityId,
-      imageUrl: api + '/user/actSharePic/' + activityId
+      imageUrl: api + '/user/actSharePic/' + activityId + '?=' + stamp
     }
   }
 })

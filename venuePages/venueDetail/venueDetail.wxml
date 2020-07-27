@@ -93,30 +93,33 @@
                                 <view class="cgname van-multi-ellipsis--l2">
                                     {{item.name}}
                                 </view>
-                                <block wx:for="{{item.new_table}}" wx:key="id" wx:for-item='itm' wx:for-index="idx">
-                                    <view class="opaBlock" bindtap="bindchoiseBlock" data-id="{{itm.id}}"
-                                        data-type="{{item.type}}" data-fieldid="{{item.fieldid}}" data-index="{{index}}"
-                                        data-idx="{{idx}}" data-item="{{itm}}" data-name="{{item.name}}"
-                                        wx:if="{{tools.mergeblock(itm.merge,item,idx)=='true'}}"
-                                        style="height:{{tools.mergeheight(itm.merge)}}px;">
-                                        <view
-                                            class="diamond flex_row_c_c {{tools.typecolor(itm.status,item.type)}} {{itm.choose ? 'choosecolor' : ''}}">
-                                            {{itm.price ? itm.price/100 : itm.price}}
-                                            <!-- {{itm.status}} || {{item.type}} -->
-                                            <!-- {{tools.typecolor(itm.status,item.type)}} -->
-                                        </view>
-                                    </view>
 
-                                    <view class="opaBlock" bindtap="bindchoiseBlock" data-id="{{itm.id}}"
-                                        data-type="{{item.type}}" data-fieldid="{{item.fieldid}}" data-index="{{index}}"
-                                        data-idx="{{idx}}" data-item="{{itm}}" data-name="{{item.name}}"
-                                        wx:if="{{ tools.mergeblock(itm.merge,item,idx)=='false' }}">
-                                        <view
-                                            class="diamond flex_row_c_c {{tools.typecolor(itm.status,item.type)}} {{itm.choose ? 'choosecolor' : ''}}">
-                                            {{itm.basePrice ? itm.basePrice/100 : itm.basePrice}}
-                                            <!-- {{itm.status}} || {{item.type}} -->
+                                <block wx:if="{{item.new_table.length>0}}">
+                                    <block wx:for="{{item.new_table}}" wx:key="id" wx:for-item='itm' wx:for-index="idx">
+                                        <view class="opaBlock" bindtap="bindchoiseBlock" data-id="{{itm.id}}"
+                                            data-type="{{item.type}}" data-fieldid="{{item.fieldid}}" data-index="{{index}}"
+                                            data-idx="{{idx}}" data-item="{{itm}}" data-name="{{item.name}}"
+                                            wx:if="{{tools.mergeblock(itm.merge,item,idx)=='true'}}"
+                                            style="height:{{tools.mergeheight(itm.merge)}}px;">
+                                            <view
+                                                class="diamond flex_row_c_c {{tools.typecolor(itm.status,item.type)}} {{itm.choose ? 'choosecolor' : ''}}">
+                                                {{itm.price ? itm.price/100 : itm.price}}
+                                                <!-- {{itm.status}} || {{item.type}} -->
+                                                <!-- {{tools.typecolor(itm.status,item.type)}} -->
+                                            </view>
                                         </view>
-                                    </view>
+    
+                                        <view class="opaBlock" bindtap="bindchoiseBlock" data-id="{{itm.id}}"
+                                            data-type="{{item.type}}" data-fieldid="{{item.fieldid}}" data-index="{{index}}"
+                                            data-idx="{{idx}}" data-item="{{itm}}" data-name="{{item.name}}"
+                                            wx:if="{{ tools.mergeblock(itm.merge,item,idx)=='false' }}">
+                                            <view
+                                                class="diamond flex_row_c_c {{tools.typecolor(itm.status,item.type)}} {{itm.choose ? 'choosecolor' : ''}}">
+                                                {{itm.basePrice ? itm.basePrice/100 : itm.basePrice}}
+                                                <!-- {{itm.status}} || {{item.type}} -->
+                                            </view>
+                                        </view>
+                                    </block>
                                 </block>
                             </view>
                         </block>
@@ -190,6 +193,6 @@
 <authorize id="authorize"></authorize>
 <computed choiseList="{{choiseList}}" bind:wishSuccess="onwishSuccess"></computed>
 
-<van-dialog title="提示" show="{{ show }}" message="常规场次与散客场次不能同时购买" confirm-button-text="知道了">
+<van-dialog title="提示" show="{{ show }}" message="常规场次与散客场次不能同时购买，\n请取消原来选中的场次，\n再重新选择需要的场次" confirm-button-text="知道了">
 </van-dialog>
 <alert isAlert="{{isAlert}}"></alert>

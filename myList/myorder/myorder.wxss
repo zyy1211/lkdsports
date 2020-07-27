@@ -183,7 +183,7 @@
 
 .selectarr {
     position: absolute;
-    top: -100rpx;
+    top: -130rpx;
     /* height: 350rpx; */
     right: 0;
     width: 100%;
@@ -192,8 +192,8 @@
 
 .itemBtn {
     width: 100%;
-    height: 36rpx;
-    line-height: 36rpx;
+    /* height: 36rpx; */
+    /* line-height: 36rpx; */
     text-align: center;
     box-shadow: 0rpx 4rpx 9rpx 0rpx rgba(0, 0, 0, 0.42);
     border-radius: 18rpx;
