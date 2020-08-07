@@ -863,16 +863,9 @@ Page({
     if (app.isNull(endTime)) {
       return self.showToasts('活动结束时间')
     }
-    // if (app.isNull(detailsText) && detailsImageArr.length == 0) {
-    //   return self.showToasts('活动详情')
-    // }
 
-    // console.log(startTime)
-    // console.log(endTime)
-    // console.log(uptoTime)
-    // console.log(cancelTime)
-    let istime = self.timeValit(startTime,endTime,uptoTime,cancelTime)
-    // console.log(istime)
+    // let istime = self.timeValit(startTime,endTime,uptoTime,cancelTime)
+
     if(!istime){
       return;
     }
@@ -967,35 +960,7 @@ Page({
       })
     })
   },
-  timeValit(startTime,endTime,uptoTime,cancelTime){
-    // console.log(startTime.sub)
-    let st = new Date(startTime?.substring(3).replace(/-/g,'/')).getTime();
-    let se = new Date(endTime?.substring(3).replace(/-/g,'/')).getTime();
-    let sp = new Date(uptoTime?.substring(3).replace(/-/g,'/')).getTime();
-    let sc = new Date(cancelTime?.substring(3).replace(/-/g,'/')).getTime();
-    if(st>se){
-      wx.showToast({
-        title: '活动开始时间应小于结束时间',
-        icon: 'none'
-      })
-      return false;
-    }
-    if(sp>st){
-      wx.showToast({
-        title: '截止报名时间应小于活动开始时间',
-        icon: 'none'
-      })
-      return false;
-    }
-    if(sc>sp){
-      wx.showToast({
-        title: '取消报名截止时间应小于截止报名时间',
-        icon: 'none'
-      })
-      return false;
-    }
-    return true;
-  },
+
 
   formatWeek(star) {
     if (!app.isNull(star)) {

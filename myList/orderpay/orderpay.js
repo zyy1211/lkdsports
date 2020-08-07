@@ -208,6 +208,7 @@ Page({
   },
   otherType(itemsType) {
     let self = this;
+    // console.log(itemsType)
     if (itemsType == 5) {
       self.getSkuList()
       self.getUserInfo()
@@ -222,7 +223,7 @@ Page({
     } else if (itemsType == 20) {
       self.gameDtl();
     } else if (itemsType == 40) {
-      self.venueDtl();
+      self.venueDtl(); 
     }
   },
 
@@ -371,7 +372,6 @@ Page({
   },
 
   // 倒计时
-  // 20<status<=40可退款
   getTimer(createTime) {
     let self = this;
     let expand = 0;
