@@ -13,7 +13,7 @@ module.exports = Behavior({
       if (!app.isNull(prevPage)) {
         rout = prevPage.route;
       }
-      console.log(rout)
+      // console.log(rout)
       if (!app.isNull(rout)) {
         wx.navigateBack({
           delta: 1, // 回退前 delta(默认为1) 页面

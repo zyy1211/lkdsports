@@ -31,7 +31,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    // console.log(options)
     let self = this;
     let {
       bussId,
@@ -81,6 +81,7 @@ Page({
       }
       let order = res.response[0].order;
       let children = res.response[0].children;
+      let extd = res.response[0].extd;
       let statusMap = new Map();
       children.forEach((item) => {
         statusMap.set(item.itemsId, item)
@@ -104,10 +105,13 @@ Page({
         payPrice,
         statusMap,
         detailId: bussId,
-        itemsType
+        itemsType,
+        extd
       })
       // console.log(children)
       self.isStatus(createTime, endCancelTime, status, payWay, refStatus)
+      // console.log(itemsType)
+      // return;
       self.otherType(itemsType)
 
     })
@@ -160,10 +164,6 @@ Page({
         }
       } else {
         if (status < 50 && status > 20 && payWay != 'cash') {
-          // console.log(time_cancel)
-          // console.log(refStatus)
-          // 0: 无退款 10：退款待审核/确认 20: 全额退款成功 30：部分退款成功 40：退款失败
-          // 订单状态;订单状态（0：订单创建 10: 待确认 20: 待支付 30: 待发货 35: 已发货 40: 待使用 50：已完成 60: 待结算 70：已结算 100: 系统取消 101：用户取消 120：订单删除）
           if (time_cancel > 0 && (refStatus == 0 || refStatus == 40)) {
             let ableRefundTime = unit.getLastTime(time_cancel)
             self.setData({
@@ -200,34 +200,44 @@ Page({
       url: '/venuePages/venueDetail/venueDetail?id=' + detailId,
     })
   },
+  toGameDetail(){
+    let { itemsId:id } = this.data.order;
+    wx.navigateTo({
+      url: '/gamePages/gameDetail/gameDetail?id=' + id,
+    })
+  },
   otherType(itemsType) {
     let self = this;
     if (itemsType == 5) {
       self.getSkuList()
       self.getUserInfo()
       self.getDetail();
-      // 活动
-
     } else if (itemsType == 10) {
-      // 场馆
       self.venueDtl();
       self.orderDtl();
-
     } else if (itemsType == 12) {
       self.venueDtl();
-      // 会员卡
-
     } else if (itemsType == 15) {
       self.venueDtl();
-      // 会员卡充值
     } else if (itemsType == 20) {
-      // 赛事
-    } else if (itemsType == 30) {
-      // 商品
+      self.gameDtl();
     } else if (itemsType == 40) {
       self.venueDtl();
-      // 次数卡核销
     }
+  },
+
+  gameDtl(){
+    let self = this;
+    let { itemsId:id } = this.data.order;
+    // console.log(id)
+    http.get('/games/detail/' + id).then((res) =>{
+      // console.log(res);
+      if(res.code != 200){
+        return
+      }
+      let main = res.response[0];
+      self.setData({gameDetail:main})
+    });
   },
   // 预约信息
   orderDtl() {

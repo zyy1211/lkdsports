@@ -2,5 +2,9 @@
   "navigationBarTitleText": "赛事列表",
   "navigationBarBackgroundColor": "#558bfa",
   "backgroundTextStyle": "dark",
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "authorize": "/pages/component/authorize/authorize",
+    "alert":"/pages/component/alert/alert"
+  }
 }

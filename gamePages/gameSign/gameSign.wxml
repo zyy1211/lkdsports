@@ -1,0 +1,37 @@
+<view class="signup">
+  <view class="card" wx:for="{{num}}" wx:key="*this" wx:for-index="ids" style="margin-bottom: 20rpx;">
+    <view class="weight lktitle">基本信息</view>
+    <view class="rowItem" style="margin-top: 10rpx;" wx:if="{{ids ==0}}">
+      <view class="left">联系电话</view>
+      <view class="right">
+        <van-field input-class="vant_input" maxlength="{{12}}"  data-key="phone" value="{{ phone }}"
+          placeholder="请输入电话" border="{{ false }}" bindinput="bindDatephone"  />
+      </view>
+    </view>
+
+    <block wx:for="{{singleFielsdInfo}}" wx:key="id">
+      <view class="rowItem" style="margin-top: 10rpx;">
+        <view class="left">{{item.name}}</view>
+        <view class="flex_row_c_c" wx:if="{{item.type == 'radio'}}">
+          <van-dropdown-menu>
+            <van-dropdown-item bind:change="bindDate" data-index="{{ids}}" data-key="{{item.ename}}" value="{{ item[item.ename + 1] }}"
+              options="{{ item.enumArr }}" />
+          </van-dropdown-menu>
+          <view
+            style="background-color: white;width: 30rpx;height: 30rpx;z-index: 9;margin-left: -10rpx;margin-top: -6rpx;">
+            <van-icon size="14" color="#999999" name="arrow" />
+          </view>
+        </view>
+        <view class="right" wx:else>
+          <van-field input-class="vant_input"  data-key="{{item.ename}}" value="{{ item[item.ename + 1] }}"
+            placeholder="请输入{{item.name}}" border="{{ false }}" bindinput="bindDate" data-index="{{ids}}" />
+        </view>
+      </view>
+    </block>
+  </view>
+  <view class="flex_row_c_c fixedSub">
+    <view class="submits" bindtap="submit">立即报名</view>
+  </view> 
+</view>
+
+<alert isAlert="{{isAlert}}"></alert>

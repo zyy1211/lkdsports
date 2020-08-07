@@ -2,12 +2,11 @@
 
 let bhv_back = require('../../pages/component/behavior/bhv_back.js');
 let bhv_refresh = require('../../pages/component/behavior/bhv_refresh.js');
-let bhv_location = require('../../pages/component/behavior/bhv_location') 
-let http = require('../../utils/request')
-let bhv_week = require('../../pages/component/behavior/bhv_week')
+let bhv_location = require('../../pages/component/behavior/bhv_location');
+let http = require('../../utils/request');
+let bhv_week = require('../../pages/component/behavior/bhv_week');
 let app = getApp();
-let API = require('../../utils/config')
-
+let API = require('../../utils/config');
 const Rx = require('../../utils/rxjs'); 
 const {
     throttleTime
@@ -21,6 +20,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+
     main: {},
     matchId: 0,
     businessHours: '',
@@ -31,9 +31,10 @@ Page({
     choiseList: [],
     show: false,
     num: 0,
-    apiimg:API.API_IMG
+    apiimg:API.API_IMG,
+    phoneshow:false,
   },
-  behaviors: [bhv_week, bhv_back, bhv_refresh, bhv_location],
+  behaviors: [bhv_location,bhv_week, bhv_back, bhv_refresh],
 
   /**
    * 生命周期函数--监听页面加载
@@ -88,6 +89,9 @@ Page({
         return;
       }
       let main = res.response[0];
+      // console.log(main)
+      // console.log(self)
+      // return;
       let loctn = self.bMapTransqqMap(main.locationLongitude,main.locationLatitude);
       main.locationLongitude = loctn.longitude;
       main.locationLatitude = loctn.latitude;
@@ -123,14 +127,15 @@ Page({
       }
       let tablemain = res.response[0];
       // console.log(tablemain)
-      if (tablemain.length == 0) {
+      if (tablemain.length == 0) { 
         self.setData({
           tablemain,
           tb_time: tablemain
         })
         return;
       }
-      self.formatData(tablemain)
+      // self.formatData(tablemain)
+      self.formatData([tablemain[0]])
     })
   },
   bindchoiseBlock(e){
@@ -204,18 +209,52 @@ Page({
       [key]: e.detail
     })
   },
+
+  showPhoneDialog(){
+    let userinfo = app.getInfo();
+    let phone = userinfo.phone;
+    this.setData({phone})
+    this.setData({phoneshow:true})
+  },
+
+
+  bindDate(e) {
+    let key = e.currentTarget.dataset.key;
+    let value = e.detail;
+    value = app.validateNumber(value)
+    this.setData({
+      [key]: value
+    })
+  },
+  cancelPhone(){
+    this.setData({phoneshow:false})
+  },
+  confirmPhone(){
+    let {phone} = this.data;
+    // console.log(phone)
+    // console.log(app.isNull(phone))
+    if(app.isNull(phone.trim())){
+      return wx.showToast({title: '请输入手机号！',icon:'none',duration:3000});
+    }
+    this.cancelPhone();
+    this.tosum();
+    
+  },
   tosum() {
     let self = this;
     let {
       choiseList,
       detailId,
       main,
-      num
+      num,
+      phone
     } = this.data;
+
     let params = {
       timesList: choiseList,
-      detailId
+      detailId,phone
     }
+    
     http.post('/venueReserved/detail', params, 1).then((res) => {
       // console.log(res)
       if (res.code == 200) {
@@ -258,17 +297,29 @@ Page({
     })
     this.getTabel();
   },
+  bMapTransqqMap(lng, lat) {
+    let x_pi = (3.14159265358979324 * 3000.0) / 180.0;
+    let x = lng - 0.0065;
+    let y = lat - 0.006;
+    let z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_pi);
+    let theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_pi);
+    let lngs = z * Math.cos(theta);
+    let lats = z * Math.sin(theta);
+    return {
+      longitude: lngs,
+      latitude: lats
+    };
+  },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    let stap = new Date();
+  onShareAppMessage: function () { 
+    let {main:{name},detailId} = this.data;
 
     return {
-      title: '自定义标题',
-      path: '/activityPages/activityDetail/activityDetail',
-      imageUrl: 'http://192.168.0.200:8091/user/actSharePic/35?'+ stap
+      title: name,
+      path: '/venuePages/venueDetail/venueDetail?id='+ detailId
     }
   }
 })

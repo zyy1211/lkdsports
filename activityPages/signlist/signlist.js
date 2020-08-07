@@ -16,10 +16,10 @@ Page({
         name: '已报名',
         value: 20
       },
-      // {
-      //   name: '排队中',
-      //   value: 30
-      // }, 
+      {
+        name: '排队中',
+        value: 30
+      }, 
       {
         name: '已取消',
         value: 40

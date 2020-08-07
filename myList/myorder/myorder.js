@@ -104,7 +104,7 @@ Page({
   },
   getData(concat) {
     let self = this;
-    self.show();
+    // self.show();
     let {
       pageSize,
       pageNum: pageNo,
@@ -204,6 +204,15 @@ Page({
     })
     // }
 
+  },
+  toVenues(e){
+    let itemstype = e.currentTarget.dataset.itemstype;
+    let id = e.currentTarget.dataset.bussid;
+    if(itemstype == 10 ){
+      wx.navigateTo({
+        url: '/venuePages/venueDetail/venueDetail?id=' + id,
+      })
+    }
   },
 
   payStatus(item) {

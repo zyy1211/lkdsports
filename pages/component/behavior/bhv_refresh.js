@@ -2,7 +2,7 @@ let app = getApp();
 module.exports = Behavior({
   data: {},
   methods: {
-    onPullDownRefresh: function () {
+    onPullDownRefresh: function () { 
       // console.log('fs')
       let self = this;
       setTimeout(() => {
@@ -14,6 +14,7 @@ module.exports = Behavior({
           pageNum: 1
         })
       }
+
       // app.isNull(this.pageNum)
       self.initData();
     },

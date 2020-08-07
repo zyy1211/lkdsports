@@ -58,7 +58,7 @@
         <van-icon color="#999" name="arrow-up" bindtap="slideToggle" />
       </view>
     </view>
-  </view>
+  </view> 
 
   <view class="cardbg">
     <view class="rowItem" style="position: relative;">
@@ -69,11 +69,20 @@
       </view>
       <view class="titleLength">{{title.length ? title.length : 0 }}/20</view>
     </view>
-    <view class="rowItem">
-      <view class="left">场馆名称</view>
-      <view class="right">
-        <van-field input-class="vant_input" data-key="venueName" value="{{ venueName }}" placeholder="请输入场馆名称"
-          border="{{ false }}" bindinput="bindDate" />
+    <view style="position: relative;">
+      <view class="rowItem" id="venue-names">
+        <view class="left">场馆名称</view>
+        <view class="right">
+          <van-field bind:focus="venueNameFocus" input-class="vant_input" data-key="venueName" value="{{ venueName }}" placeholder="请输入场馆名称"
+            border="{{ false }}" bindinput="bindDate" bind:change="venueNameChange" />
+        </view>
+      </view>
+      <view class="floatborder" hidden="{{venuesList.length == 0}}">
+        <view class="listFloat">
+          <block wx:for="{{venuesList}}" wx:key="id">
+            <view bindtap="bindVenue" data-key="{{item}}" class="itemF">{{item.name}}</view>
+          </block>
+        </view>
       </view>
     </view>
     <view class="rowItem">
@@ -114,7 +123,7 @@
       <view class="right_cel flex_row_c_c">
         <view class="grow">
           <view class="skuMaxnum" wx:if="{{limitType}}">
-            <block wx:for="{{skuTypeListArr}}" wx:key="id">
+            <block wx:for="{{skuTypeListArr}}" wx:key="idsp">
               <view class="flex_row_c_c" style="height: 60rpx;" wx:if="{{item.checked}}">
                 <view style="width: 80rpx;">限{{item.title}}</view>
                 <view class="border">
@@ -125,9 +134,14 @@
               </view>
             </block>
           </view>
-          <view wx:else class="other_cel">
-            <van-field input-class="vant_input" data-key="participantsNum" value="{{ participantsNum }}"
-              placeholder="请输入总人数" border="{{ false }}" bindinput="bindDate" bind:blur="bindDateAll" />
+          <view wx:else class="other_cel flex_row_btw">
+            <!-- <van-field input-class="vant_input" data-key="participantsNum" value="{{ participantsNum }}"
+              placeholder="请输入总人数" border="{{ false }}" bindinput="bindDate" bind:blur="bindDateAll" /> -->
+              <view></view>
+              <view class="border van_price" style="width: 300rpx;">
+                <van-field input-class="vant_input" data-key="participantsNum" value="{{ participantsNum }}"
+                placeholder="请输入总人数" border="{{ false }}" bindinput="bindDate" bind:blur="bindDateAll" />
+              </view>
           </view>
 
         </view>
@@ -139,7 +153,7 @@
 
     <view class="rowItem">
       <view class="add_tag_box" style="padding-top: 20rpx;">
-        <block wx:for="{{skuTypeListArr}}" wx:key="id">
+        <block wx:for="{{skuTypeListArr}}" wx:key="idsp">
           <view bindtap="togg_tag" data-sku="sku" data-key="skuTypeListArr" data-index="{{index}}"
             style="width: 100rpx;box-sizing: border-box;text-align: center;"
             class="add_tag {{item.checked ? 'active_tab' : ''}}">{{item.title}}</view>
@@ -161,14 +175,14 @@
     </view>
 
     <view class="rowItem" hidden="{{chargeMode != 10}}">
-      <view class="right_cel flex_row_c_c" style="justify-content: flex-end;">
-        <block wx:for="{{skuTypeListArr}}" wx:key="id">
-          <view class="flex_row_c_c" wx:if="{{item.checked}}">
+      <view class="right_cel flex_row_c_c" style="flex-flow: row wrap;justify-content: flex-end;">
+      <block wx:for="{{skuTypeListArr}}" wx:key="idsp">
+          <view class="flex_row_c_c" wx:if="{{item.checked}}" style="margin-top:{{index > 1 ? '10rpx' : 0}};margin-bottom:{{index > 1 ? '10rpx' : 0}};">
             <image style="width:33rpx;height:41rpx;margin-left: 30rpx;" src="{{ apiimg + item.iconPath}}"
               mode="widthFix">
             </image>
             <view class="border van_price">
-              <van-field disabled="{{disableEdit}}" input-class="vant_input" data-arr="skuTypeListArr" data-key="price"
+              <van-field disabled="{{item.disableEdit}}" input-class="vant_input" data-arr="skuTypeListArr" data-key="price"
                 data-index="{{index}}" value="{{ item.price }}" placeholder="" border="{{ false }}"
                 bindinput="bindDateArr" />
             </view>
@@ -297,6 +311,13 @@
         <view class="right">
           <van-switch active-value="{{1}}" inactive-value="{{0}}" checked="{{ isOpen }}" data-key="isOpen"
             active-color="#246cff" size="24px" bindinput="switchDate" />
+        </view>
+      </view>
+      <view class="rowItem">
+        <view class="left">允许排队</view>
+        <view class="right">
+          <van-switch active-value="{{1}}" inactive-value="{{0}}" checked="{{ isLineUp }}" data-key="isLineUp"
+            active-color="#246cff" size="24px" bindinput="switchDateIsLine" />
         </view>
       </view>
       <view class="rowItem">

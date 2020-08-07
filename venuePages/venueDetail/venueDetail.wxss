@@ -21,7 +21,26 @@
   z-index: 999;
   box-sizing: border-box;
 }
-
+.dialogsubmit {
+  background: #246cff;
+  height: 70rpx;
+  line-height: 70rpx;
+  border-radius: 20rpx;
+  text-align: center;
+  color: white;
+  font-size: 26rpx;
+  width: 200rpx;
+}
+.dialogcancel{
+  color: #246cff;
+  border: 2rpx solid #246cff;
+  height: 70rpx;
+  line-height: 70rpx;
+  border-radius: 20rpx;
+  text-align: center;
+  font-size: 26rpx;
+  width: 200rpx;
+}
 .goback {
   height: 100%;
   display: flex;

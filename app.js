@@ -69,13 +69,8 @@ App({
 
   // 判断session是否过期
   isSession(callback) {
-    this.isSession11().then(() => {
-      callback()
-    })
-  },
-  isSession11() {
     let self = this;
-    return new Promise((resolve, reject) => {
+    new Promise((resolve, reject) => {
       wx.checkSession({
         success() {
           if (self.isNull(self.getToken())) {
@@ -92,9 +87,11 @@ App({
           })
         }
       })
+    }).then(() => {
+      callback()
     })
-
   },
+
 
   reqToken() {
     let self = this;
@@ -156,6 +153,13 @@ App({
         })
       },
 
+  setGameItem(item){
+    wx.setStorageSync("gameItem", JSON.stringify(item));
+  },
+
+  getGameItem(){
+    return JSON.parse(wx.getStorageSync("gameItem"))
+  },
 
   setToken(token) {
     wx.setStorageSync("token", token);

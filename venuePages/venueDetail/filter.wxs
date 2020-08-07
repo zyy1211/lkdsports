@@ -31,6 +31,8 @@ var mergeblock = function (itm, item, idx) {
   }
 }
 var mergeheight = function (item) {
+  // console.log(item)
+  // console.log(((item.split('-')[2])))
   return ((item.split('-')[2]) * 31)
 }
 // itm.status !=0 (-1 未开放 10已占场，999过时间)(type :0非散客 1散客)

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "赛项列表",
+  "navigationBarBackgroundColor": "#558bfa",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true
+}

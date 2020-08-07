@@ -1,0 +1,61 @@
+<view class="gameTypeList">
+  <block wx:for="{{dataList}}" wx:key="key"  wx:if="{{item.list.length > 0}}">
+    <view class="colItem">
+      <van-collapse border="{{false}}" value="{{ activeNames }}" data-ids="{{key}}" bind:change="onChange">
+        <van-collapse-item name="{{ item.key }}" clickable="{{true}}">
+          <view slot="title">
+            {{item.name}}
+          </view>
+          <view>
+            <block wx:for="{{item.list}}" wx:for-item="pit" wx:for-index="ids" wx:key="id">
+              <van-collapse border="{{false}}" value="{{ activeNamesItem }}" data-ids="{{key}}"
+                bind:change="onChangeItem">
+                <van-collapse-item name="{{ pit.id }}" clickable="{{true}}">
+                  <view slot="title">
+                    {{pit.title}}
+                  </view>
+                  <view>
+                    <van-radio-group value="{{ radio }}">
+                      <block wx:for="{{pit.groups}}" wx:for-item="gpItm" wx:for-index="gpIdx" wx:key="id">
+                        <view style="margin-bottom: 20rpx;" bindtap="radiochange" data-item="{{pit}}" data-num="{{item.key}}" data-type="{{pit.type}}" data-key="{{gpItm.id}}" >
+                        <view class="flex_row_c">
+                          <van-radio name="{{gpItm.id}}"></van-radio>
+                          <view class="flex_row_c" style="margin-left: 20rpx;">
+                            <view>{{gpItm.title}}</view>
+                            <!-- <view wx:if="{{gpItm.max == gpItm.applyNum}}">(报名已满)</view> -->
+                          </view>
+                        </view>
+                        <view class="flex_row_btw">
+                          <view class="flex_row_c_c">
+                            <view>{{gpItm.ageStart}}</view>
+                            <view>-</view>
+                            <view>{{gpItm.ageEnd}}岁可报名</view>
+                          </view>
+                          <view style="color: #E53939;">{{pit.price/100}}元/人</view>
+                        </view>
+                      </view>
+                      </block>
+
+                    </van-radio-group>
+
+                  </view>
+                </van-collapse-item>
+              </van-collapse>
+            </block>
+          </view>
+        </van-collapse-item>
+      </van-collapse>
+
+    </view>
+  </block>
+
+
+  
+  <view class="fixedBtns">
+
+    <view class="flex_row_c_c twobtn" style="flex:3;">
+      <view class="fidbtn flex_row_c_c" data-key="{{radio}}" bindtap="toSignup">立即报名</view>
+    </view>
+  </view>
+
+</view>

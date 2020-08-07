@@ -1,0 +1,39 @@
+<template name="gameItem">
+  <wxs src="./filter_t.wxs" module="tools" />
+  <view class="listItem flex_row" data-id="{{item.id}}" data-url="/gamePages/gameDetail/gameDetail"
+    bindtap="toDetail">
+
+    <van-button class="expand" round type="default" size="small">{{tools.ruleType(item.ruleType)}}</van-button>
+    <view class="mainImg">
+      <van-image width="100%" height="100%" radius="6" use-loading-slot use-error-slot fit="cover" lazy-load
+        src="{{apiimg + item.headImgage }}">
+        <van-loading slot="loading" type="spinner" size="20" vertical />
+        <text slot="error">加载失败</text>
+      </van-image>
+    </view>
+
+    <view class="atv_item">
+      <view class="van-multi-ellipsis--l2 font2639">{{item.title}}</view>
+      <view class="flex_row_btw font249" style="width: 100%;">
+        <view style="width: 200rpx;" class="van-ellipsis grow">{{item.address}}</view>
+        <!-- <view style="flex-shrink: 0;width: 100rpx;text-align: right;">{{tools.formatDistant(item.distance)}}</view> -->
+      </view>
+      <view class="font249">{{item.startTime}}</view>
+      <view class="flex_row_btw font249" style="width: 100%;">
+        <!-- <view class="flex_row" style="line-height:44rpx;">
+          <view>{{tools.gameType(item.type)}}</view>
+          <view class="font2639">{{item.applied_num}}</view>
+          <view>/{{item.participants_num}}</view>
+        </view> -->
+
+        <!-- <view wx:if="{{ item.charge_mode == 0 }}" class="font3409">免费</view> -->
+        <!-- <view wx:elif="{{ item.charge_mode == 20 }}" class="font3409">线下收费</view> -->
+        <!-- <view wx:elif="{{ item.charge_mode == 30 }}" class="font3409">AA收款</view> -->
+        <!-- <view wx:else class="flex_row_c">
+          <view class="font3409">{{item.low_price == null ? 0 : item.low_price/100}}</view>
+          <view>元起</view>
+        </view> -->
+      </view>
+    </view>
+  </view>
+</template>

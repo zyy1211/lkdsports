@@ -1,0 +1,45 @@
+<view class="activityDetail">
+  <view class="diagram" id="lkdnav">
+    <image class="bannerimg" src="{{apiimg + main.info.headImgage}}" mode="widthFix"></image>
+
+    <view class="topbar topbarbg" style="height:{{height}}rpx;background-color:rgba(255,255,255,{{opacity}})">
+    </view>
+    <view class="topbar" style="height:{{height}}rpx;padding-top:{{barHeight}}rpx;">
+      <view class="goback">
+        <view class="isgoback" bindtap="backhome">
+          <view class="iconback">
+            <van-icon size="18" name="arrow-left" />
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view>
+    <van-tabs active="{{ active }}" color="#558bfa" bind:change="onChange">
+      <van-tab title="赛事规程"></van-tab>
+      <van-tab disabled title="名单公示"></van-tab>
+      <van-tab disabled title="抽签对阵"></van-tab>
+    </van-tabs>
+
+    <view class="main">
+      <view class="van-multi-ellipsis--l2" style="margin: 30rpx;">{{main.info.title}}</view>
+      <view>
+        <block wx:for="{{imgList}}" wx:key="id">
+          <image style="width: 100%;margin-bottom: 20rpx;" src="{{ apiimg + item.path}}" mode="widthFix"></image>
+        </block>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="fixedBtns">
+    <!-- <view class="flex_col_c_c borderg" style="height: 100%;flex:2;flex-shrink: 0;">
+      <view class="font2669">结束报名剩余：</view>
+      <view class="font28r9">{{diff}}</view>
+    </view> -->
+    <view class="flex_row_c_c twobtn" style="flex:3;">
+      <view class="fidbtn flex_row_c_c" bindtap="togameTypeList">立即报名</view>
+    </view>
+  </view>
+</view>

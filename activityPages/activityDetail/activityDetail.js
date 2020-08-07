@@ -13,6 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    shareshow:false,
     radio: '', 
     flag: false,
     apiimg: Api.API_IMG,
@@ -26,11 +27,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    // console.log(options)
     let self = this;
     app.isLogin(function () {
-
+      let activityId = options.id;
+      if(!activityId ){
+        if(options?.scene){
+          activityId = decodeURIComponent(options.scene).split('=')[1];
+        }else{
+          activityId = decodeURIComponent(options?.q)?.split('?')[1]?.split('=')[1];
+        }
+      }
       self.setData({
-        activityId: options.id
+        activityId: activityId
       })
       self.initData();
     })
@@ -64,7 +73,7 @@ Page({
     self.show();
     http.get('/activities/selectActivity/' + activityId).then((res) => {
       self.hide()
-      // console.log(res)
+
       if (res.code != 200) {
         return;
       }
@@ -79,8 +88,9 @@ Page({
         cUserDTO,
         flag,
         skuLock,
+        
       } = main; 
-      let { addressLatitude:locationLatitude,addressLongitude:locationLongitude } = activities;
+      let { addressLatitude:locationLatitude,addressLongitude:locationLongitude,isLineUp } = activities;
       let address = {locationLatitude,locationLongitude};
       headImage = headImage?.slice(0,6);
 
@@ -92,7 +102,7 @@ Page({
       let skuLock11 = skuLock?.map((list, index) => {
         let total = 0;
         let money = 0;
-        list.applySkuLocks.forEach((item) => {
+        list.applySkuLocks.forEach((item) => { 
           total += item.num;
           money += (item.num) * item.price
         })
@@ -105,6 +115,14 @@ Page({
 
         return obj;
       })
+      let {status} = activities;
+      if(status == 0 || status == 10){
+        wx.hideShareMenu({
+          menus: ['shareAppMessage', 'shareTimeline']
+        })
+      }else{
+        wx.showShareMenu()
+      }
 
       this.setData({
         activities,
@@ -116,14 +134,23 @@ Page({
         flag,
         skuLock: skuLock11,
         isApplySign,
-        main:address
+        main:address,
+        isLineUp
       })
-      console.log(self.data.main)
+      // console.log(self.data.main)
 
     })
   },
+  toVenudetail(e){
+    let key = e.currentTarget.dataset.key;
+    if(key){
+      wx.navigateTo({
+        url: '/venuePages/venueDetail/venueDetail?id=' + key,
+      })
+    }
+  },
   bolapplySign(uptoTime, participantsNum, appliedNum, status) {
-    if (status == 100 || status == 101) {
+    if (status == 100 || status == 101 || status ==0 || status==10) {
       return '0'
     }
     let date = new Date();
@@ -200,7 +227,7 @@ Page({
       activities,
       radio
     } = this.data;
-    console.log(this.data.radio)
+    // console.log(this.data.radio)
     if(app.isNull(radio) && radio !== 0){
       wx.showToast({title: '请选择要修改的报名列表',icon:'none',duration:3000});
       return;
@@ -224,6 +251,7 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    this.closeShare();
     let api = Api.API_HOST;
     let stamp = new Date();
     let {
@@ -235,5 +263,21 @@ Page({
       path: '/activityPages/activityDetail/activityDetail?id=' + activityId,
       imageUrl: api + '/user/actSharePic/' + activityId + '?=' + stamp
     }
+  },
+  showShare(){
+    this.setData({
+      shareshow:true
+    })
+  },
+  createPoster: function () {
+    this.closeShare();
+    // console.log(this.selectComponent('#getPoster'))
+    this.selectComponent('#getPoster').getAvaterInfo();
+
+  },
+  closeShare(){
+    this.setData({
+      shareshow:false
+    })
   }
 })

@@ -48,15 +48,20 @@
     <view style="font-size: 24rpx;color: #666;" bindtap="modalAgree">我同意栎刻动活动报名协议</view>
   </view>
 
- <!-- <view> '报名'{{disabled}}</view> -->
+  <!-- <view> '报名'{{disabled}}</view> -->
   <view wx:if="{{edit}}">
     <view class="flex_row_c_c fixedSub">
-      <view class="submits" bindtap="submit">修改报名</view>
+      <view class="submits" bindtap="submit">取消报名</view>
     </view>
   </view>
   <view wx:else>
     <view class="flex_row_c_c fixedSub">
-      <view class="submits" bindtap="submit"> {{is_user_self==1  ? '立即报名' : '去支付（' + totalNum +'）元'}}</view>
+      <!-- <view class="submits" bindtap="submit"> {{is_user_self==1  ? '立即报名' : '去支付（' + totalNum +'）元'}}</view> -->
+      <view class="submits" bindtap="submit" wx:if="{{is_user_self==1}}">
+        {{activities.participantsNum == activities.appliedNum ? '立即排队' : '立即报名' }}</view>
+      <view class="submits" bindtap="submit" wx:else>
+        {{activities.participantsNum == activities.appliedNum ? '立即排队（' + totalNum +'）元' : '立即报名（' + totalNum +'）元' }}
+      </view>
     </view>
   </view>
 

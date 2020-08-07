@@ -1,56 +1,5 @@
 <view class="issue_a">
-    <view class="cardbg">
-        <view class="rowItem">
-            <view class="left">姓名</view>
-            <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" data-key="name"
-                    value="{{ name }}" placeholder="请输入姓名" border="{{ false }}" bindinput="bindDate" />
-            </view>
-        </view>
-        <view class="rowItem">
-            <view class="left">性别</view>
-            <view class="flex_row_c_c">
-                <van-dropdown-menu>
-                    <van-dropdown-item disabled="{{dataStatus==1 || dataStatus==3 }}" bind:change="chargeChange"
-                        value="{{ gender }}" options="{{ option1 }}" />
-                </van-dropdown-menu>
-                <view
-                    style="background-color: white;width: 30rpx;height: 30rpx;z-index: 9;margin-left: -10rpx;margin-top: -6rpx;">
-                    <van-icon size="14" color="#999999" name="arrow" />
-                </view>
-            </view>
-        </view>
 
-        <view class="rowItem">
-            <view class="left">联系电话</view>
-            <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" maxlength="11"
-                    data-key="phone" value="{{ phone }}" placeholder="即商户端登录的账号" border="{{ false }}"
-                    bindinput="bindDate" />
-            </view>
-        </view>
-
-        <view class="rowItem">
-            <view class="left">联系微信</view>
-            <view class="right">
-                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" data-key="wechat"
-                    value="{{ wechat }}" placeholder="请输入联系微信" border="{{ false }}" bindinput="bindDate" />
-            </view>
-        </view>
-
-        <view class="rowItem" hidden="{{ dataStatus==1 || dataStatus==3 }}">
-            <view class="left">验证码</view>
-            <view class="right flex_row_c">
-                <view class="grow">
-                    <van-field input-class="vant_input" maxlength="6" data-key="code" value="{{ code }}"
-                        placeholder="请输入验证码" border="{{ false }}" bindinput="bindDate" />
-                </view>
-                <button wx:if="{{stv==60}}" class="getbtn" bindtap="getcode">发送验证码</button>
-                <button wx:else class="getbtn">{{stv}}</button>
-            </view>
-        </view>
-
-    </view>
 
     <view class="cardbg">
         <view class="rowItem">
@@ -136,6 +85,59 @@
                 <view class="note">*不填为长期</view>
             </view>
         </view>
+    </view>
+
+    <view class="cardbg">
+        <view class="rowItem">
+            <view class="left">姓名</view>
+            <view class="right">
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" data-key="name"
+                    value="{{ name }}" placeholder="请输入姓名" border="{{ false }}" bindinput="bindDate" />
+            </view>
+        </view>
+        <view class="rowItem">
+            <view class="left">性别</view>
+            <view class="flex_row_c_c">
+                <van-dropdown-menu>
+                    <van-dropdown-item disabled="{{dataStatus==1 || dataStatus==3 }}" bind:change="chargeChange"
+                        value="{{ gender }}" options="{{ option1 }}" />
+                </van-dropdown-menu>
+                <view
+                    style="background-color: white;width: 30rpx;height: 30rpx;z-index: 9;margin-left: -10rpx;margin-top: -6rpx;">
+                    <van-icon size="14" color="#999999" name="arrow" />
+                </view>
+            </view>
+        </view>
+
+        <view class="rowItem">
+            <view class="left">联系电话</view>
+            <view class="right">
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" maxlength="11"
+                    data-key="phone" value="{{ phone }}" placeholder="即商户端登录的账号" border="{{ false }}"
+                    bindinput="bindDate" />
+            </view>
+        </view>
+
+        <view class="rowItem">
+            <view class="left">联系微信</view>
+            <view class="right">
+                <van-field disabled="{{dataStatus==1 || dataStatus==3 }}" input-class="vant_input" data-key="wechat"
+                    value="{{ wechat }}" placeholder="请输入联系微信" border="{{ false }}" bindinput="bindDate" />
+            </view>
+        </view>
+
+        <view class="rowItem" hidden="{{ dataStatus==1 || dataStatus==3 }}">
+            <view class="left">验证码</view>
+            <view class="right flex_row_c">
+                <view class="grow">
+                    <van-field input-class="vant_input" maxlength="6" data-key="code" value="{{ code }}"
+                        placeholder="请输入验证码" border="{{ false }}" bindinput="bindDate" />
+                </view>
+                <button wx:if="{{stv==60}}" class="getbtn" bindtap="getcode">发送验证码</button>
+                <button wx:else class="getbtn">{{stv}}</button>
+            </view>
+        </view>
+
     </view>
 
     <view class="cardbg" style="padding-bottom: 30rpx;">

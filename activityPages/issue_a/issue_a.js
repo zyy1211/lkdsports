@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    venuesList:[],
     disabled:false,
     dialogAgree: true,
     agree: false,
@@ -22,6 +23,7 @@ Page({
     skuTypeListArr: [],
     withPeople: 1,
     isOpen: 1,
+    isLineUp:1,
     isPenal: 0,
     detailsImageArr: [],
     pickkey: '',
@@ -34,6 +36,7 @@ Page({
     moreEnd: 500,
     isBlock: true,
     isMore: true,
+
     imagePath: '',
     headImage: '',
     defalutTab: [{
@@ -122,6 +125,7 @@ Page({
       }
 
       let main = res.response[0];
+      let skuindex = [];
       let {
         activities,
         activitiesSkuList,
@@ -146,8 +150,9 @@ Page({
             name: item,
             checked: true
           })
+
         } else {
-          defalutTab[indexof].checked = true
+          defalutTab[indexof].checked = true;
         }
       })
       let headImage = activityHeadImage[0].path;
@@ -158,13 +163,13 @@ Page({
       let skuidArr = activitiesSkuList.map((item) => {
         return item.title
       })
-      // console.log(skuidArr)
-      // console.log(activitiesSkuList)
-      skuTypeListArr = skuTypeListArr.map((item) => {
-        // console.log(skuidArr)
-        // console.log(item.title)
+
+      skuTypeListArr = skuTypeListArr.map((item,index) => {
+
         let indexof = skuidArr.indexOf(item.title);
         if (indexof != -1) {
+          // console.log(indexof)
+          skuindex.push(index)
           return {
             ...activitiesSkuList[indexof],
             checked: true,
@@ -172,10 +177,10 @@ Page({
             minNum: activitiesSkuList[indexof].maxNum
           }
         }
-        return item
+        return {...item, checked: false}
       })
-      // console.log('fsfs')
       // console.log(skuTypeListArr)
+
       let {
         title,
         venueName,
@@ -198,18 +203,33 @@ Page({
         isOpen,
         isPenal,
         penalSum,
-        appliedNum
+        appliedNum,
+        venueId,
+        isLineUp
       } = activities;
       startTime = self.formatWeek(startTime);
       endTime = self.formatWeek(endTime);
       uptoTime = self.formatWeek(uptoTime);
       cancelTime = self.formatWeek(cancelTime);
+      if(self.data.isdraft==1){
+        uptoTime = '';
+        cancelTime = '';
+      }
 
       if (limitType != 0) {
         limitType = true;
       }
       if (appliedNum != 0) {
-        disableEdit = true
+        disableEdit = true;
+        // let skuindex = self.data.skuindex;
+        // console.log(skuindex)
+        skuTypeListArr.forEach((item,index) =>{
+          if(skuindex.indexOf(index) != -1){
+            item['disableEdit'] = true
+          }else{
+            item['disableEdit'] = false
+          }
+        })
       }
       // console.log(limitType)
       // console.log(detailsImageArr)
@@ -222,7 +242,10 @@ Page({
       })
 
       if (isdraft == 1) {
-        disableEdit = false
+        disableEdit = false;
+        skuTypeListArr.forEach((item,index) =>{
+          item['disableEdit'] = false
+        })
       }
       self.setData({
         disableEdit,
@@ -253,14 +276,12 @@ Page({
         withPeople,
         isOpen,
         isPenal,
-        penalSum
+        penalSum,
+        skuindex,
+        venueId,
+        isLineUp
       })
-      // console.log(activities)
-      // console.log(activitiesSkuList)
-      // console.log(headImage)
-      // console.log(activityHeadImage)
-      // console.log(activityDetailImage)
-      // console.log(cUserDTO)
+
     })
   },
 
@@ -293,10 +314,19 @@ Page({
     })
   },
   switchDate(e) {
-    // console.log(e)
     let key = e.currentTarget.dataset.key;
     let value = e.detail;
-    // console.log()
+    this.setData({
+      [key]: value
+    })
+  },
+  switchDateIsLine(e){
+    let {activityId,isdraft} = this.data;
+    let key = e.currentTarget.dataset.key;
+    let value = e.detail;
+    if(activityId && !isdraft){
+      if(value == 0 )return
+    }
     this.setData({
       [key]: value
     })
@@ -306,6 +336,9 @@ Page({
     let value = e.detail;
     if (key == 'participantsNum' || key == 'phoneNum') {
       value = app.validateNumber(value)
+    }
+    if(key == 'venueName'){
+      this.setData({venueId:null})
     }
     this.setData({
       [key]: value
@@ -333,55 +366,55 @@ Page({
     })
   },
   bindDateBlue(e) {
-    // console.log('fsfssf')
-    let {
-      disableEdit,
-      skuTypeListArr
-    } = this.data;
-    let {
-      arr,
-      index,
-      key
-    } = e.currentTarget.dataset;
-    let keys = [arr] + '[' + index + '].' + key;
+  
+    // let {
+    //   disableEdit,
+    //   skuTypeListArr,
+    //   skuindex
+    // } = this.data;
+    // let {
+    //   arr,
+    //   index,
+    //   key
+    // } = e.currentTarget.dataset;
+    // let keys = [arr] + '[' + index + '].' + key;
 
-    let value = e.detail.value;
-    let minNum = skuTypeListArr[index].minNum;
-    // console.log(value)
-    // console.log(minNum)
-    // console.log(disableEdit)
-    if (disableEdit) {
-      if (value < minNum) {
-        wx.showToast({
-          title: '修改金额不能少于原始金额',
-          icon: 'none',
-          duration: 3000
-        });
-      }
-      value = value < minNum ? minNum : value;
-    }
-    this.setData({
-      [keys]: value
-    })
+    // let value = e.detail.value;
+    // let minNum = skuTypeListArr[index].minNum;
+
+    // if (disableEdit && skuindex.indexOf(index) != -1) {
+
+    //   if (value < minNum) {
+    //     wx.showToast({
+    //       title: '修改人数不能少于原始人数',
+    //       icon: 'none',
+    //       duration: 3000
+    //     });
+    //   }
+    //   value = value < minNum ? minNum : value;
+    // }
+    // this.setData({
+    //   [keys]: value
+    // })
   },
   bindDateAll(e) {
-    let disableEdit = this.data.disableEdit;
-    let participantsNum = this.data.participantsNum1;
-    // console.log(participantsNum)
-    let value = e.detail.value;
-    if (disableEdit) {
-      if (value < participantsNum) {
-        wx.showToast({
-          title: '修改金额不能少于原始金额',
-          icon: 'none',
-          duration: 3000
-        });
-      }
-      value = value < participantsNum ? participantsNum : value;
-    }
-    this.setData({
-      participantsNum: value
-    })
+    // let disableEdit = this.data.disableEdit;
+    // let participantsNum = this.data.participantsNum1;
+    // // console.log(participantsNum)
+    // let value = e.detail.value;
+    // if (disableEdit) {
+    //   if (value < participantsNum) {
+    //     wx.showToast({
+    //       title: '修改人数不能少于原始人数',
+    //       icon: 'none',
+    //       duration: 3000
+    //     });
+    //   }
+    //   value = value < participantsNum ? participantsNum : value;
+    // }
+    // this.setData({
+    //   participantsNum: value
+    // })
   },
 
   toIssue_detail() {
@@ -471,19 +504,22 @@ Page({
       }
       let main = res.response[0];
       let skuTypeListArr = main.map((item, index) => {
+        delete item.id;
         if (index < 2) {
           return {
             ...item,
             checked: true,
             maxNum: '',
-            price: ''
+            price: '',
+            idsp:index
           }
         }
         return {
           ...item,
           checked: false,
           maxNum: '',
-          price: ''
+          price: '',
+          idsp:index
         }
       })
       self.setData({
@@ -497,25 +533,31 @@ Page({
   // 选择
   togg_tag(e) {
     let type = e.currentTarget.dataset.type;
-    let {
-      disableEdit
-    } = this.data;
-    if (disableEdit && type != 1) {
-      return
-    }
-    let key = e.currentTarget.dataset.key;
     let index = e.currentTarget.dataset.index;
+    let {
+      activityId,isdraft,skuindex
+    } = this.data;
+    // console.log(skuindex);
+    if (activityId && !isdraft && type != 1 ) {
+      if(skuindex.indexOf(index) != -1){
+        return wx.showToast({
+          title: 'sku只能增加，不能取消',
+          icon: 'none',
+          duration: 3000
+        }); 
+      }
+    }
+
+    let key = e.currentTarget.dataset.key;
     let sku = e.currentTarget.dataset.sku;
     let iskey = key + "[" + index + "].checked";
     let value = this.data[key][index].checked;
     if (sku) {
-      // console.log(this.data[key])
       let {
         skuTypeListArr
       } = this.data;
       let skuListArr = skuTypeListArr.filter((item) => item.checked == false)
-      // console.log(skuListArr)
-      if (skuListArr.length > 1 && value == true) {
+      if (skuListArr.length > (skuTypeListArr.length-2) && value == true) {
         return wx.showToast({
           title: 'sku不能全部取消',
           icon: 'none',
@@ -613,14 +655,16 @@ Page({
     })
   },
   showPicker(e) {
+    let key = e.currentTarget.dataset.key;
+    let value = this.data[key];
     let {
       disableEdit
     } = this.data;
-    if (disableEdit) {
+    if (disableEdit && key != 'uptoTime' && key != 'cancelTime') {
       return;
     }
-    let key = e.currentTarget.dataset.key;
-    let value = this.data[key];
+
+ 
     this.setData({
       currentPicker: key
     })
@@ -674,6 +718,49 @@ Page({
       }
     })
   },
+  venueNameFocus(){
+     wx.createSelectorQuery().select('#venue-names').boundingClientRect(function(rect){
+      console.log(rect)
+      let top = rect.top - 100;
+      if(top > 0){
+        wx.pageScrollTo({
+          scrollTop: rect.top,
+          duration: 300
+        });
+      }
+    }).exec()
+
+  },
+  venueNameChange(){
+    let self = this;
+    let {venueName} = this.data;
+    if(venueName.trim() ==''){
+      self.setData({venuesList:[],location:'',addressLatitude:'',addressLongitude:''})
+      return;
+    }
+    http.get('/venue/venueList',{name:venueName.trim(),pageSize:100,pageNum:1,sportType:'',latitude:0,longitude:0}).then((res)=>{
+      // console.log(res)
+      if(res.code !=200){
+        return
+      }
+      self.setData({venuesList:res.response[0].records})
+      // console.log(self.data.venuesList)
+    })
+  },
+  bindVenue(e){
+    let key = e.currentTarget.dataset.key;
+    // console.log(key);
+    let {name:venueName,locationAddress:location,locationLatitude:addressLatitude,locationLongitude:addressLongitude,id:venueId} = key;
+    this.setData({
+      venuesList:[],
+      venueName,
+      location,
+      addressLatitude,
+      addressLongitude,
+      venueId
+    })
+    // console.log(this.data)
+  },
   submitActive() { 
     let self = this;
     if (!self.data.agree) {
@@ -698,6 +785,7 @@ Page({
       headImage,
       isOpen,
       isPenal,
+      isLineUp,
       location,
       participantsNum,
       phoneNum,
@@ -717,12 +805,9 @@ Page({
       defalutTab,
       limitType,
       activityId,
-      isdraft
+      isdraft,
 
     } = this.data;
-
-    
-    
     
     if (app.isNull(headImage)) {
       return self.showToasts('活动主图')
@@ -747,23 +832,24 @@ Page({
     }
     if (limitType) {
       let isn = skuTypeListArr.some((item) => {
-        return (app.isNull(item.maxNum) == true && item.checked == true)
+        return ((app.isNull(item.maxNum) == true || item.maxNum == 0) && item.checked == true)
       })
       if (isn) {
-        return self.showToasts('人数限制')
+        return self.showToasts('人数限制不能为0，')
       }
       participantsNum = null;
     }
-    if (chargeMode == 10) {
-      let isn = skuTypeListArr.some((item) => {
-        return ( (app.isNull(item.price) == true || item.price == 0) && item.checked == true )
-      })
-      if (isn) {
-        return self.showToasts('报名费用金额不能为0，')
-      }
-    }else{
-      skuTypeListArr.forEach((item) =>{item.price = 0})
-    }
+
+    // if (chargeMode == 10) {
+    //   let isn = skuTypeListArr.some((item) => {
+    //     return ( (app.isNull(item.price) == true || item.price == 0) && item.checked == true )
+    //   })
+    //   if (isn) {
+    //     return self.showToasts('报名费用金额不能为0，')
+    //   }
+    // }else{
+    //   skuTypeListArr.forEach((item) =>{item.price = 0})
+    // }
 
     if (app.isNull(contactName)) {
       return self.showToasts('联系人')
@@ -780,6 +866,16 @@ Page({
     // if (app.isNull(detailsText) && detailsImageArr.length == 0) {
     //   return self.showToasts('活动详情')
     // }
+
+    // console.log(startTime)
+    // console.log(endTime)
+    // console.log(uptoTime)
+    // console.log(cancelTime)
+    let istime = self.timeValit(startTime,endTime,uptoTime,cancelTime)
+    // console.log(istime)
+    if(!istime){
+      return;
+    }
 
     let tag = '';
     defalutTab.forEach((item) => {
@@ -842,7 +938,8 @@ Page({
       venueId,
       vxNum,
       limitType,
-      tag
+      tag,
+      isLineUp
     }
     let url = '/activities/release';
     // activityId,
@@ -858,7 +955,7 @@ Page({
     if(self.data.disabled){ return }
     self.setData({disabled:true})
     http.post(url, params, 1).then((res) => {
-      console.log('fsfssfs')
+      // console.log('fsfssfs')
       if(res.code != 200){
         self.setData({disabled:false})
         return
@@ -870,6 +967,36 @@ Page({
       })
     })
   },
+  timeValit(startTime,endTime,uptoTime,cancelTime){
+    // console.log(startTime.sub)
+    let st = new Date(startTime?.substring(3).replace(/-/g,'/')).getTime();
+    let se = new Date(endTime?.substring(3).replace(/-/g,'/')).getTime();
+    let sp = new Date(uptoTime?.substring(3).replace(/-/g,'/')).getTime();
+    let sc = new Date(cancelTime?.substring(3).replace(/-/g,'/')).getTime();
+    if(st>se){
+      wx.showToast({
+        title: '活动开始时间应小于结束时间',
+        icon: 'none'
+      })
+      return false;
+    }
+    if(sp>st){
+      wx.showToast({
+        title: '截止报名时间应小于活动开始时间',
+        icon: 'none'
+      })
+      return false;
+    }
+    if(sc>sp){
+      wx.showToast({
+        title: '取消报名截止时间应小于截止报名时间',
+        icon: 'none'
+      })
+      return false;
+    }
+    return true;
+  },
+
   formatWeek(star) {
     if (!app.isNull(star)) {
       // console.log(star)

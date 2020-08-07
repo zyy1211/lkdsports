@@ -1,1 +1,32 @@
-/* gamePages/gameList/gameList.wxss */
+
+
+.game .activityGrad{
+  top: 0;
+}
+
+.game .drop_grad{
+  height: 400rpx;
+  top: 0;
+  background: linear-gradient(to bottom,#558bfa, #749ffa, #abc4f8, #dfe6f8, #f7f7f7);
+
+}
+.actList{
+  position: absolute;
+  top: 0rpx;
+  left: 0;
+  padding: 20rpx 30rpx 0;
+  width: 100%;
+  box-sizing: border-box;
+
+}
+.itembg{
+    background-color: white;
+    border-radius: 20rpx;
+    padding: 8rpx 10rpx;
+    box-sizing: border-box;
+    margin-bottom: 30rpx;
+}
+.menuPop{
+    background-color: red;
+    flex-flow: column;
+}

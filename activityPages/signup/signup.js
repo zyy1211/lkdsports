@@ -69,7 +69,7 @@ Page({
       if (!app.isNull(edit)) {
         let currentList = skuLock[edit]
         let applyId;
-        console.log(currentList)
+        // console.log(currentList)
         currentList.applySkuLocks.forEach((item) => {
           objMap.set(item.skuId, item.num)
           applyId = item.applyId;
@@ -193,15 +193,17 @@ Page({
       applySku,
       gender,
       phone,
-      trueName
+      trueName,
+      lineUpStatus:0,
     }
     if (app.isNull(phone)) {
       return this.lkdToast('电话号码不能为空')
     }
     let url = '/activities/apply';
     if (edit) {
+      console.log()
       url = '/activities/refund';
-      applySku.forEach((item) => {
+      applySku.forEach((item) => { 
         let num = objMap.get(item.id)
         if (num != item.num) {
           countChange = true;
@@ -225,10 +227,29 @@ Page({
       if (isnum) {
         return this.lkdToast('报名人数不能为0')
       }
+      // 排队
+      let {isLineUp,participantsNum,appliedNum} = this.data.activities;
+      if(isLineUp == 1 && participantsNum == appliedNum ){
+        url = '/activities/lineUp';
+        params.lineUpStatus = 1;
+        let totNum = 0;
+        applySku.forEach((item) =>{
+          totNum += item.num;
+        })
+        // console.log(totNum)
+        if(totNum >1){
+          return this.lkdToast('排队人数不能超过一人')
+        }
+
+      }
     }
     let {disabled} = self.data;
     if(disabled){return}
     self.setData({disabled:true})
+    self.islineSubmit(url,params,edit,totalNum,is_user_self)
+  },
+  islineSubmit(url,params,edit,totalNum,is_user_self){
+    let self = this;
     self.show();
     http.post(url, params, 1).then((res) => {
       // console.log(res)
@@ -237,7 +258,12 @@ Page({
         self.hide();
         return
       }
-      let main = res.response[0]
+      let main = res.response[0];
+      if(main?.oid == 0){
+        params.lineUpStatus = 0;
+        self.islineSubmit('/activities/apply',params,edit,totalNum,is_user_self);
+        return;
+      }
       // console.log(edit)
       if (app.isNull(edit)) {
         totalNum = is_user_self == 1 ? 0 : totalNum;

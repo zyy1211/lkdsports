@@ -20,12 +20,12 @@
   font-size: 24rpx;
   color: #666;
   line-height: 46rpx;
-  padding: 60rpx 0;
+
 
 }
-.issueDetail .van-field__input{
+/* .issueDetail .van-field__input{
   padding: 40rpx 0 40rpx 0;
-}
+} */
 
 .uploadbox {
   padding: 30rpx;

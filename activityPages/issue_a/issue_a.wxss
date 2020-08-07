@@ -394,10 +394,38 @@
   text-align: right;
 }
 .penalbox{
-  background-color: white;
+  background-color: #fefefe;
   height: 84rpx;
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-end;
   align-items: center;
+}
+.floatborder{
+  position: absolute;
+  top: 100rpx;
+  left: 0rpx;
+  right: 0rpx;
+  /* border: 2rpx solid #fcfdfd; */
+  box-shadow: 0rpx 1rpx 16rpx 0rpx rgba(4, 0, 0, 0.1);
+  overflow-x: hidden;
+  max-height: 400rpx;
+  z-index: 99;
+  overflow-y: scroll;
+  background: white;
+}
+.listFloat{
+  background: white;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+.itemF{
+  height: 80rpx;
+  line-height: 80rpx;
+  border-bottom: 1rpx solid rgb(235, 234, 234);
+  font-size: 26rpx;
+  color: #333;
+  padding: 0 40rpx;
+  box-sizing: border-box;
 }

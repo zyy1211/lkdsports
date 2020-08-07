@@ -16,7 +16,8 @@
     <view class="cardList myis">
       <block wx:for="{{dataList}}" wx:key="id" data-key="id">
         <view class="itembg" style="position: relative;">
-          <view class="statuss">{{tools.status(item.status,item.startTime)}}</view>
+          <view class="statuss" style="top: 100rpx;">{{tools.status(item.status,item.startTime)}}</view> 
+          <view class="statuss">{{item.isOpen ? '公开' : '非公开'}}</view>
           <template is="activItem" data="{{item,apiimg}}" />
 
           <view class="flex_row_btw btnboxs">
@@ -28,7 +29,7 @@
 
               <view wx:if="{{item.isCancel  && item.status != 100 && item.status != 101 }}" data-key="{{item.id}}"
                 bindtap="toissue_a" class="btnsis">编辑活动</view>
-              <view wx:if="{{item.isCancel && item.status !=100 && item.status != 101 }}" data-key="{{item.id}}"
+              <view wx:if="{{item.isCancel && item.status !=100 && item.status != 101  && item.status != 0}}" data-key="{{item.id}}"
                 bindtap="bindCancel" class="btnsis">取消活动</view>
               <!-- <view wx:if="{{temp}}" class="btnsis">使用模板</view> -->
             </view>

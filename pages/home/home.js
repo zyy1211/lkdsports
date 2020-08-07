@@ -77,15 +77,15 @@ Page({
     initData() {
         let self = this;
         App.isLogin(function () {
-            self.getBanner();
             self.selectComponent("#authorize").getAuthorizeLocation((loca) => {
+                // console.log(loca)
                 let longitude = loca.longitude; 
                 let latitude = loca.latitude;
                 self.setData({
                     latitude,
                     longitude,
                 })
-                self.getVenue();
+                self.getBanner();
                 self.getActivity();
             });
         })
@@ -98,13 +98,16 @@ Page({
             let main = res.response[0]
             self.setData({
                 banner: main.baners,
-                sprotTypes: main.sprotTypes
-            })
+                sprotTypes: main.sprotTypes,
+                sportType:main.sprotTypes[0],
+                activityIndex:0
+            });
+            self.getVenue();
         })
     },
     getVenue() {
-        let self = this;
-        self.show();
+        let self = this; 
+        // self.show();
         let {
             latitude,
             longitude,
@@ -131,7 +134,7 @@ Page({
     },
     getActivity() {
         let self = this;
-        self.show();
+        // self.show();
         let {
             latitude,
             longitude
@@ -173,14 +176,14 @@ Page({
     },
     // 切换
     tabVenuesList: function (e) {
-        console.log(e)
+        // console.log(e)
         let activityIndex = e.currentTarget.dataset.index;
         let sportType = e.currentTarget.dataset.sporttype;
         this.setData({
             activityIndex,
             sportType
         })
-        console.log(this.data.sportType)
+        // console.log(this.data.sportType)
         this.getVenue();
     },
     // 更多

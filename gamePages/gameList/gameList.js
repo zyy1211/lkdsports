@@ -1,66 +1,66 @@
-// gamePages/gameList/gameList.js
+let http = require('../../utils/request')
+let Api = require('../../utils/config.js');
+let bhv_refresh = require('../../pages/component/behavior/bhv_refresh')
+let bhv_bottom = require('../../pages/component/behavior/bhv_bottom')
+let app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    pageSize: 10,
+    pageNo: 1,
+    apiimg:Api.API_IMG,
   },
+  behaviors: [bhv_refresh, bhv_bottom],
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    let self = this;
+    app.isLogin(function () {
+      self.initData();
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
+  initData(){
+    this.getData(0);
   },
+  getData(concat) {
+    let self = this;
+    self.show();
+    let {
+      pageSize,
+      pageNo,
+    } = this.data;
+    http.post('/games/list', {
+      pageSize,
+      pageNo,
+    },1).then((res) => {
+      // console.log(res)
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
+      self.hide();
+      if (res.code != 200) {
+        return
+      }
+      let main = res.response[0].lists;
+      let total = res.response[0].total;
+      if (concat == 0) {
+        self.setData({
+          dataList: main,
+          total
+        })
+        // console.log(self.data.dataList)
+        return;
+      }
+      let dataList = self.data.dataList;
+      dataList = dataList.concat(main)
+      // console.log(self.data.dataList)
+      self.setData({
+        dataList,
+        total
+      })
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })

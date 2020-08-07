@@ -4,7 +4,7 @@
         <swiper class="swpView" circular="true" style="height: 560rpx;" autoplay interval="3000">
             <swiper-item wx:for="{{ main.imagesPath }}" wx:key="*this">
                 <image class="bannerimg" src="{{ apiimg + item}}" mode="cover"></image>
-            </swiper-item> 
+            </swiper-item>
         </swiper>
 
         <view class="topbar topbarbg" style="height:{{height}}rpx;background:rgba(255,255,255,{{opacity}})"></view>
@@ -46,6 +46,12 @@
                     <view wx:for="{{main.supportFacilitieList}}" wx:key="*this" class="tagbtn">{{item}}</view>
                 </view>
             </scroll-view>
+        </view>
+
+        <view class="font226 text flex_row_c" style="color: red;">
+            <view>温馨提示：预订场次开始</view>
+            <view style="margin: 0 10rpx;">{{main.cancelHours}}</view>
+            <view>小时之前可退</view>
         </view>
 
         <view class="stickys_tab" style="top: {{height}}rpx;">
@@ -97,8 +103,9 @@
                                 <block wx:if="{{item.new_table.length>0}}">
                                     <block wx:for="{{item.new_table}}" wx:key="id" wx:for-item='itm' wx:for-index="idx">
                                         <view class="opaBlock" bindtap="bindchoiseBlock" data-id="{{itm.id}}"
-                                            data-type="{{item.type}}" data-fieldid="{{item.fieldid}}" data-index="{{index}}"
-                                            data-idx="{{idx}}" data-item="{{itm}}" data-name="{{item.name}}"
+                                            data-type="{{item.type}}" data-fieldid="{{item.fieldid}}"
+                                            data-index="{{index}}" data-idx="{{idx}}" data-item="{{itm}}"
+                                            data-name="{{item.name}}"
                                             wx:if="{{tools.mergeblock(itm.merge,item,idx)=='true'}}"
                                             style="height:{{tools.mergeheight(itm.merge)}}px;">
                                             <view
@@ -108,10 +115,11 @@
                                                 <!-- {{tools.typecolor(itm.status,item.type)}} -->
                                             </view>
                                         </view>
-    
+
                                         <view class="opaBlock" bindtap="bindchoiseBlock" data-id="{{itm.id}}"
-                                            data-type="{{item.type}}" data-fieldid="{{item.fieldid}}" data-index="{{index}}"
-                                            data-idx="{{idx}}" data-item="{{itm}}" data-name="{{item.name}}"
+                                            data-type="{{item.type}}" data-fieldid="{{item.fieldid}}"
+                                            data-index="{{index}}" data-idx="{{idx}}" data-item="{{itm}}"
+                                            data-name="{{item.name}}"
                                             wx:if="{{ tools.mergeblock(itm.merge,item,idx)=='false' }}">
                                             <view
                                                 class="diamond flex_row_c_c {{tools.typecolor(itm.status,item.type)}} {{itm.choose ? 'choosecolor' : ''}}">
@@ -183,7 +191,7 @@
                 <view>合计:</view>
                 <view class="money">￥{{num}}</view>
             </view>
-            <view class="sett" bindtap="tosum">去结算</view>
+            <view class="sett" bindtap="showPhoneDialog">去结算</view>
         </view>
     </view>
 
@@ -196,3 +204,18 @@
 <van-dialog title="提示" show="{{ show }}" message="常规场次与散客场次不能同时购买，\n请取消原来选中的场次，\n再重新选择需要的场次" confirm-button-text="知道了">
 </van-dialog>
 <alert isAlert="{{isAlert}}"></alert>
+
+<van-overlay show="{{ phoneshow }}" z-index='999'>
+    <view show="{{phoneshow}}" class="flex_row_c_c" style="position: fixed;top: 0;left: 0;right: 0;bottom: 0;">
+        <view style="width: 600rpx;z-index: 999;padding: 20rpx 0;background: white;border-radius: 10rpx;">
+            <view>
+                <van-field label="手机号" maxlength="11" data-key="phone" value="{{ phone }}"
+                placeholder="请输入联系电话" border="{{ false }}" bindinput="bindDate" />
+            </view>
+            <view class="flex_row_btw" style="margin-top: 30rpx;padding: 0 30rpx;box-sizing: border-box;">
+                <view class="dialogcancel" bindtap="cancelPhone">取消</view>
+                <view class="dialogsubmit" bindtap="confirmPhone">确定</view>
+            </view>
+        </view>
+    </view>
+</van-overlay>

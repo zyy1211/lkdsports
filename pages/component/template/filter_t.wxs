@@ -20,8 +20,35 @@ var formatDistant = function(str){
     return ((str/1000).toFixed(1)) + 'km'
   // }
 }
+var gameType = function(type){
+  if(type ==10){
+    return '校园联赛'
+  }else if(type ==20){
+    return '企业联赛'
+  }else if(type ==30){
+    return '民间联赛'
+  }else if(type ==40){
+    return '官方联赛'
+  }else if(type ==50){
+    return '机构联赛'
+  }else if(type ==60){
+    return '业余联赛'
+  }
+}
+
+var ruleType = function(type){
+  if(type ==10){
+    return '单项赛'
+  }else if(type ==20){
+    return '团体赛'
+  }else if(type ==30){
+    return '单项+团体'
+  }
+}
 
 module.exports = {
   formatarr:formatarr,
-  formatDistant:formatDistant
+  formatDistant:formatDistant,
+  gameType:gameType,
+  ruleType:ruleType
 }

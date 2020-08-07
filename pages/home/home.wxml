@@ -9,7 +9,7 @@
       </swiper-item>
     </swiper>
 
-    <!-- <button bindtap="test" data-key="/venuePages/venueDetail/venueDetail">详情</button> -->
+    <!-- <button bindtap="test" data-key="/venuePages/venueDetail/venueDetail">详情</button> --> 
 
     <view class="stickys">
       <view class="typeList flex_row_c_c">

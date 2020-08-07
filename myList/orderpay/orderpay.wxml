@@ -21,7 +21,7 @@
       </view>
     </view>
 
-    <view class="ordercard" wx:if="{{itemsType != 5}}" bindtap="toVenueDetail">
+    <view class="ordercard" wx:if="{{itemsType != 5 && itemsType != 20  }}" bindtap="toVenueDetail">
       <view style="padding: 0 30rpx;">
         <view class="title28 flex_row_btw">
           <view>场馆信息</view>
@@ -33,12 +33,34 @@
         <view class="grow padl50">
           <view class="addressName">{{orderphone.name}}</view>
           <view class="flex_row_c" style="  padding-bottom: 30rpx;box-sizing: border-box;">
-            <image style="width: 30rpx;" src="/static/adr.png" mode="widthFix"></image>
+            <image style="width: 30rpx;height: 30rpx;" src="/static/adr.png" mode="widthFix"></image>
             <view class="address">{{orderphone.locationAddress}}</view>
           </view>
         </view>
         <view class="phone flex_row_c_c" data-key="{{orderphone.contactNumber}}" catchtap="makeCall">
-          <image style="width: 33rpx;" src="/static/tel.png" mode="widthFix"></image>
+          <image style="width: 33rpx;height: 33rpx;" src="/static/tel.png" mode="widthFix"></image>
+        </view>
+      </view>
+    </view>
+
+    <view class="ordercard" wx:if="{{itemsType == 20}}" bindtap="toGameDetail">
+      <view style="padding: 0 30rpx;">
+        <view class="title28 flex_row_btw">
+          <view>赛事信息</view>
+          <van-icon color="#818181" size="16" name="arrow" />
+        </view>
+      </view>
+
+      <view class="flex_row_btw">
+        <view class="grow padl50">
+          <view class="addressName">{{gameDetail.info.title}}</view>
+          <view class="flex_row_c" style="  padding-bottom: 30rpx;box-sizing: border-box;">
+            <image style="width: 30rpx;height: 30rpx;" src="/static/adr.png" mode="widthFix"></image>
+            <view class="address">{{gameDetail.info.address}}</view>
+          </view>
+        </view>
+        <view class="phone flex_row_c_c" data-key="{{extd.buyerPhone}}" catchtap="makeCall">
+          <image style="width: 33rpx;height: 33rpx;" src="/static/tel.png" mode="widthFix"></image>
         </view>
       </view>
     </view>
@@ -68,7 +90,33 @@
           </view>
         </view>
         <view class="phone flex_row_c_c" data-key="{{activities.phoneNum}}" bindtap="makeCall">
-          <image style="width: 33rpx;" src="/static/tel.png" mode="widthFix"></image>
+          <image style="width: 33rpx;height: 33rpx;" src="/static/tel.png" mode="widthFix"></image>
+        </view>
+      </view>
+    </view>
+
+    <view class="ordercard" wx:if="{{itemsType == 20}}">
+      <view style="padding: 0 30rpx;">
+        <view class="title28">赛事报名信息</view>
+      </view>
+      <view class="flex_row_btw">
+        <view class="grow" style="padding-left: 30rpx;">
+          <view class="flex_row_c">
+            <image style="width: 150rpx;height: 82rpx;flex-shrink: 0;" src="{{apiimg + order.itemsImage }}"
+              mode="aspectFill"></image>
+            <view class="flex_col_c" style="margin-left: 30rpx;">
+              <view class="flex_row_c">
+                <view class="addressName" style="margin-right: 10rpx;">
+                  {{ order.itemsSpecif }}</view>
+              </view>
+              <view class="flex_row_c" style="padding-bottom: 30rpx;box-sizing: border-box;">
+                <view class="address flex_row_c" style="margin-left:0">
+                  <view>{{order.payPrice/100}}</view>
+                  <view>元</view>
+                </view>
+              </view>
+            </view>
+          </view>
         </view>
       </view>
     </view>
@@ -104,47 +152,45 @@
         <view style="color: #FF2222;margin-left: 20rpx;">
           ({{tools_acvd.formatTimeed(activities.startTime,activities.endTime,1)}})</view>
       </view>
-      <view class="ordertable" style="padding: 30rpx;">
-
+      <view class="ordertable" style="padding:0 32rpx;">
         <view class="flex_row_c_c tbth">
-          <view class="weeks" style="width: 90rpx;">星期</view>
-          <view style="width: 120rpx;">人数</view>
-          <view style="width: 160rpx;" class="grow">场地</view>
-          <view style="width: 140rpx;text-align: center;">费用</view>
+          <view class="weeks" style="width: 140rpx; text-align: left;">星期</view>
+          <view style="width: 140rpx;">人数</view>
+          <view style="width: 140rpx;" class="grow">场地</view>
+          <view style="width: 140rpx;">费用</view>
         </view>
 
         <block wx:for="{{children.children}}" wx:key="index">
           <view class="flex_row_c">
-            <view class="weeks font269" style="width: 90rpx;color: #666;">
+            <view class="weeks font269" style="width: 140rpx;color: #666;text-align: left;">
               {{tools_acvd.formatTimeed(item.startTime,item.endTime,0)}}</view>
-            <view class="flex_row_c_c" style="width: 120rpx;">
+            <view class="flex_row_c" style="width: 140rpx;">
               <view class="flex_row_c tbtd">
                 <image style="margin-right: 10rpx;" class="sex_icon" src="{{apiimg + item.iconurl }}" mode="widthFix">
                 </image>
                 <view class="fong229" style="margin-right: 20rpx;">x{{item.itemsNum}}</view>
               </view>
             </view>
-            <view style="width: 160rpx;color: #666;" class="font269 van-ellipsis grow">{{activities.filedNo}}</view>
-            <view style="width: 140rpx;text-align: right;color: #666;" class="font269 van-ellipsis">
+            <view class="font269 van-ellipsis grow" style="width: 140rpx;color: #666;text-align: left;" >{{activities.filedNo ? activities.filedNo : '待定'}}</view>
+            <view class="font269 van-ellipsis" style="width: 140rpx;color: #666;text-align: left;" >
               ￥{{tools_acvd.fixeds(item.itemsPrice,item.itemsNum)}}
             </view>
           </view>
         </block>
-
       </view>
     </view>
 
 
     <view class="ordercard" wx:if="{{itemsType == 10}}">
-      <view style="padding: 0 30rpx;">
+      <view style="padding: 0 30rpx;box-sizing: border-box;">
         <view class="title28 flex_row_c">
           <view>预约信息</view>
-          <view style="color: #FF2222;margin-left: 20rpx;">({{tools.formatDay(itemList[0].endTime)}})</view>
+          <view style="color: #FF2222;margin-left: 20rpx;">({{tools.formatDay(itemList[0].startTime)}})</view>
         </view>
       </view>
-      <view class="ordertable">
+      <view class="ordertable" style="padding: 0 30rpx;box-sizing: border-box;">
         <view class="flex_row_c_c tbth">
-          <view class="weeks">星期</view>
+          <view class="weeks" style="text-align: left;">星期</view>
           <!-- <view class="weeks">日期</view> -->
           <view class="time">时间段</view>
           <view class="vlno">场地号</view>
@@ -154,7 +200,7 @@
 
         <view class="flex_col">
           <view class="flex_row_c_c tbtd" wx:for="{{itemList}}" wx:key="index">
-            <view class="weeks">{{tools.formatWeek(item.itemsSpecif)}}</view>
+            <view class="weeks" style="text-align: left;">{{tools.formatWeek(item.itemsSpecif)}}</view>
             <!-- <view class="weeks">{{tools.formatDay(item.endTime)}}</view> -->
             <view class="time">{{tools.formatTime(item.startTime,item.endTime)}}</view>
             <view class="vlno van-ellipsis">{{tools.blockName(item.itemsTitle)}}</view>

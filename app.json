@@ -45,7 +45,10 @@
     {
       "root": "gamePages",
       "pages": [
-        "gameList/gameList"
+        "gameList/gameList",
+        "gameDetail/gameDetail",
+        "gameTypeList/gameTypeList",
+        "gameSign/gameSign"
       ]
     }
   ],
@@ -96,7 +99,8 @@
     "van-uploader": "vant/dist/uploader/index",
     "van-radio": "vant/dist/radio/index",
     "van-radio-group": "vant/dist/radio-group/index",
-    "van-steps": "vant/dist/steps/index"
+    "van-steps": "vant/dist/steps/index",
+    "van-cell-group": "vant/dist/cell-group/index"
   },
   "permission": {
     "scope.userLocation": {

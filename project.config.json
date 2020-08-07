@@ -77,7 +77,7 @@
 					"id": 2,
 					"name": "活动详情",
 					"pathName": "activityPages/activityDetail/activityDetail",
-					"query": "id=1825",
+					"query": "id=1926",
 					"scene": null
 				},
 				{
@@ -91,7 +91,7 @@
 					"id": 4,
 					"name": "编辑发布",
 					"pathName": "activityPages/issue_a/issue_a",
-					"query": "id=104",
+					"query": "id=1922",
 					"scene": null
 				},
 				{
@@ -117,23 +117,23 @@
 				},
 				{
 					"id": 8,
-					"name": "报名订单",
-					"pathName": "myList/signpay/signpay",
-					"query": "bussId=13&oid=198858443237363713&isOnce =!1",
+					"name": "订单详情",
+					"pathName": "myList/orderpay/orderpay",
+					"query": "bussId=1&oid=211788022532804608&isOnce =!1",
 					"scene": null
 				},
 				{
 					"id": 9,
 					"name": "活动订单",
 					"pathName": "myList/orderpay/orderpay",
-					"query": "bussId=130&oid=203472164312059904&isOnce =!1",
+					"query": "bussId=4&oid=1287606593825988610&isOnce =!1",
 					"scene": null
 				},
 				{
 					"id": 10,
 					"name": "报名列表",
 					"pathName": "activityPages/signlist/signlist",
-					"query": "activityId=1840",
+					"query": "activityId=1",
 					"scene": null
 				},
 				{
@@ -168,7 +168,7 @@
 					"id": 15,
 					"name": "场馆详情",
 					"pathName": "venuePages/venueDetail/venueDetail",
-					"query": "id=74",
+					"query": "id=77",
 					"scene": null
 				},
 				{
@@ -246,6 +246,62 @@
 					"name": "pages/userInfo/userInfo",
 					"pathName": "pages/userInfo/userInfo",
 					"query": "activityId=1840",
+					"scene": null
+				},
+				{
+					"id": 27,
+					"name": "提现",
+					"pathName": "myList/cachIn/cachIn",
+					"query": "beTotal=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/home/home",
+					"pathName": "activityPages/activityDetail/activityDetail",
+					"query": "q=http%3A%2F%2Fqr.like-sports.cn%2Factivitie%2Fdetail%3Fid%3D963&scancode_time=1596007334",
+					"scene": 1011
+				},
+				{
+					"id": -1,
+					"name": "activityPages/activityDetail/activityDetail",
+					"pathName": "activityPages/activityDetail/activityDetail",
+					"query": "scene=%3Fid%3D1903",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "赛事列表",
+					"pathName": "gamePages/gameList/gameList",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 31,
+					"name": "赛项列表",
+					"pathName": "gamePages/gameTypeList/gameTypeList",
+					"query": "id=1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "赛事详情",
+					"pathName": "gamePages/gameDetail/gameDetail",
+					"query": "id=1",
+					"scene": null
+				},
+				{
+					"id": 33,
+					"name": "赛事报名",
+					"pathName": "gamePages/gameSign/gameSign",
+					"query": "id=1&type=25&proGroupId=1&num=2",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "赛事订单",
+					"pathName": "myList/orderpay/orderpay",
+					"query": "oid=211541983787749376",
 					"scene": null
 				}
 			]

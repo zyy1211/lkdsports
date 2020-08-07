@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    url:''
   },
 
   /**
@@ -13,6 +13,7 @@ Page({
    */
   onLoad: function (options) {
     let url = JSON.parse(wx.getStorageSync('webview'));
+    console.log(url)
     this.setData({url})
   },
 

@@ -1,3 +1,39 @@
-<view class="emptyimg">
-  <image class="emptyimg" src="/static/empty.png" mode="widthFix"></image>
+<view class="relat game">
+  <!-- <view class="searchFixed">
+      <view class="lkdSearchs">
+          <van-search background="transparent" value="{{ condition }}" bind:change="changeName" data-key="condition"
+              fieldClass="searchInputbox" shape="round" placeholder="请输入搜索关键词" clearable />
+      </view>
+  </view> -->
+  <!-- <view class="dropdownv activityDrap">
+      <van-dropdown-menu>
+          <van-dropdown-item catchtouchmove="_touchmove" bind:change="tabsChange" data-key="date" value="{{ date }}"
+              options="{{ optionsDate }}" />
+          <van-dropdown-item popup-style="menuPop" catchtouchmove="_touchmove" bind:change="tabsChange"
+              data-key="distance" value="{{ distance }}" options="{{ addressList }}" />
+          <van-dropdown-item bind:change="tabsChange" data-key="sportType" value="{{ sportTypeId }}"
+              options="{{ selectType }}" />
+      </van-dropdown-menu>
+  </view> -->
+  <view class="drop_list" style="position: fixed;top: 0;left: 0;right: 0;bottom: 0;">
+      <view class="drop_grad activityGrad"></view>
+  </view>
+  <view class="actList cardList">
+      <view wx:if="{{false}}" class="emptyimg">
+          <image class="emptyimg" src="/static/empty.png" mode="widthFix"></image>
+      </view>
+
+      <import src="/pages/component/template/game_temp.wxml" />
+      <block wx:for="{{dataList}}" wx:key="id" data-key="id">
+          <view class="itembg">
+              <template is="gameItem" data="{{item,apiimg}}" />
+          </view>
+      </block>
+      <view wx:if="{{total == 0}}" class="emptyimg">
+          <image class="emptyimg" src="/static/empty.png" mode="widthFix"></image>
+      </view>
+  </view>
 </view>
+
+<authorize id="authorize"></authorize>
+<alert isAlert="{{isAlert}}"></alert>

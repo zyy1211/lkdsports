@@ -118,12 +118,41 @@ let $http = {
         },
       })
     })
-  }
+  },
+  $getBuffer:function(url){
+    return new Promise(function (resolve, reject) {
+      wx.request({
+        url: API.API_HOST + url,
+        responseType: 'arraybuffer', 
+        method: 'Get',
+        success: function (res) {
+          // console.log(res)
+          if (res.data.code == 200) {
+            resolve(res);
+          }else if(res.data.code == 401){
+            let App = getApp();
+            wx.clearStorageSync();
+            App.isSession(function(){
+              resolve(res);
+            });
+          } else {
+            wx.showToast({title: res.data.message ,icon:'none',duration:3000});
+            resolve(res);
+          }
+        },
+        fail: function (res) {
+          
+          reject(res)
+        },
+      })
+    })
+  },
 }
 module.exports = {
   post: $http.$post,
   get:$http.$get,
   creat:$http.$creat,
-  getT:$http.$getT
+  getT:$http.$getT,
+  getBuffer:$http.$getBuffer
 
 };

@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "赛事报名",
+  "navigationBarBackgroundColor": "#558bfa",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "alert":"/pages/component/alert/alert"
+  }
+}

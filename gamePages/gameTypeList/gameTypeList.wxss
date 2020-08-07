@@ -1,0 +1,43 @@
+
+.gameTypeList{
+  padding: 0 0 100rpx;
+}
+
+.fixedBtns{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90rpx;
+  background-color: white;
+  z-index: 9;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.borderg{
+  border-top: 2rpx solid #E6E6E6;
+  flex: 1;
+}
+.fixbtn{
+  width: 274rpx;
+  font-size: 30rpx;
+  color: white;
+  font-weight: 900;
+  background-color: #246CFF;
+  border-top-left-radius: 6rpx;
+  border-bottom-left-radius: 6rpx;
+}
+
+.twobtn{
+  font-size: 30rpx;
+  color: white;
+  font-weight: 900;
+  background-color: #246CFF; 
+  border-top-left-radius: 6rpx;
+  border-bottom-left-radius: 6rpx;
+}
+.twobtn .fidbtn{
+  flex: 1;
+}

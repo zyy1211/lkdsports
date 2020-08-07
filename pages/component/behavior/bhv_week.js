@@ -74,7 +74,7 @@ module.exports = Behavior({
       })
       // 基础table
       let tb_time = []
-      // console.log(first,firstday)
+      // console.log(tablemain)
       tablemain.forEach((it, index) => {
         // 基础时间
         let table_map = [];
@@ -140,7 +140,7 @@ module.exports = Behavior({
           return obj
         })
         it['new_table'] = new_table;
-
+        // console.log(JSON.stringify(new_table))
       })
       self.setData({
         tb_time,

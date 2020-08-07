@@ -13,12 +13,14 @@
                 </view>
             </view>
         </view>
+
+        <view class="tagbtn tagFixeds">{{activities.isOpen ? '公开' : '非公开'}}</view>
     </view>
     <wxs src="./../filter_actvd.wxs" module="tools"></wxs>
     <view class="main">
         <view class="flex_row_btw_j">
             <view class="font3439 van-multi-ellipsis--l2">{{activities.title}}</view>
-            <!-- <image class="share" src="/static/share.png" mode="widthFix"></image> -->
+            <image class="share" bindtap="showShare" src="/static/share.png" mode="widthFix"></image>
         </view>
 
         <view style="margin-top: 26rpx;">
@@ -55,11 +57,26 @@
             <image class="ad_icon" src="/static/actvd1.png" mode="widthFix"></image>
             <view class="font263">{{activities.cancelTime}} 前可取消报名</view>
         </view>
-        <view class="flex_row_c isit">
-            <image class="ad_icon" src="/static/actvd4.png" mode="widthFix"></image>
-            <view class="font263 flex_row_c">
-                <view>场地</view>
-                <view style="margin-left: 10rpx;">{{activities.filedNo ? activities.filedNo : ''}}</view>
+        <view class="flex_row_btw isit" bindtap="toVenudetail" data-key="{{activities.venueId}}">
+            <view class="flex_row_c">
+                <image class="ad_icon" src="/static/actvd4.png" mode="widthFix"></image>
+                <view class="font263 flex_row_c">
+                    <view>{{activities.venueName}}</view>
+                    <view style="margin-left: 10rpx;">场地</view>
+                    <view style="margin-left: 10rpx;">{{activities.filedNo ? activities.filedNo : '待定'}}</view>
+                </view>
+            </view>
+            <van-icon wx:if="{{activities.venueId}}" color="#999" size="14" name="arrow" />
+        </view>
+
+        <view class="flex_row_c isit" wx:if="{{activities.isPenal == 1 && activities.chargeMode  != 0 }}">
+            <image class="ad_icon" src="/static/atvd7.png" mode="widthFix"></image>
+            <view class="font263 flex_row_c" style="color: red;">
+                <view>取消报名收取</view>
+                <view class="flex_row_c">
+                    <view style="margin: 0 10rpx;">{{ activities.penalSum }}%</view>
+                    <view>违约金</view>
+                </view>
             </view>
         </view>
 
@@ -133,13 +150,21 @@
         </view>
 
         <view wx:if="{{isApplySign != '0'}}">
+            <!-- flag true 有排队有报名 -->
             <view class="fixedBtns" wx:if="{{flag}}">
+                <!-- isApplySign 1报名已满 -->
                 <block wx:if="{{isApplySign == '1'}}">
-                    <view class="flex_row_c_c borderg" style="height: 100%;">
+                    <view class="flex_col_c_c borderg" style="height: 100%;flex:2;flex-shrink: 0;">
                         <view class="font2669">结束报名剩余：</view>
                         <view class="font28r9">{{diff}}</view>
                     </view>
-                    <view class="fixbtn flex_row_c_c" bindtap="updateSign">修改报名</view>
+                    <view class="flex_row_c_c twobtn" style="flex:3;">
+                        <view class="fidbtn flex_row_c_c" bindtap="updateSign">取消报名</view>
+                        <!-- <view wx:if="{{activities.isLineUp == 1}}"
+                            style="height: 60%;top: 20%;width: 2rpx;background-color: white;"></view>
+                        <view wx:if="{{activities.isLineUp == 1}}" class="fidbtn flex_row_c_c" bindtap="toSignup">我要排队
+                        </view> -->
+                    </view>
                 </block>
                 <block wx:else>
                     <view class="flex_col_c_c borderg" style="height: 100%;flex:2;flex-shrink: 0;">
@@ -147,7 +172,7 @@
                         <view class="font22r9">{{diff}}</view>
                     </view>
                     <view class="flex_row_c_c twobtn" style="flex:3;">
-                        <view class="fidbtn flex_row_c_c" bindtap="updateSign">修改报名</view>
+                        <view class="fidbtn flex_row_c_c" bindtap="updateSign">取消报名</view>
                         <view style="height: 60%;top: 20%;width: 2rpx;background-color: white;"></view>
                         <view class="fidbtn flex_row_c_c" bindtap="toSignup">继续报名</view>
                     </view>
@@ -158,7 +183,9 @@
                     <view class="font2669">结束报名剩余：</view>
                     <view class="font28r9">{{diff}}</view>
                 </view>
-                <view class="fixbtn flex_row_c_c" bindtap="toSignup">我要报名</view>
+                <view class="fixbtn flex_row_c_c" bindtap="toSignup" hidden="{{activities.isLineUp != 1 && activities.appliedNum == activities.participantsNum }}">
+                    {{activities.isLineUp == 1 && activities.appliedNum == activities.participantsNum ? '我要排队' : '我要报名'}}
+                </view>
             </view>
         </view>
         <view wx:if="{{ isApplySign==0 &&  (activities.status==100 || activities.status==101) }}">
@@ -172,6 +199,7 @@
 </view>
 <authorize id="authorize"></authorize>
 <alert isAlert="{{isAlert}}"></alert>
+<my-poster id="getPoster" sid="{{activityId}}"></my-poster>
 
 <van-action-sheet show="{{ showSignList }}" close-on-click-overlay="{{true}}" overlay="{{true}}" round="{{false}}"
     close-on-click-action="{{false}}" bind:click-overlay="closeSheet">
@@ -200,5 +228,24 @@
                 </van-radio>
             </block>
         </van-radio-group>
+    </view>
+</van-action-sheet>
+
+
+<van-action-sheet show="{{ shareshow }}" bind:click-overlay="closeShare">
+    <view class="flex_row_btw" style="padding: 40rpx 200rpx;box-sizing: border-box;font-size: 26rpx;color: #333;">
+        <view style="position: relative;">
+            <view class="flex_col_c_c">
+                <image src="/static/sh1.png" style="width: 80rpx;height: 80rpx;border-radius: 50%;"></image>
+                <view style="margin-top: 10rpx;">微信好友</view>
+            </view>
+            <button open-type="share"
+                style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;right:0;border: 1rpx solid red;opacity: 0;"></button>
+        </view>
+
+        <view class="flex_col_c_c" bindtap="createPoster">
+            <image src="/static/sh2.png" style="width: 80rpx;height: 80rpx;border-radius: 50%;"></image>
+            <view style="margin-top: 10rpx;">生成海报</view>
+        </view>
     </view>
 </van-action-sheet>

@@ -16,22 +16,27 @@ Component({
             wx.getLocation({
                 type: "gcj02",
                 success: function (t) {
+                    // console.log(t)
                     e(t);
                 },
                 fail: function () {
                     wx.getSetting ? wx.getSetting({
                         success: function (s) {
-                            s.authSetting["scope.userLocation"] ? wx.getLocation({
+                            s.authSetting["scope.userLocation"] ? wx.getLocation({ 
                                 type: "gcj02",
                                 success: function (t) {
+                                    // console.log(t)
                                     e(t);
                                 },
-                                fail: function (e) {
-                                    wx.showToast({
-                                        title: "无法获取您的地理位置",
-                                        icon: 'success',
-                                        duration: 2000
-                                    });
+                                fail: function () {
+                                    let ts = {latitude:30.25961,longitude:120.13026};
+                                    e(ts);
+                                    // wx.showToast({
+                                    //     title: "未开启微信定位！",
+                                    //     icon:'none',
+                                    //     duration: 2000
+                                    // });
+                                   
                                 }
                             }) : o.setData({
                                 modalHidden: !1

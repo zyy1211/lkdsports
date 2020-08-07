@@ -3,14 +3,14 @@
   <view class="signfixed" style="position: absolute;">
     <view class="signTab">
       <block wx:for="{{tablist}}" wx:key="value">
-        <view wx:if="{{!self_is_user && item.value==20 || self_is_user}}" bindtap="tabChange" data-key="{{item.value}}"
+        <!-- wx:if="{{!self_is_user && item.value==20 || self_is_user}}" -->
+        <view hidden="{{ !self_is_user && item.value == 40 }}" bindtap="tabChange" data-key="{{item.value}}"
           class="itemtab {{status==item.value ? 'activity' :''}}">
           {{item.name}}</view>
       </block>
     </view>
   </view>
   <view class="main">
-
     <view class="totalCard flex_row_c">
       <view class="totalcount flex_col_c_c">
         <image style="width: 46rpx;height: 43rpx;" src="/static/total.png" mode="widthFix"></image>

@@ -8,7 +8,7 @@
   <view class="ven_main">
     <block wx:for="{{dataList}}" wx:key="id">
       <view class="ven_card">
-        <view class="card_title flex_row_btw" bindtap="orderDetail" data-bussid="{{item.bussId}}"
+        <view class="card_title flex_row_btw" bindtap="toVenues" data-bussid="{{item.bussId}}"
           data-oid="{{item.parentOid}}" data-itemstype="{{item.itemsType}}">
           <view class="flex_row_c_c">
             <image hidden="{{ item.itemsType !=10 }}" class="marlf" style="width: 30rpx;height: 30rpx;" src="" mode="widthFix" src="/static/a1.png"></image>
@@ -16,7 +16,7 @@
             </image>
             <!-- {{item.createTime}} -->
             <view class="marlf">{{item.bussName}}</view>
-            <van-icon size="15" name="arrow" />
+            <van-icon wx:if="{{item.itemsType == 10}}" size="15" name="arrow" />
           </view>
           <view class="status">{{tools.formatStatus(item.status,item.refStatus,item.itemsType)}}</view>
         </view>

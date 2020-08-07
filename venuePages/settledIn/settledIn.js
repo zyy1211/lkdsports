@@ -433,13 +433,13 @@ Page({
               filePath: tpm.tempFilePath,
               name: 'file',
               success(res) {
-                // console.log(res);
+                console.log(res);
                 let datas = JSON.parse(res.data)
                 if (datas.code != 200) {
                   if (datas.code == 401) {
                     wx.clearStorageSync();
                     app.isSession(function () {
-                      self.afterRead(event)
+                      self.choiseImg(e)
                     });
                     return
                   } else {

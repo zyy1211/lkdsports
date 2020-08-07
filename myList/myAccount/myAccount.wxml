@@ -55,7 +55,8 @@
                                         </view>
                                         <wxs src="../orderpay/filter_a.wxs" module="tools_acvd" />
                                         <view class="flex_row_c">
-                                            <view class="time">{{tools_acvd.formatTimeed(item.startTime,item.endTime)}}</view> 
+                                            <view class="time">{{tools_acvd.formatTimeed(item.startTime,item.endTime)}}
+                                            </view>
                                             <!-- <view class="note">（活动结束后结算）</view> -->
                                         </view>
                                     </view>
@@ -73,7 +74,8 @@
                                 <view class="contain">
                                     <block wx:for="{{item.balanceLogs}}" wx:for-item="pit" wx:for-index="ids"
                                         wx:key="name">
-                                        <view class="flex_row_c" style="justify-content: space-between;border-bottom: 1rpx solid lightgray;margin-bottom: 10rpx;padding-bottom: 10rpx;">
+                                        <view class="flex_row_c"
+                                            style="justify-content: space-between;border-bottom: 1rpx solid lightgray;margin-bottom: 10rpx;padding-bottom: 10rpx;">
                                             <view class="flex_row_c">
                                                 <view class="numText">{{ids +1}}</view>
                                                 <image src="{{ pit.user.headImage }}" class="userImg" mode="widthFix">
@@ -83,7 +85,9 @@
                                                 </view>
                                             </view>
                                             <view style="font-size: 28rpx;text-align: right;">
-                                            <view style="color:{{itm.money>0 ? 'red' :'gray'}}" wx:for="{{ pit.balanceLogs }}" wx:for-item="itm" wx:key="id">{{itm.money/100}}</view>
+                                                <view style="color:{{itm.money>0 ? 'red' :'gray'}}"
+                                                    wx:for="{{ pit.balanceLogs }}" wx:for-item="itm" wx:key="id">
+                                                    {{itm.money/100}}</view>
                                             </view>
                                         </view>
                                     </block>

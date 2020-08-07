@@ -16,16 +16,16 @@
     <view class="cardList myis">
       <block wx:for="{{dataList}}" wx:key="id" data-key="id">
         <view class="itembg" style="position: relative;">
-          <!-- <view class="statuss">{{tools.status(item.status)}}</view> -->
+          <view class="statuss">{{item.isOpen ? '公开' : '非公开'}}</view>
+          <view wx:if="{{item.status == 30}}" class="statuss" style="top: 100rpx;">排队中</view>
           <template is="activItem" data="{{item,apiimg}}" />
-
           <view class="flex_row_btw btnboxs">
             <view class="flex_row_c_c bmrs">
               <view>已报名人数：</view>
               <view>{{item.appliedNum}}/{{item.participantsNum}}</view>
             </view>
             <!-- <view class="flex_row_c" wx:if="{{item.isApplySign != '0'}}">
-              <view wx:if="{{item.flag}}}}" data-key="{{item.id}}" bindtap="toissue_a" class="btnsis">修改报名</view>
+              <view wx:if="{{item.flag}}" data-key="{{item.id}}" bindtap="toissue_a" class="btnsis">修改报名</view>
               <view wx:if="{{item.flag && isApplySign != '1'}}" data-key="{{item.id}}" bindtap="bindCancel" class="btnsis">继续报名</view>
               <view wx:if="{{!item.flag && isApplySign != '1'}}" data-key="{{item.id}}" bindtap="bindCancel" class="btnsis">立即报名</view>
             </view> -->

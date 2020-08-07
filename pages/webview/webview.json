@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "栎刻动体育",
+  "navigationBarBackgroundColor": "#558bfa",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true
 }

@@ -1,0 +1,140 @@
+.activityDetail{
+  padding-bottom: 60rpx;
+}
+.font3439 {
+  font-size: 34rpx;
+  color: #333;
+  font-weight: 900;
+}
+.font2839 {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 900;
+}
+
+.font246 {
+  font-size: 24rpx;
+  color: #666;
+}
+.font2669 {
+  font-size: 26rpx;
+  color: #666;
+  font-weight: 900;
+}
+.font2269 {
+  font-size: 22rpx;
+  color: #666;
+  font-weight: 900;
+}
+.font22r9{
+  font-size: 22rpx;
+  color: #FF0000;
+  font-weight: 900;
+}
+.font28r9{
+  font-size: 28rpx;
+  color: #FF0000;
+  font-weight: 900;
+}
+
+
+.diagram {
+  width: 100vw;
+  position: relative;
+}
+.diagram .tagFixeds{
+  position: absolute;
+  bottom: 80rpx;
+  right: 10rpx;
+  background: white;
+  color: #333;
+  border: none;
+}
+
+.topbarbg {
+z-index: 998;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  box-sizing: border-box;
+  z-index: 99;
+
+}
+
+.goback {
+  height: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  z-index: 100;
+
+}
+
+.isgoback {
+  padding: 10rpx 25rpx;
+}
+
+.iconback {
+  width: 50rpx;
+  height: 50rpx;
+  border-radius: 50%;
+  background-color: rgba(2255, 255, 255, 0.3);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.diagram .bannerimg {
+  width: 750rpx;
+  height: 568rpx;
+}
+.main{
+  width: 100vw;
+  padding: 0 30rpx 100rpx;
+  box-sizing: border-box;
+}
+
+.fixedBtns{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90rpx;
+  background-color: white;
+  z-index: 9;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.borderg{
+  border-top: 2rpx solid #E6E6E6;
+  flex: 1;
+}
+.fixbtn{
+  width: 274rpx;
+  font-size: 30rpx;
+  color: white;
+  font-weight: 900;
+  background-color: #246CFF;
+  border-top-left-radius: 6rpx;
+  border-bottom-left-radius: 6rpx;
+}
+
+.twobtn{
+  font-size: 30rpx;
+  color: white;
+  font-weight: 900;
+  background-color: #246CFF; 
+  border-top-left-radius: 6rpx;
+  border-bottom-left-radius: 6rpx;
+}
+.twobtn .fidbtn{
+  flex: 1;
+}

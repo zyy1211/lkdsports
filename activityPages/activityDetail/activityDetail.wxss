@@ -42,6 +42,14 @@
     width: 100vw;
     position: relative;
 }
+.diagram .tagFixeds{
+    position: absolute;
+    bottom: 80rpx;
+    right: 10rpx;
+    background: white;
+    color: #333;
+    border: none;
+}
 
 .topbarbg {
  z-index: 998;
@@ -140,10 +148,11 @@
 
 .isTitle {
     height: 100rpx;
+    
 }
 
 .marl12 {
-    margin: 0 30rpx 0 12rpx;
+    margin: 0 20rpx 0 12rpx;
 }
 
 .sexbox {
