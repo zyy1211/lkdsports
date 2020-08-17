@@ -10,19 +10,19 @@ Page({
   data: {
     self_is_user:false,
     url : '/activities/getApplyInfo',
-    status: 20,
+    status: 10,
     apiimg: Api.API_IMG,
     tablist: [{
         name: '已报名',
-        value: 20
+        value: 10
       },
       {
         name: '排队中',
-        value: 30
+        value: 20
       }, 
       {
         name: '已取消',
-        value: 40
+        value: 30
       }
     ]
   },
@@ -32,7 +32,6 @@ Page({
    */
   onLoad: function (options) { 
     let self = this;
-
     app.isLogin(function () {
       let userinfo = app.getInfo();
       let userId = userinfo.id;
@@ -48,8 +47,10 @@ Page({
     this.setData({status});
     // console.log(status)
     let url = '/activities/getApplyInfo'
-    if(status == 40){
+    if(status == 30){
       url = '/activities/getRefundInfo'
+    }else if(status == 20){
+      url = '/activities/getLineUpInfo'
     }
     this.setData({url})
     this.initData()
@@ -79,26 +80,27 @@ Page({
       }
       let total = 0;
       activitiesSkus.forEach((item) => {
-        if(status == 40){
+        if(status == 30){
           total += item.refundNum
         }else{
           total += item.occupyNum
         }
         
       })
+      console.log(activitiesSkus)
+      console.log(activitiesApplySkuVOS)
       activitiesApplySkuVOS = activitiesApplySkuVOS.map((item) => {
         let total = 0;
         item.applySkuLocks.forEach((itm) => {
-          if(status == 40){
+          if(status == 30){
             total += itm.refundNum
           }else{
             total += itm.num
           }
-
         })
         item['total'] = total;
         return item;
-      })
+      });
       self.setData({
         activitiesApplySkuVOS,
         activitiesSkus,

@@ -31,22 +31,12 @@ Page({
   bindDate: function (e) {
     let key = e.currentTarget.dataset.key;
     let value = e.detail.value;
-    if (key == 'money') {
-      value = this.validateFixed(value);
-    }
+    // if (key == 'money') {
+    //   value = this.validateFixed(value);
+    // }
     this.setData({
       [key]: value
     })
-  },
-
-  validateFixed(val) {
-    let value;
-    value = val.replace(/[^\d.]/g, ""); //清除"数字"和"."以外的字符
-    value = value.replace(/^\./g, ""); //验证第一个字符是数字
-    value = value.replace(/\.{2,}/g, "."); //只保留第一个, 清除多余的
-    value = value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
-    value = value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'); //只能输入两个小数
-    return value;
   },
 
   toCachIn: function () {

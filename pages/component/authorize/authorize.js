@@ -26,7 +26,8 @@ Component({
                                 type: "gcj02",
                                 success: function (t) {
                                     // console.log(t)
-                                    e(t);
+                                    let ts = {latitude:30.25961,longitude:120.13026};
+                                    e(ts);
                                 },
                                 fail: function () {
                                     let ts = {latitude:30.25961,longitude:120.13026};

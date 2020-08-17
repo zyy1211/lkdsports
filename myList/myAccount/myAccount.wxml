@@ -6,14 +6,14 @@
                 <view>
                     <view class="text_b">可提现金额(元)</view>
                     <view class="avail">
-                        <view class="number_b">{{totalMoney.withdrawableBalance/100 || 0}}</view>
+                        <view class="number_b">{{totalMoney.withdrawableBalance/100 }}</view>
                         <view class="cash" bindtap="conceCach">立即提现</view>
                     </view>
                 </view>
                 <view class="allAvail">
                     <view class="flex_row_c">
                         <view class="actText gray">预收款总额 (元)</view>
-                        <view class="actMoney gray">{{totalMoney.frozenBalance/100 || 0}}</view>
+                        <view class="actMoney gray">{{totalMoney.frozenBalance/100 }}</view>
                     </view>
                     <!-- <view class="ljtx mar_r_20">
                       <view class="actText" style="line-height: 30rpx!important;">提现记录</view>
@@ -110,11 +110,9 @@
                                         </view>
                                     </block>
                                 </view> -->
-
                             </view>
                         </van-collapse-item>
                     </van-collapse>
-
                     <view class="kld_top"></view>
                 </view>
             </block>

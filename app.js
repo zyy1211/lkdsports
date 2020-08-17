@@ -73,13 +73,9 @@ App({
     new Promise((resolve, reject) => {
       wx.checkSession({
         success() {
-          if (self.isNull(self.getToken())) {
-            self.reqToken().then(() => {
-              resolve();
-            })
-            return;
-          }
-          resolve();
+          self.reqToken().then(() => {
+            resolve();
+          })
         },
         fail() {
           self.reqToken().then(() => {
@@ -116,7 +112,6 @@ App({
   },
 
   isLogin(callback) {
-
     let self = this;
     this.isSession(() => {
       // console.log(self.getInfo())
@@ -261,15 +256,7 @@ App({
   validateNumber(val) {
     return val.replace(/\D/g, '')
   },
-  validateFixed(val) {
-    let value;
-    value = val.replace(/[^\d.]/g, ""); //清除"数字"和"."以外的字符
-    value = value.replace(/^\./g, ""); //验证第一个字符是数字
-    value = value.replace(/\.{2,}/g, "."); //只保留第一个, 清除多余的
-    value = value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
-    value = value.replace(/^(\-)*(\d+)\.(\d\d).*$/, '$1$2.$3'); //只能输入两个小数
-    return value;
-  },
+
 
   globalData: {
     userInfo: null,

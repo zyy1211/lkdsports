@@ -10,7 +10,7 @@ module.exports = Behavior({
 
   },
   attached() {
-    // console.log('fffffffffff')
+
     let self = this;
     myObservable.pipe(debounceTime(200)).pipe(distinctUntilChanged()).subscribe(value => {
       self.changeInit(value)
@@ -21,7 +21,7 @@ module.exports = Behavior({
     changeName(e) {
       // console.log(e)
       let key = e.currentTarget.dataset.key;
-      let value = e.detail.trim()
+      let value = e.detail;
       this.setData({
         [key]: value
       })

@@ -54,7 +54,7 @@ Page({
     this.setData({detailId:options.id})
     app.isLogin(function () {
       self.initData();
-      self.getweek()
+      self.getweek();
     })
 
   },
@@ -109,17 +109,19 @@ Page({
     })
   },
   getTabel() {
-    let self = this;
+    let self = this; 
     self.show();
     let {
       detailId,
       matchId,
-      weekNo
+      weekNo,
+      weekTime:{day:date},
     } = this.data;
     http.get('/venue/field', {
       detailId,
       matchId,
-      weekNo
+      weekNo,
+      date
     }).then((res) => {
       self.hide();
       if (res.code != 200) {
@@ -134,8 +136,8 @@ Page({
         })
         return;
       }
-      // self.formatData(tablemain)
-      self.formatData([tablemain[0]])
+      self.formatData(tablemain)
+      // self.formatData([tablemain[0]])
     })
   },
   bindchoiseBlock(e){
@@ -233,7 +235,7 @@ Page({
     let {phone} = this.data;
     // console.log(phone)
     // console.log(app.isNull(phone))
-    if(app.isNull(phone.trim())){
+    if(app.isNull(phone)){
       return wx.showToast({title: '请输入手机号！',icon:'none',duration:3000});
     }
     this.cancelPhone();
@@ -263,12 +265,7 @@ Page({
           bussId,
           oid
         } = order;
-        // wx.setStorageSync('order',JSON.stringify({bussId,oid,isOnce:1}))
-        // wx.setStorageSync('orderphone',JSON.stringify({
-        //   contactNumber:main.contactNumber,
-        //   locationAddress:main.locationAddress,
-        //   name:main.name
-        // }))
+
         wx.navigateTo({
           url: '/myList/orderpay/orderpay?isOnce=1&bussId=' + bussId + '&oid=' + oid
         })
@@ -290,6 +287,7 @@ Page({
   },
   tabWeek(e) {
     let item = e.currentTarget.dataset.item;
+    console.log(item)
     this.setData({
       weekNo: item.weekNo,
       weekTime: item,

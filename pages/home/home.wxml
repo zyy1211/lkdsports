@@ -51,7 +51,7 @@
     </view>
 
     <view class="cardList">
-      <import src="/pages/component/template/activity_temp.wxml" />
+      <import src="/pages/component/template/activity_temp.wxml" /> 
       <block wx:for="{{activityList}}" wx:key="id" data-key="id">
         <view class="marb45">
           <template is="activityItem" data="{{item,apiimg}}" />

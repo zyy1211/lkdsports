@@ -3,15 +3,14 @@
   <view class="signfixed" style="position: absolute;">
     <view class="signTab">
       <block wx:for="{{tablist}}" wx:key="value">
-        <!-- wx:if="{{!self_is_user && item.value==20 || self_is_user}}" -->
-        <view hidden="{{ !self_is_user && item.value == 40 }}" bindtap="tabChange" data-key="{{item.value}}"
+        <view hidden="{{ !self_is_user && item.value == 30 }}" bindtap="tabChange" data-key="{{item.value}}"
           class="itemtab {{status==item.value ? 'activity' :''}}">
           {{item.name}}</view>
       </block>
     </view>
   </view>
   <view class="main">
-    <view class="totalCard flex_row_c">
+    <view class="totalCard flex_row_c" wx:if="{{ status != 20 }}">
       <view class="totalcount flex_col_c_c">
         <image style="width: 46rpx;height: 43rpx;" src="/static/total.png" mode="widthFix"></image>
         <view class="sku">总人数</view>
@@ -23,7 +22,7 @@
           <image class="sex_icon" style="width: 34rpx;" src="{{apiimg + itm.iconPath}}" mode="widthFix"></image>
           <view class="sku">{{itm.title}}</view>
           <!-- {{status}} -->
-          <view wx:if="{{status == 40}}" class="count flex_row_c_c">
+          <view wx:if="{{status == 30}}" class="count flex_row_c_c">
             <view class="cheng">x</view>{{itm.refundNum}}
           </view>
           <view wx:else class="count flex_row_c_c">
@@ -54,7 +53,7 @@
         <view>
           <view class="flex_row_c mart10" wx:for="{{item.applySkuLocks}}" wx:key="index" wx:for-item="itm">
             <image class="sex_icon" src="{{apiimg + itm.iconPath}}" mode="widthFix"></image>
-            <view wx:if="{{status == 40}}" class="countsmall flex_row_c_c">
+            <view wx:if="{{status == 30}}" class="countsmall flex_row_c_c">
               <view class="cheng">x</view>
               {{itm.refundNum}}
             </view>

@@ -41,3 +41,24 @@
 .twobtn .fidbtn{
   flex: 1;
 }
+
+.dialogsubmit {
+  background: #246cff;
+  height: 70rpx;
+  line-height: 70rpx;
+  border-radius: 20rpx;
+  text-align: center;
+  color: white;
+  font-size: 26rpx;
+  width: 200rpx;
+}
+.dialogcancel{
+  color: #246cff;
+  border: 2rpx solid #246cff;
+  height: 70rpx;
+  line-height: 70rpx;
+  border-radius: 20rpx;
+  text-align: center;
+  font-size: 26rpx;
+  width: 200rpx;
+}

@@ -11,18 +11,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // apiimg:Api.img_host,
-    apiimg:'https://image.likedong.top',
+    apiimg:Api.API_IMG,
+    // apiimg:'https://image.likedong.top', 
     active:0
   },
-  behaviors: [bhv_back, bhv_refresh, bhv_location],
+  behaviors: [bhv_back, bhv_refresh, bhv_location], 
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options)
+    let id = options.id;
+    if(!id){
+      console.log(decodeURIComponent(options.scene))
+      id = decodeURIComponent(options.scene).split('=')[1];
+    }
     app.isLogin(() =>{
-      this.setData({id:options.id});
+      this.setData({id:id});
       this.getDetail();
     })
   },
@@ -37,7 +43,6 @@ Page({
       let main = res.response[0];
       self.setData({main})
     });
-    // type   20: 详情图 30：名单公示 40：抽签公示 50：举报图片
     http.post('/games/images',{gamesId:id,type:20},1).then((res) =>{
       // console.log(res)
       if(res.code != 200){
@@ -45,7 +50,6 @@ Page({
       }
       self.setData({imgList:res.response})
     })
-
   },
   togameTypeList() {
     let {id} = this.data;
@@ -53,4 +57,12 @@ Page({
       url: '/gamePages/gameTypeList/gameTypeList?id=' + id,
     })
   },
+  onShareAppMessage: function () {
+    let {id} = this.data;
+    let title = this.data.main.info.title
+    return {
+        title: title,
+        path: '/gamePages/gameDetail/gameDetail?id=' + id,
+    }
+  }
 })

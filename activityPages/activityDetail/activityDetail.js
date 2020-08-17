@@ -4,7 +4,7 @@ let Api = require('../../utils/config')
 let bhv_back = require('../../pages/component/behavior/bhv_back.js');
 let bhv_refresh = require('../../pages/component/behavior/bhv_refresh.js');
 let bhv_location = require('../../pages/component/behavior/bhv_location')
-let http = require('../../utils/request')
+let http = require('../../utils/request') 
 let app = getApp();
 
 Page({
@@ -31,7 +31,7 @@ Page({
     let self = this;
     app.isLogin(function () {
       let activityId = options.id;
-      if(!activityId ){
+      if(!activityId){
         if(options?.scene){
           activityId = decodeURIComponent(options.scene).split('=')[1];
         }else{

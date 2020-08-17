@@ -17,7 +17,7 @@
       <block wx:for="{{dataList}}" wx:key="id" data-key="id">
         <view class="itembg" style="position: relative;">
           <view class="statuss">{{item.isOpen ? '公开' : '非公开'}}</view>
-          <view wx:if="{{item.status == 30}}" class="statuss" style="top: 100rpx;">排队中</view>
+          <view wx:if="{{item.status == 30 && status == 20}}" class="statuss" style="top: 100rpx;">排队中</view>
           <template is="activItem" data="{{item,apiimg}}" />
           <view class="flex_row_btw btnboxs">
             <view class="flex_row_c_c bmrs">

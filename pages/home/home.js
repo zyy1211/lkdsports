@@ -34,24 +34,25 @@ Page({
         apiimg: Api.API_IMG,
         activityIndex: 0,
         mainList: [{
-            name: '活动报名',
-            icon: Api.cvs_img + '/cduan/huodong.png',
-            url: '/activityPages/activityList/activityList',
-        },
-         {
-            name: '赛事报名',
-            icon: Api.cvs_img + '/cduan/saishi.png',
-            url: '/gamePages/gameList/gameList',
-        },
-         {
-            name: '场馆预约',
-            icon: Api.cvs_img + '/cduan/changguan.png',
-            url: '/venuePages/venueList/venueList',
-        }, {
-            name: '我要入驻',
-            icon: Api.cvs_img + '/cduan/shangjia.png',
-            url: '/venuePages/settledIn/settledIn',
-        }],
+                name: '活动报名',
+                icon: Api.cvs_img + '/cduan/huodong.png',
+                url: '/activityPages/activityList/activityList',
+            },
+            {
+                name: '赛事报名',
+                icon: Api.cvs_img + '/cduan/saishi.png',
+                url: '/gamePages/gameList/gameList',
+            },
+            {
+                name: '场馆预约',
+                icon: Api.cvs_img + '/cduan/changguan.png',
+                url: '/venuePages/venueList/venueList',
+            }, {
+                name: '我要入驻',
+                icon: Api.cvs_img + '/cduan/shangjia.png',
+                url: '/venuePages/settledIn/settledIn',
+            }
+        ],
     },
     behaviors: [bhv_refresh],
     test() {
@@ -59,27 +60,20 @@ Page({
         // this.test111();
         myObservable.next('foo');
     },
-
-    onLoad: function () {
-        // let self = this;
-        // App.isLogin(function () {
-        //     self.initData()
-        // })
-    },
     onShow: function () {
         let self = this;
         App.isLogin(function () {
             self.initData()
         })
-      },
-      
+    },
+
 
     initData() {
         let self = this;
         App.isLogin(function () {
             self.selectComponent("#authorize").getAuthorizeLocation((loca) => {
                 // console.log(loca)
-                let longitude = loca.longitude; 
+                let longitude = loca.longitude;
                 let latitude = loca.latitude;
                 self.setData({
                     latitude,
@@ -99,15 +93,15 @@ Page({
             self.setData({
                 banner: main.baners,
                 sprotTypes: main.sprotTypes,
-                sportType:main.sprotTypes[0],
-                activityIndex:0
+                sportType: main.sprotTypes[0],
+                activityIndex: 0
             });
             self.getVenue();
         })
     },
     getVenue() {
-        let self = this; 
-        // self.show();
+        let self = this;
+        self.show();
         let {
             latitude,
             longitude,
@@ -134,7 +128,7 @@ Page({
     },
     getActivity() {
         let self = this;
-        // self.show();
+        self.show();
         let {
             latitude,
             longitude
@@ -163,15 +157,11 @@ Page({
             wx.navigateTo({
                 url: url,
             })
-        } else if (key.type == 20) {
-            // app
-        } else if (key.type == 30) {
+        } else {
             wx.navigateTo({
                 url: '/pages/webview/webview',
             })
             wx.setStorageSync('webview', JSON.stringify(url))
-        } else if (key.type == 40) {
-            // 小程序
         }
     },
     // 切换

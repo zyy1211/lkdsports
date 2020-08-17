@@ -1,0 +1,49 @@
+<view>
+  <view style="padding: 20rpx;">
+    <view class="weight lktitle" >已报名成员</view>
+  </view>
+  <view class="main">
+    <view wx:if="{{list.length == 0}}" class="emptyimg">
+      <image class="emptyimg" src="/static/empty.png" mode="widthFix"></image>
+    </view>
+    <view wx:else>
+      <view class="thbox">
+        <view class="name">姓名</view>
+        <view class="sex">性别</view>
+        <view class="phone">电话</view>
+        <view class="idcard">身份证</view>
+      </view>
+      <view wx:for="{{list}}" wx:key="id">
+        <view class="thbox">
+          <view class="name">{{item.name}}</view>
+          <view class="sex">{{item.gender == 1 ? '男' : '女'}}</view>
+          <view class="phone">{{item.phone}}</view>
+          <view class="idcard">{{item.idcard}}</view>
+        </view>
+      </view>
+    </view>
+
+
+
+  </view>
+
+
+  <!-- <view class="fixedBtns" >
+    <view class="fixbtn flex_row_c_c" style="width: 100%;border-right: 2rpx solid white;" bindtap="toSignup">添加队员</view>
+    <view class="fixbtn flex_row_c_c" style="width: 100%;" bindtap="toSignup"></view>
+  </view> -->
+
+  <view class="fixedBtns" wx:if="{{teamsConfId}}">
+    <view class="flex_row_c_c twobtn" wx:if="{{teamsInfo.status == 0}}">
+      <view class="flex_row_btw fidbtn" style="width: 100vw;">
+        <view style="width: 50%;border-right: 2rpx solid white;height: 100%;text-align: center;" bindtap="toSignup">添加队员</view>
+        <view style="width: 50%;height: 100%;text-align: center;" bindtap="submit">去支付</view> 
+      </view>
+    </view>
+
+    <view wx:else class="fixbtn flex_row_c_c" style="width: 100%;height: 100%;text-align: center;" bindtap="toSignup">添加队员</view>
+  </view>
+
+</view>
+
+<alert isAlert="{{isAlert}}"></alert>

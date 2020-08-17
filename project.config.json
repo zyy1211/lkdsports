@@ -4,7 +4,7 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"enhance": true,
 		"postcss": true,
@@ -168,7 +168,7 @@
 					"id": 15,
 					"name": "场馆详情",
 					"pathName": "venuePages/venueDetail/venueDetail",
-					"query": "id=77",
+					"query": "id=1",
 					"scene": null
 				},
 				{
@@ -280,21 +280,14 @@
 					"id": 31,
 					"name": "赛项列表",
 					"pathName": "gamePages/gameTypeList/gameTypeList",
-					"query": "id=1",
+					"query": "id=2",
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "赛事详情",
-					"pathName": "gamePages/gameDetail/gameDetail",
-					"query": "id=1",
-					"scene": null
-				},
-				{
-					"id": 33,
+					"id": 32,
 					"name": "赛事报名",
 					"pathName": "gamePages/gameSign/gameSign",
-					"query": "id=1&type=25&proGroupId=1&num=2",
+					"query": "id=2&type=60&proGroupId=21&num=3&teamsConfId=3",
 					"scene": null
 				},
 				{
@@ -302,6 +295,34 @@
 					"name": "赛事订单",
 					"pathName": "myList/orderpay/orderpay",
 					"query": "oid=211541983787749376",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/home/home",
+					"pathName": "gamePages/gameDetail/gameDetail",
+					"query": "scene=%3Fid%3D1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "activityPages/activityDetail/activityDetail",
+					"pathName": "gamePages/gameDetail/gameDetail",
+					"query": "scene=%3Fid%3D1",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/home/home",
+					"pathName": "gamePages/gameDetail/gameDetail",
+					"query": "scene=%3Fid%3D1",
+					"scene": null
+				},
+				{
+					"id": 37,
+					"name": "队伍列表",
+					"pathName": "gamePages/grouplist/grouplist",
+					"query": "proGroupId=21",
 					"scene": null
 				}
 			]

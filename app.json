@@ -48,7 +48,8 @@
         "gameList/gameList",
         "gameDetail/gameDetail",
         "gameTypeList/gameTypeList",
-        "gameSign/gameSign"
+        "gameSign/gameSign",
+        "grouplist/grouplist"
       ]
     }
   ],

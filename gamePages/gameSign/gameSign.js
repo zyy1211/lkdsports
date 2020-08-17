@@ -19,7 +19,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let num = this.data.arr.slice(0, options.num)
+    console.log(options)
+    let num = this.data.arr.slice(0, options.num);
+    if(options.num ==3){
+      num = this.data.arr.slice(0, 1);
+      this.setData({teamsId:options.teamsConfId})
+    }
     app.isLogin(() => {
       let item = app.getGameItem();
       this.setData({
@@ -27,7 +32,8 @@ Page({
         type: options.type,
         proGroupId: options.proGroupId,
         num,
-        item
+        item,
+        optnum:options.num
       });
       console.log(item);
       this.getDetail();
@@ -113,7 +119,8 @@ Page({
       proGroupId,
       type,
       phone,
-      totalNum
+      teamsId,
+      totalNum,num,optnum
     } = this.data;
     let params = {
       fields,
@@ -122,10 +129,25 @@ Page({
       type,
       phone
     }
-
-    http.post('/games/apply/single', params, 1).then((res) => {
+    let url = '/games/apply/single';
+    if(optnum == 3){
+      url = '/games/add/teamer'
+      params = {
+        fields,
+        teamsId
+      }
+    }
+    http.post(url, params, 1).then((res) => {
       console.log(res);
+      if(res.code != 200){
+        return
+      }
       let main = res.response[0];
+      if(optnum == 3){
+        return wx.navigateBack({
+          detail:1
+        })
+      }
       let {
         bussId,
         oid

@@ -82,7 +82,11 @@ Component({
           if(res.statusCode != 200){
             reject();
           }
-          let productCode =  "data:image/png;base64," +wx.arrayBufferToBase64(res.data);
+          // let productCode =  "data:image/png;base64," +wx.arrayBufferToBase64(res.data);
+          const fsm = wx.getFileSystemManager();
+          const productCode = wx.env.USER_DATA_PATH + '/share_img.png';
+
+          fsm.writeFileSync( productCode, res.data, 'binary')
           // console.log(wx.arrayBufferToBase64(res.data))
           if (productCode) {
             self.setData({

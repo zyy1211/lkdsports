@@ -1,0 +1,205 @@
+/* activityPages/signlist/signlist.wxss */
+.signlist {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.bgblue {
+  width: 100vw;
+  height: 35rpx;
+  background-color: #246CFF;
+  flex-shrink: 0;
+}
+
+.main {
+  flex-grow: 1;
+  padding: 0 0 120rpx;
+}
+
+.signfixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.signTab {
+  margin: 0 auto;
+  width: 570rpx;
+  height: 84rpx;
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0px 3rpx 4rpx 0rpx rgba(118, 118, 118, 0.23);
+  border-radius: 42rpx;
+  padding: 7rpx 0;
+  display: flex;
+  flex-flow: row nowrap;
+  box-sizing: border-box;
+}
+
+.itemtab {
+  margin: 0 10rpx;
+  flex-grow: 1;
+  font-size: 30rpx;
+  line-height: 70rpx;
+  border-radius: 70rpx;
+  color: #666666;
+  text-align: center;
+}
+
+.activity {
+  background-color: #246CFF;
+  color: white;
+}
+
+
+
+.totalCard {
+  width: 690rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 10rpx;
+  padding: 23rpx 0;
+  margin: 0 auto;
+}
+
+.totalcount {
+  width: 180rpx;
+}
+
+.linhe {
+  width: 2rpx;
+  height: 83rpx;
+  background: rgba(211, 211, 211, 1);
+}
+
+.itemCard {
+  width: 690rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 10rpx;
+  margin-top: 25rpx;
+  padding: 19rpx 30rpx 19rpx 15rpx;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.userimg {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+}
+
+.skulist {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.sku {
+  font-size: 22rpx;
+  color: #333;
+  margin: 6rpx 0;
+}
+
+.count {
+  font-size: 22rpx;
+  color: #333;
+  font-weight: 900;
+}
+
+.sex_icon {
+  width: 31rpx;
+  height: 37rpx;
+}
+.userinfo{
+  margin-left: 18rpx;
+  width: 240rpx;
+}
+.title {
+  font-size: 22rpx;
+  font-weight: bold;
+  color: rgba(51, 51, 51, 1);
+}
+.time{
+  font-size: 20rpx;
+  color: #999999;
+}
+.countsmall{
+  font-size: 20rpx;
+  color: #333;
+  margin-left: 16rpx;
+}
+.cheng{
+  margin-right: 10rpx;
+}
+.mart10{
+  margin-top: 10rpx;
+}
+
+.fixedBtns{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90rpx;
+  background-color: white;
+  z-index: 9;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.borderg{
+  border-top: 2rpx solid #E6E6E6;
+  flex: 1;
+}
+.fixbtn{
+  width: 274rpx;
+  font-size: 30rpx;
+  color: white;
+  font-weight: 900;
+  background-color: #246CFF;
+  border-top-left-radius: 6rpx;
+  border-bottom-left-radius: 6rpx;
+}
+.thbox{
+  width: 100vw;
+}
+.thbox view{
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  font-size: 26rpx;
+  color: #333;
+  border-bottom: 1rpx solid #999;
+  padding: 20rpx 0;
+}
+.name{
+  width: 15%;
+}
+.sex{
+  width: 15%;
+}
+.phone{
+  width: 30%;
+}
+.idcard{
+  width: 40%;
+}
+.twobtn{
+  font-size: 30rpx;
+  color: white;
+  font-weight: 900;
+  background-color: #246CFF; 
+  border-top-left-radius: 6rpx;
+  border-bottom-left-radius: 6rpx;
+}
+.twobtn .fidbtn{
+  flex: 1;
+}

@@ -18,7 +18,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function (options) { 
     let self = this;
     app.isLogin(function () {
       self.initData();
@@ -38,8 +38,6 @@ Page({
       pageSize,
       pageNo,
     },1).then((res) => {
-      // console.log(res)
-
       self.hide();
       if (res.code != 200) {
         return
@@ -51,16 +49,20 @@ Page({
           dataList: main,
           total
         })
-        // console.log(self.data.dataList)
         return;
       }
       let dataList = self.data.dataList;
       dataList = dataList.concat(main)
-      // console.log(self.data.dataList)
       self.setData({
         dataList,
         total
       })
     })
   },
+  onShareAppMessage: function () {
+    return {
+        title: '赛事列表',
+        path: '/gamePages/gameList/gameList',
+    }
+  }
 })

@@ -102,7 +102,7 @@
       <view class="flex_row_btw">
         <view class="grow" style="padding-left: 30rpx;">
           <view class="flex_row_c">
-            <image style="width: 150rpx;height: 82rpx;flex-shrink: 0;" src="{{apiimg + order.itemsImage }}"
+            <image  style="width: 82rpx;height: 82rpx;border-radius: 41rpx;flex-shrink: 0;" src="{{apiimg + order.itemsImage }}"
               mode="aspectFill"></image>
             <view class="flex_col_c" style="margin-left: 30rpx;">
               <view class="flex_row_c">

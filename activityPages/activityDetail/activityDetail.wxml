@@ -13,7 +13,6 @@
                 </view>
             </view>
         </view>
-
         <view class="tagbtn tagFixeds">{{activities.isOpen ? '公开' : '非公开'}}</view>
     </view>
     <wxs src="./../filter_actvd.wxs" module="tools"></wxs>
@@ -22,7 +21,6 @@
             <view class="font3439 van-multi-ellipsis--l2">{{activities.title}}</view>
             <image class="share" bindtap="showShare" src="/static/share.png" mode="widthFix"></image>
         </view>
-
         <view style="margin-top: 26rpx;">
             <scroll-view scroll-x="true">
                 <view class="flex_row_c">
@@ -150,9 +148,9 @@
         </view>
 
         <view wx:if="{{isApplySign != '0'}}">
-            <!-- flag true 有排队有报名 -->
+
             <view class="fixedBtns" wx:if="{{flag}}">
-                <!-- isApplySign 1报名已满 -->
+        
                 <block wx:if="{{isApplySign == '1'}}">
                     <view class="flex_col_c_c borderg" style="height: 100%;flex:2;flex-shrink: 0;">
                         <view class="font2669">结束报名剩余：</view>

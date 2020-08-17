@@ -33,7 +33,7 @@ Page({
     start: 0,
     end: 600,
     moreStart: 0,
-    moreEnd: 500,
+    moreEnd: 600,
     isBlock: true,
     isMore: true,
 
@@ -296,16 +296,11 @@ Page({
       sourceType: ['album', 'camera'],
       success: function (res) {
         app.isCheckImg(res.tempFilePaths[0]).then(() =>{
-          // console.log(img)
-          // if((img.response[0]?.errcode  + '').includes('8701')){
-          //   wx.showToast({title: '请重新上传或更换图片',icon:'none',duration:3000});
-          //   return;
-          // }
+
           wx.navigateTo({
             url: '/activityPages/img-cropper/img-cropper?imgSrc=' + res.tempFilePaths[0] 
           })
         })
-
       },
       fail: function (res) {},
       complete: function () {
@@ -351,71 +346,72 @@ Page({
       index,
       key
     } = e.currentTarget.dataset;
-    // console.log(key)
     let keys = [arr] + '[' + index + '].' + key;
     // console.log(keys)
-    let value;
+    let value = e.detail;
     if (key == 'maxNum') {
       value = app.validateNumber(e.detail);
-    } else {
-      value = app.validateFixed(e.detail);
     }
-
+    //  else {
+    //   value = app.validateFixed(e.detail);
+    // }
+    console.log(keys)
+    console.log(keys)
     this.setData({
       [keys]: value
     })
+    console.log(this.data.skuTypeListArr)
   },
-  bindDateBlue(e) {
-  
-    // let {
-    //   disableEdit,
-    //   skuTypeListArr,
-    //   skuindex
-    // } = this.data;
-    // let {
-    //   arr,
-    //   index,
-    //   key
-    // } = e.currentTarget.dataset;
-    // let keys = [arr] + '[' + index + '].' + key;
+  // bindDateBlue(e) {
+  //   let {
+  //     disableEdit,
+  //     skuTypeListArr,
+  //     skuindex
+  //   } = this.data;
+  //   let {
+  //     arr,
+  //     index,
+  //     key
+  //   } = e.currentTarget.dataset;
+  //   let keys = [arr] + '[' + index + '].' + key;
 
-    // let value = e.detail.value;
-    // let minNum = skuTypeListArr[index].minNum;
+  //   let value = e.detail.value;
+  //   let minNum = skuTypeListArr[index].minNum;
 
-    // if (disableEdit && skuindex.indexOf(index) != -1) {
+  //   if (disableEdit && skuindex.indexOf(index) != -1) {
 
-    //   if (value < minNum) {
-    //     wx.showToast({
-    //       title: '修改人数不能少于原始人数',
-    //       icon: 'none',
-    //       duration: 3000
-    //     });
-    //   }
-    //   value = value < minNum ? minNum : value;
-    // }
-    // this.setData({
-    //   [keys]: value
-    // })
-  },
-  bindDateAll(e) {
-    // let disableEdit = this.data.disableEdit;
-    // let participantsNum = this.data.participantsNum1;
-    // // console.log(participantsNum)
-    // let value = e.detail.value;
-    // if (disableEdit) {
-    //   if (value < participantsNum) {
-    //     wx.showToast({
-    //       title: '修改人数不能少于原始人数',
-    //       icon: 'none',
-    //       duration: 3000
-    //     });
-    //   }
-    //   value = value < participantsNum ? participantsNum : value;
-    // }
-    // this.setData({
-    //   participantsNum: value
-    // })
-  },
+  //     if (value < minNum) {
+  //       wx.showToast({
+  //         title: '修改人数不能少于原始人数',
+  //         icon: 'none',
+  //         duration: 3000
+  //       });
+  //     }
+  //     value = value < minNum ? minNum : value;
+  //   }
+  //   this.setData({
+  //     [keys]: value
+  //   })
+  // },
+  // bindDateAll(e) {
+  //   let disableEdit = this.data.disableEdit;
+  //   let participantsNum = this.data.participantsNum1;
+  //   // console.log(participantsNum)
+  //   let value = e.detail.value;
+  //   if (disableEdit) {
+  //     if (value < participantsNum) {
+  //       wx.showToast({
+  //         title: '修改人数不能少于原始人数',
+  //         icon: 'none',
+  //         duration: 3000
+  //       });
+  //     }
+  //     value = value < participantsNum ? participantsNum : value;
+  //   }
+  //   this.setData({
+  //     participantsNum: value
+  //   })
+  // },
 
   toIssue_detail() {
     let {
@@ -557,7 +553,7 @@ Page({
         skuTypeListArr
       } = this.data;
       let skuListArr = skuTypeListArr.filter((item) => item.checked == false)
-      if (skuListArr.length > (skuTypeListArr.length-2) && value == true) {
+      if (skuListArr.length > 2 && value == true) {
         return wx.showToast({
           title: 'sku不能全部取消',
           icon: 'none',
@@ -721,7 +717,7 @@ Page({
   venueNameFocus(){
      wx.createSelectorQuery().select('#venue-names').boundingClientRect(function(rect){
       console.log(rect)
-      let top = rect.top - 100;
+      let top = rect.top;
       if(top > 0){
         wx.pageScrollTo({
           scrollTop: rect.top,
@@ -734,11 +730,11 @@ Page({
   venueNameChange(){
     let self = this;
     let {venueName} = this.data;
-    if(venueName.trim() ==''){
+    if(venueName ==''){
       self.setData({venuesList:[],location:'',addressLatitude:'',addressLongitude:''})
       return;
     }
-    http.get('/venue/venueList',{name:venueName.trim(),pageSize:100,pageNum:1,sportType:'',latitude:0,longitude:0}).then((res)=>{
+    http.get('/venue/venueList',{name:venueName,pageSize:100,pageNum:1,sportType:'',latitude:0,longitude:0}).then((res)=>{
       // console.log(res)
       if(res.code !=200){
         return
@@ -769,12 +765,6 @@ Page({
         icon: 'none',
       })
     }
-    for(let i in self.data){
-      if(typeof(self.data[i]) == "string"){
-        self.data[i] = self.data[i]?.trim();
-      } 
-    }
-
     let {
       addressLatitude,
       addressLongitude,
@@ -827,16 +817,16 @@ Page({
     // if (app.isNull(filedNo)) {
     //   return self.showToasts('场地号')
     // }
-    if (!limitType && app.isNull(participantsNum)) {
-      return self.showToasts('总人数')
-    }
+    // if (!limitType && app.isNull(participantsNum)) {
+    //   return self.showToasts('总人数')
+    // }
     if (limitType) {
-      let isn = skuTypeListArr.some((item) => {
-        return ((app.isNull(item.maxNum) == true || item.maxNum == 0) && item.checked == true)
-      })
-      if (isn) {
-        return self.showToasts('人数限制不能为0，')
-      }
+    //   let isn = skuTypeListArr.some((item) => {
+    //     return ((app.isNull(item.maxNum) == true || item.maxNum == 0))
+    //   })
+    //   if (isn) {
+    //     return self.showToasts('人数限制不能为0，')
+    //   }
       participantsNum = null;
     }
 
@@ -863,12 +853,10 @@ Page({
     if (app.isNull(endTime)) {
       return self.showToasts('活动结束时间')
     }
-
     // let istime = self.timeValit(startTime,endTime,uptoTime,cancelTime)
-
-    if(!istime){
-      return;
-    }
+    // if(!istime){
+    //   return;
+    // }
 
     let tag = '';
     defalutTab.forEach((item) => {
@@ -896,7 +884,7 @@ Page({
     let skuTypeList = JSON.parse(skuTypeList11).filter((item) => {
       return item.checked == true
     })
-
+    console.log(skuTypeList)
     skuTypeList.forEach((item) => {
       item.price = (item.price * 100).toFixed(0)
     })

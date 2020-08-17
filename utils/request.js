@@ -56,7 +56,6 @@ let $http = {
   },
   $get:function(url,data){
     return new Promise(function (resolve, reject) {
-
       let token = wx.getStorageSync('token');
       wx.request({
         url: API.API_HOST + url,

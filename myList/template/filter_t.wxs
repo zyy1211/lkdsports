@@ -27,13 +27,6 @@ var status = function (status,startTime) {
     return '审核失败'
   }
   if (status == 20) {
-    startTime = startTime.replace(getRegExp('-', 'g'), '/')
-    var start = getDate(startTime)
-    var time = getDate();
-    var timer = start - time;
-    if (timer > 0) {
-      return '报名中'
-    }
     return '进行中'
   }
   if (status == 30) {
